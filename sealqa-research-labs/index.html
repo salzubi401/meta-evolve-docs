@@ -1,0 +1,2346 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Programmable evaluated improvement loops over versioned artifacts">
+      
+      
+      
+      
+        <link rel="prev" href="../learn/notebooks/07-source-patching/">
+      
+      
+        <link rel="next" href="../learn/research-labs/01-feedback-descent/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Overview - Meta-Evolve</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sealqa-research-labs" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Meta-Evolve" class="md-header__button md-logo" aria-label="Meta-Evolve" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Meta-Evolve
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/salzubi401/meta-evolve" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    salzubi401/meta-evolve
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Meta-Evolve" class="md-nav__button md-logo" aria-label="Meta-Evolve" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Meta-Evolve
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/salzubi401/meta-evolve" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    salzubi401/meta-evolve
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../start-here/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Start here
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning path
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Learning path
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/01-policy-tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understand search policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/02-policy-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compare uncertain search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/03-experience-tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reuse experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/04-push-pull/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inspect push and pull
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/05-derivation-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trace derivation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/06-crash-recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recover a run
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/07-source-patching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evolve source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SealQA research labs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SealQA research labs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#where-the-notebooks-are" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where the notebooks are
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-common-experimental-substrate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The common experimental substrate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-shared-components-actually-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the shared components actually work
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-claude-and-why-haiku" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Claude, and why Haiku
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-frozen-and-what-may-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is frozen and what may change
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#leakage-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Leakage boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#failure-and-scoring-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failure and scoring semantics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evidence-lineage-and-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evidence, lineage, and identity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-run-the-curriculum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to run the curriculum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#current-capture-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current capture status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-reading-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended reading order
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/research-labs/01-feedback-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feedback Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/research-labs/02-autodata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AutoData
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/research-labs/03-meta-harness-precursor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta-Harness precursor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/research-labs/04-evoskill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EvoSkill
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/autoresearch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoresearch setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operations-and-extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations and extensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../live-agent-track/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Live agent track
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributor-code-tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributor code tour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m8-design-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    M8 design capstone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../programming-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../milestones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../implementation-plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding-an-artifact-domain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add an artifact domain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Executed notebooks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Executed notebooks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/02_policy_comparison/milestone_2_tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestone 2 tour: one loop, replaceable search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/02_policy_comparison/policy_comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fair comparison of three search policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/03_experience_reuse/milestone_3_tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestone 3 tour: experience that remains causal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/03_experience_reuse/push_pull_lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push and pull lab: two routes to the same experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/03_experience_reuse/derivation_comparison_lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Derivation, replay, and fair memory comparison
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/04_crash_recovery/crash_recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crash recovery for durable runs ()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/05_python_function/milestone_5_tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestone 5 tour: immutable source, external evidence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/19_autoresearch/autoresearch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoresearch, in miniature
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Live-only research notebooks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Live-only research notebooks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/18_sealqa_research_labs/01_feedback_descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feedback Descent lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/18_sealqa_research_labs/02_autodata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AutoData lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/18_sealqa_research_labs/03_meta_harness_precursor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta-Harness precursor lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/18_sealqa_research_labs/04_evoskill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EvoSkill lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research references
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#where-the-notebooks-are" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where the notebooks are
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-common-experimental-substrate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The common experimental substrate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-the-shared-components-actually-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the shared components actually work
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-claude-and-why-haiku" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Claude, and why Haiku
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-frozen-and-what-may-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is frozen and what may change
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#leakage-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Leakage boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#failure-and-scoring-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failure and scoring semantics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evidence-lineage-and-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evidence, lineage, and identity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-run-the-curriculum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to run the curriculum
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#current-capture-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current capture status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-reading-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended reading order
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href=".." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    SealQA research labs
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/salzubi401/meta-evolve/edit/main/docs/sealqa-research-labs.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/salzubi401/meta-evolve/raw/main/docs/sealqa-research-labs.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="sealqa-research-labs">SealQA research labs</h1>
+<p>This is a standalone guide to four small evaluated-improvement mechanisms. You
+do <strong>not</strong> need to open a notebook to understand the experiments. The notebooks
+are optional executable companions linked from each chapter.</p>
+<p>The labs ask one recurring question:</p>
+<blockquote>
+<p>How can an agent improve a prompt, data recipe, local harness, or reusable
+skill while evaluation, budgets, hidden answers, and promotion remain outside
+the candidate's control?</p>
+</blockquote>
+<p>They use eight frozen LongSeal examples because LongSeal combines a concrete
+question with one useful document hidden among conflicting or irrelevant
+documents. That makes failures easy to inspect: the agent may retrieve the
+wrong fact, trust stale evidence, combine incompatible documents, or format the
+right fact incorrectly.</p>
+<p>These are teaching implementations. They do not reproduce the cited papers,
+publish an official SealQA score, or establish that one method improves Claude.</p>
+<h2 id="where-the-notebooks-are">Where the notebooks are</h2>
+<p>You can read everything in these documentation chapters. If you want the live
+cells as well, use the optional notebook links:</p>
+<table>
+<thead>
+<tr>
+<th>Chapter</th>
+<th>Optional notebook</th>
+<th style="text-align: right;">Maximum Claude sessions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../learn/research-labs/01-feedback-descent/">Feedback Descent</a></td>
+<td><a href="../notebooks/18_sealqa_research_labs/01_feedback_descent/">Open notebook</a></td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr>
+<td><a href="../learn/research-labs/02-autodata/">AutoData</a></td>
+<td><a href="../notebooks/18_sealqa_research_labs/02_autodata/">Open notebook</a></td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr>
+<td><a href="../learn/research-labs/03-meta-harness-precursor/">Meta-Harness precursor</a></td>
+<td><a href="../notebooks/18_sealqa_research_labs/03_meta_harness_precursor/">Open notebook</a></td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr>
+<td><a href="../learn/research-labs/04-evoskill/">EvoSkill</a></td>
+<td><a href="../notebooks/18_sealqa_research_labs/04_evoskill/">Open notebook</a></td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr>
+<td><strong>Complete curriculum</strong></td>
+<td></td>
+<td style="text-align: right;"><strong>24</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The complete curriculum uses at most 24 sessions.</p>
+<p>The canonical files live under
+<code>examples/18_sealqa_research_labs/</code>. The documentation site publishes
+byte-identical copies; the build never executes them.</p>
+<h2 id="the-common-experimental-substrate">The common experimental substrate</h2>
+<p>All four labs share the same declarations:</p>
+<table>
+<thead>
+<tr>
+<th>Declaration</th>
+<th style="text-align: right;">Value</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Provider</td>
+<td style="text-align: right;">Claude</td>
+<td>The shipped adapter has measured interruption support.</td>
+</tr>
+<tr>
+<td>Model</td>
+<td style="text-align: right;"><code>claude-haiku-4-5-20251001</code></td>
+<td>Every arm uses one pinned model identity.</td>
+</tr>
+<tr>
+<td><code>max_turns</code></td>
+<td style="text-align: right;">50</td>
+<td>Bounds an ordinary agent session.</td>
+</tr>
+<tr>
+<td><code>pull_max_turns</code></td>
+<td style="text-align: right;">50</td>
+<td>Gives pull-enabled sessions the same turn ceiling.</td>
+</tr>
+<tr>
+<td>Adapter timeout</td>
+<td style="text-align: right;">1,800 seconds</td>
+<td>Requests interruption after 30 minutes.</td>
+</tr>
+<tr>
+<td>Inner wall budget</td>
+<td style="text-align: right;">1,860 seconds</td>
+<td>Leaves one minute for adapter and coordinator cleanup.</td>
+</tr>
+<tr>
+<td>Live opt-in</td>
+<td style="text-align: right;"><code>META_EVOLVE_LIVE_CLAUDE=1</code></td>
+<td>Prevents CI or casual imports from spending money.</td>
+</tr>
+</tbody>
+</table>
+<p>You can verify the deterministic boundary without credentials or a provider call:</p>
+<!-- captured-output: script:examples/18_sealqa_research_labs/inspect_substrate.py -->
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/18_sealqa_research_labs/inspect_substrate.py
+</code></pre></div>
+<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sessions: {&#39;feedback_descent&#39;: 5, &#39;autodata&#39;: 7, &#39;meta_harness&#39;: 4, &#39;evoskill&#39;: 8}
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>total sessions: 24
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>inner bounds: turns=50 timeout=1800 wall=1860
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>solver fields: (&#39;id&#39;, &#39;question&#39;, &#39;documents&#39;, &#39;metadata&#39;)
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>hidden answer visible: False
+</code></pre></div></p>
+<p>Each Claude call is one ordinary inner <code>meta.run</code> over a <code>SourceTree</code> workspace:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>public workspace + instructions + JSON schema
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>                    │
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>                    ▼
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>             one Claude session
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>                    │
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>          ┌─────────┴─────────┐
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>          ▼                   ▼
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a> structured value       typed failure
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a> evidence + usage       no rankable metric
+</code></pre></div>
+<p>The outer lab is plain Python orchestration. It has no aggregate wall budget
+because all provider work is already bounded by the inner sessions; its local
+grading and validation are deterministic and tested.</p>
+<h2 id="how-the-shared-components-actually-work">How the shared components actually work</h2>
+<p>The labs are small because they reuse one session adapter and change only the
+outer dataflow. A <code>SessionRequest</code> contains five explicit inputs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>label         durable human-readable role, such as feedback.editor
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>instructions  what this one agent session may do
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>schema        the exact JSON object it must return
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>workspace     candidate-visible SourceTree files
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>experience    optional bounded read grant over prior evidence
+</code></pre></div>
+<p><code>ClaudeSessionRunner.run(request)</code> converts that request into an ordinary
+Meta-Evolve run:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">meta</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">task</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Task</span><span class="p">(</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        <span class="n">evaluator</span><span class="o">=</span><span class="n">session_evaluator</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        <span class="n">artifact</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">SourceTree</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        <span class="n">objectives</span><span class="o">=</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="s2">&quot;completed&quot;</span><span class="p">),),</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        <span class="n">budget</span><span class="o">=</span><span class="n">INNER_BUDGET</span><span class="p">,</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="p">),</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="n">seed</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">workspace</span><span class="p">,</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="n">proposer</span><span class="o">=</span><span class="n">bounded_claude_agent</span><span class="p">,</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="n">search</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Greedy</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="n">experience</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">experience</span><span class="p">,</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="p">)</span>
+</code></pre></div>
+<p>Here the inner evaluator answers only “did this session complete and retain its
+declared structured output?” Algorithm-specific scoring happens afterward in
+evaluator-owned Python. This separation prevents the model from deciding
+whether its answer, generated item, prompt edit, harness edit, or skill is good.</p>
+<p>The returned <code>SessionRecord</code> contains exactly one of a structured <code>value</code> or a
+typed <code>failure</code>, plus provider evidence, usage, and pull counters. Independent
+schema validation runs even for injected test transports, so tests and live
+execution cannot disagree about what counts as valid output.</p>
+<p>The outer lab then supplies the research algorithm by connecting these generic
+pieces:</p>
+<table>
+<thead>
+<tr>
+<th>Principle</th>
+<th>Concrete component</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What may change?</td>
+<td><code>meta.Text</code>, <code>SourceTree</code>, or <code>SkillSet</code> artifact</td>
+</tr>
+<tr>
+<td>How is a change proposed?</td>
+<td>One schema-constrained session request</td>
+</tr>
+<tr>
+<td>What observations guide it?</td>
+<td>Explicit workspace files or bounded experience</td>
+</tr>
+<tr>
+<td>What counts as success?</td>
+<td>Evaluator-owned exact grade or deterministic gate</td>
+</tr>
+<tr>
+<td>Which work is retained?</td>
+<td><code>LabResult</code> sessions, artifacts, measurements, usage</td>
+</tr>
+<tr>
+<td>What stops runaway work?</td>
+<td>Session arithmetic plus turn, timeout, and wall bounds</td>
+</tr>
+</tbody>
+</table>
+<p>That is how a research idea becomes a small algorithm here: choose the mutable
+artifact, decide which recorded observation reaches the next proposer, keep
+measurement external, and spell out the comparison. The four chapters differ
+mainly in those connections—not in a new framework for each paper.</p>
+<h2 id="why-claude-and-why-haiku">Why Claude, and why Haiku</h2>
+<p>Two separate decisions sit behind the provider row above.</p>
+<p><strong>Claude rather than Codex.</strong> Every lab requires a finite adapter timeout so a
+stuck session becomes a typed failure instead of an unbounded bill. The shipped
+Claude adapter accepts <code>timeout_seconds</code> alongside a finite inner wall budget.
+The Codex adapter refuses this contract by design: it rejects finite wall
+budgets because native interruption does not verify descendant cleanup
+(<code>src/meta_evolve/adapters/codex_proposer.py</code>, measured in
+<code>experiments/06_sdk_capabilities/</code>). Separately, OpenAI has
+<a href="https://learn.chatgpt.com/docs/models#other-models">announced</a> that GPT-5.4
+and GPT-5.4 mini retire from ChatGPT-authenticated Codex on August 31, 2026,
+which would strand a committed capture pinned to those models.</p>
+<p><strong>Haiku rather than a larger Claude model.</strong> Every Claude model receives the
+same adapter guarantees, so this is purely a cost decision: the worst case is
+24 sessions of 30 minutes each. The pinned ID follows Anthropic's
+<a href="https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions">documented model-version scheme</a>.
+Overriding the model is allowed but enters evaluator identity, so results from
+an overridden run cannot be silently compared against a committed capture.</p>
+<h2 id="what-is-frozen-and-what-may-change">What is frozen and what may change</h2>
+<p>The fixture assigns exactly one role to each row:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Rows</th>
+<th>Evaluator-owned role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td>Feedback Descent development case</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>AutoData grounding case</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>Meta-Harness diagnostic case</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>Meta-Harness unseen validation case</td>
+</tr>
+<tr>
+<td style="text-align: right;">5–6</td>
+<td>EvoSkill induction cases</td>
+</tr>
+<tr>
+<td style="text-align: right;">7–8</td>
+<td>EvoSkill held-out cases</td>
+</tr>
+</tbody>
+</table>
+<p>The artifact being improved changes from lab to lab:</p>
+<table>
+<thead>
+<tr>
+<th>Lab</th>
+<th>Mutable artifact</th>
+<th>Fixed outside candidate authority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Feedback Descent</td>
+<td><code>meta.Text</code> solver prompt</td>
+<td>Question, documents, answer, comparator, budget</td>
+</tr>
+<tr>
+<td>AutoData</td>
+<td><code>meta.Text</code> generation recipe</td>
+<td>Frozen evidence, quality checks, budget</td>
+</tr>
+<tr>
+<td>Meta-Harness precursor</td>
+<td><code>planner.md</code>, <code>context_policy.json</code> in a <code>SourceTree</code></td>
+<td>Validation row, permissions, budgets, history, promotion</td>
+</tr>
+<tr>
+<td>EvoSkill</td>
+<td>one Markdown document in <code>meta.SkillSet</code></td>
+<td>Held-out rows, base agent, grader, budget</td>
+</tr>
+</tbody>
+</table>
+<p>This is the core Meta-Evolve authority boundary: a candidate may propose a new
+artifact, but it cannot score itself, reveal hidden evaluation, enlarge its
+budget, rewrite history, or promote itself.</p>
+<h2 id="leakage-boundary">Leakage boundary</h2>
+<p>The committed fixture contains evaluator-only fields so local exact grading is
+possible. Solver and proposer views deliberately remove:</p>
+<ul>
+<li>the reference answer;</li>
+<li>source and gold URLs;</li>
+<li>upstream document IDs and gold-document labels;</li>
+<li>the row's teaching role or split assignment.</li>
+</ul>
+<p>Solvers receive stable local IDs such as <code>doc-01</code>, plus document title, date,
+and text. A gold document can therefore be present in the evidence without a
+flag that tells the solver which one it is.</p>
+<p>Feedback Descent's comparison session is an evaluator, so it may see the hidden
+reference answer. The prompt editor never sees it. AutoData's generated
+<code>reference_answer</code> is created by the generator for a synthetic item; it is not
+the hidden answer of the frozen SealQA row.</p>
+<h2 id="failure-and-scoring-semantics">Failure and scoring semantics</h2>
+<p>The labs use normalized exact-answer grading: Unicode is normalized, casing is
+folded, and repeated whitespace is collapsed. The remaining text must match
+exactly. This is intentionally simple and deterministic; it is not SealQA's
+official evaluation method.</p>
+<p>A valid answer produces a metric such as:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span><span class="s2">&quot;exact&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">}</span>  <span class="c1"># normalized exact match</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="p">{</span><span class="s2">&quot;exact&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>  <span class="c1"># valid answer, but wrong</span>
+</code></pre></div>
+<p>The following outcomes have <strong>no metric</strong> and cannot be ranked:</p>
+<ul>
+<li>malformed structured output;</li>
+<li>missing or unchanged proposal where an edit is required;</li>
+<li>timeout or turn exhaustion;</li>
+<li>provider or infrastructure failure;</li>
+<li>policy violation, such as editing a protected harness control.</li>
+</ul>
+<p>That distinction matters. “The model answered incorrectly” is evidence about
+the artifact; “the provider timed out” is not a low-quality answer.</p>
+<h2 id="evidence-lineage-and-identity">Evidence, lineage, and identity</h2>
+<p>Every session retains its label, structured value or typed failure, provider
+evidence, token/wall usage, and experience-use counters. Each lab also records
+the relationship between artifacts:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>seed artifact ── evidence-guided proposal ──► successor artifact
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>      │                                          │
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>      └──────── evaluator-owned score ───────────┘
+</code></pre></div>
+<p>Behavior-affecting declarations enter identity: model, instructions, structured
+schema, turn limits, adapter timeout, inner budget, workspace digest, evidence
+digest, pull bounds, fixture-row checksum, and grading mode. A comparison can
+therefore detect configuration drift instead of silently ranking different
+experiments.</p>
+<h2 id="how-to-run-the-curriculum">How to run the curriculum</h2>
+<p>From the repository root:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </span>claude<span class="w"> </span>--group<span class="w"> </span>dev
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># Authenticate Claude Code using its supported login flow.</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nv">META_EVOLVE_LIVE_CLAUDE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--extra<span class="w"> </span>claude<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span>python<span class="w"> </span>examples/18_sealqa_research_labs/run_all.py<span class="w"> </span>all
+</code></pre></div>
+<p>Replace <code>all</code> with <code>feedback_descent</code>, <code>autodata</code>, <code>meta_harness</code>, or
+<code>evoskill</code> to run one chapter. The command makes paid provider requests. It
+does not retry until an improvement appears.</p>
+<h2 id="current-capture-status">Current capture status</h2>
+<p>No live output is claimed yet. The implementation and deterministic tests are
+complete, but no credentialed
+24-session output has been committed. The build environment did not have the
+explicit live opt-in. Consequently, these chapters explain what every result
+means without inventing an observed improvement.</p>
+<p>The first authorized capture should be run once and preserved honestly. A tie,
+regression, typed failure, unused experience record, or null result is part of
+the finding—not a reason to rerun until the story looks better.</p>
+<h2 id="recommended-reading-order">Recommended reading order</h2>
+<ol>
+<li><a href="../learn/research-labs/01-feedback-descent/">Feedback Descent</a>: improve a
+   prompt from structured textual feedback.</li>
+<li><a href="../learn/research-labs/02-autodata/">AutoData</a>: improve a synthetic-data
+   recipe using solver behavior and deterministic gates.</li>
+<li><a href="../learn/research-labs/03-meta-harness-precursor/">Meta-Harness precursor</a>:
+   widen the mutable artifact while enforcing an explicit authority boundary.</li>
+<li><a href="../learn/research-labs/04-evoskill/">EvoSkill</a>: convert recorded failures
+   into a reusable skill and evaluate only on held-out rows.</li>
+</ol>
+<p>The Meta-Harness chapter is a <strong>pre-M8 teaching precursor</strong>. M8 remains the sole
+owner of <code>HarnessArtifact</code>, <code>MutationSurface</code>, portable episode suites, replay,
+and promotion. Update or retire the lab when M8 ships; see the
+<a href="../m8-design-capstone/">M8 design capstone</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../learn/notebooks/07-source-patching/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Evolve source">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Evolve source
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../learn/research-labs/01-feedback-descent/" class="md-footer__link md-footer__link--next" aria-label="Next: Feedback Descent">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Feedback Descent
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "navigation.footer", "navigation.path", "navigation.sections", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

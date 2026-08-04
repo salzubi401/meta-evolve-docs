@@ -1,0 +1,4940 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Programmable evaluated improvement loops over versioned artifacts">
+      
+      
+      
+      
+        <link rel="prev" href="../architecture/">
+      
+      
+        <link rel="next" href="../implementation-plan/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Milestones - Meta-Evolve</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#meta-evolve-milestones" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Meta-Evolve" class="md-header__button md-logo" aria-label="Meta-Evolve" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Meta-Evolve
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Milestones
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/salzubi401/meta-evolve" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    salzubi401/meta-evolve
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Meta-Evolve" class="md-nav__button md-logo" aria-label="Meta-Evolve" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Meta-Evolve
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/salzubi401/meta-evolve" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    salzubi401/meta-evolve
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../start-here/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Start here
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning path
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Learning path
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/01-policy-tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understand search policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/02-policy-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compare uncertain search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/03-experience-tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reuse experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/04-push-pull/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inspect push and pull
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/05-derivation-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trace derivation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/06-crash-recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recover a run
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/07-source-patching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evolve source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SealQA research labs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SealQA research labs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sealqa-research-labs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/research-labs/01-feedback-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feedback Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/research-labs/02-autodata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AutoData
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/research-labs/03-meta-harness-precursor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta-Harness precursor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/research-labs/04-evoskill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EvoSkill
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/autoresearch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoresearch setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operations-and-extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations and extensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../live-agent-track/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Live agent track
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributor-code-tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributor code tour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m8-design-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    M8 design capstone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../programming-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestones
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pre-milestone-api-spike" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-milestone API spike
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pre-milestone API spike">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#demonstrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Demonstrations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#questions-it-must-answer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Questions it must answer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exit-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit gate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-definition-of-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common definition of done
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-checkpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release checkpoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub tracking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-1-deterministic-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 1: deterministic kernel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 1: deterministic kernel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-2-replaceable-search-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 2: replaceable search policies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 2: replaceable search policies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m24-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M2.4 completion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-3-shared-experience-and-agent-directed-exploration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 3: shared experience and agent-directed exploration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 3: shared experience and agent-directed exploration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m31-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M3.1 completion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m32-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M3.2 completion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m33-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M3.3 completion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m34-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M3.4 completion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-4-durable-local-runs-and-crash-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 4: durable local runs and crash recovery
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 4: durable local runs and crash recovery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-5-executable-artifacts-and-external-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 5: executable artifacts and external evaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 5: executable artifacts and external evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-6-native-first-sdk-proposer-portability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 6: native-first SDK proposer portability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 6: native-first SDK proposer portability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repair-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repair sequence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-7-generality-proof-and-local-v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 7: generality proof and local v1
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 7: generality proof and local v1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-defect-repair-pass-july-30-august-2-2026" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The defect-repair pass (July 30 – August 2, 2026)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#goal_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstrations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exit-gate_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit gate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-8-harness-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 8: harness evolution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 8: harness evolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-9-policy-artifacts-and-meta-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 9: policy artifacts and meta-evolution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 9: policy artifacts and meta-evolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-10-trusted-concurrency-and-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 10: trusted concurrency and distribution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 10: trusted concurrency and distribution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-11-contributed-and-federated-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 11: contributed and federated network
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 11: contributed and federated network">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-gate-across-all-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture gate across all milestones
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../implementation-plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding-an-artifact-domain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add an artifact domain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Executed notebooks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Executed notebooks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/02_policy_comparison/milestone_2_tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestone 2 tour: one loop, replaceable search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/02_policy_comparison/policy_comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fair comparison of three search policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/03_experience_reuse/milestone_3_tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestone 3 tour: experience that remains causal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/03_experience_reuse/push_pull_lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push and pull lab: two routes to the same experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/03_experience_reuse/derivation_comparison_lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Derivation, replay, and fair memory comparison
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/04_crash_recovery/crash_recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crash recovery for durable runs ()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/05_python_function/milestone_5_tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestone 5 tour: immutable source, external evidence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/19_autoresearch/autoresearch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoresearch, in miniature
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Live-only research notebooks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Live-only research notebooks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/18_sealqa_research_labs/01_feedback_descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feedback Descent lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/18_sealqa_research_labs/02_autodata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AutoData lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/18_sealqa_research_labs/03_meta_harness_precursor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta-Harness precursor lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/18_sealqa_research_labs/04_evoskill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EvoSkill lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research references
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pre-milestone-api-spike" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-milestone API spike
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pre-milestone API spike">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#demonstrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Demonstrations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#questions-it-must-answer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Questions it must answer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exit-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit gate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-definition-of-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common definition of done
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-checkpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release checkpoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub tracking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-1-deterministic-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 1: deterministic kernel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 1: deterministic kernel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-2-replaceable-search-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 2: replaceable search policies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 2: replaceable search policies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m24-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M2.4 completion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-3-shared-experience-and-agent-directed-exploration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 3: shared experience and agent-directed exploration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 3: shared experience and agent-directed exploration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m31-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M3.1 completion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m32-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M3.2 completion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m33-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M3.3 completion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#m34-completion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M3.4 completion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-4-durable-local-runs-and-crash-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 4: durable local runs and crash recovery
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 4: durable local runs and crash recovery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-5-executable-artifacts-and-external-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 5: executable artifacts and external evaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 5: executable artifacts and external evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-6-native-first-sdk-proposer-portability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 6: native-first SDK proposer portability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 6: native-first SDK proposer portability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repair-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repair sequence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-7-generality-proof-and-local-v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 7: generality proof and local v1
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 7: generality proof and local v1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-defect-repair-pass-july-30-august-2-2026" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The defect-repair pass (July 30 – August 2, 2026)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#goal_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstrations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exit-gate_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exit gate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-8-harness-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 8: harness evolution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 8: harness evolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-9-policy-artifacts-and-meta-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 9: policy artifacts and meta-evolution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 9: policy artifacts and meta-evolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-10-trusted-concurrency-and-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 10: trusted concurrency and distribution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 10: trusted concurrency and distribution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-11-contributed-and-federated-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 11: contributed and federated network
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 11: contributed and federated network">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goal_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canonical-demonstration_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical demonstration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deliverables_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deliverables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-behavior_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-tests_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-scope_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-gate-across-all-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture gate across all milestones
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/salzubi401/meta-evolve/edit/main/docs/milestones.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/salzubi401/meta-evolve/raw/main/docs/milestones.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="meta-evolve-milestones">Meta-Evolve Milestones</h1>
+<h2 id="purpose">Purpose</h2>
+<p>This roadmap grows Meta-Evolve through small, testable vertical slices. Every milestone must produce a runnable demonstration, preserve the contracts established by earlier milestones, and add only the infrastructure required by its acceptance tests.</p>
+<p>The first product target is a local, extensible improvement system in which a user can define an artifact, task, evaluator, proposer, search policy, and context policy; run a bounded experiment; let agents inspect prior work; replay or resume the run; and compare results under equal budgets. Harness evolution, meta-evolution, trusted concurrency, and federation build on that local product.</p>
+<p>The harness-evolution demonstration (milestone 8) is the flagship product demo — "point this at your agent and eval set, get a measurably better agent, and inspect exactly why each change was kept." Earlier milestones should keep that demonstration in view rather than treating it as a distant capstone.</p>
+<p>Before the numbered milestones, a disposable API spike validated the user-facing interface against both deterministic code and a real model. The spike is a design probe, not a shortcut into the durable implementation. It is complete; see <a href="#pre-milestone-api-spike">its status below</a>.</p>
+<h2 id="development-rules">Development rules</h2>
+<ol>
+<li>Every milestone has one canonical example that runs with a documented command.</li>
+<li>Every new port has an in-memory or deterministic reference adapter and a conformance suite.</li>
+<li>The coordinator contains no branches for particular artifact types, proposers, evaluators, or search policies.</li>
+<li>Durable behavior is specified through domain events and observable results, not adapter internals.</li>
+<li>New infrastructure is introduced only when a milestone's proof requires it.</li>
+<li>Failures remain typed: poor task performance, invalid output, timeout, resource exhaustion, policy violation, and infrastructure failure are not interchangeable.</li>
+<li>Tests are deterministic by default. Tests requiring credentials, network access, or hardened infrastructure are explicitly separated.</li>
+<li>Each milestone updates examples, tests, and user-facing documentation together.</li>
+<li>The <a href="../programming-model/">programming model</a> is the canonical public API contract; other documents link to it rather than redefining signatures.</li>
+<li>Canonical examples are first-class user-facing documentation, not test fixtures: each must be short, copy-pasteable, and runnable from a clean checkout, and the simple callable path never requires or surfaces kernel vocabulary such as <code>Trial</code>, <code>OperatorSpec</code>, or <code>WorkItem</code>.</li>
+</ol>
+<h2 id="pre-milestone-api-spike">Pre-milestone API spike</h2>
+<p><strong>Status: complete (July 16, 2026).</strong> Both demonstrations ran through the same
+small public surface under <code>experiments/00_api_spike/</code>, including a real
+<code>gpt-5.4-mini</code> Codex SDK prompt-optimization run. The exit gate passed: findings
+are recorded in
+<a href="https://github.com/salzubi401/meta-evolve/blob/main/experiments/00_api_spike/real_model_findings.md"><code>real_model_findings.md</code></a>
+and folded into the programming model's
+<a href="../programming-model/#evidence-from-the-pre-milestone-spike">evidence section</a>.
+Closed by <a href="https://github.com/salzubi401/meta-evolve/issues/23">#23</a>.</p>
+<h3 id="goal">Goal</h3>
+<p>Exercise the smallest declarative API before durable domain models and package boundaries are fixed.</p>
+<h3 id="demonstrations">Demonstrations</h3>
+<p>Build a disposable one-to-three-file implementation that runs:</p>
+<ol>
+<li>deterministic integer improvement with <code>Greedy</code> and <code>BestOfN</code>;</li>
+<li>one real-model prompt-optimization task whose proposer and evaluator each require only a small user function.</li>
+</ol>
+<p>The spike should test the canonical <code>Task</code>, <code>meta.run</code>, proposer, evaluator, search, and <code>Run.best()</code>/<code>lineage()</code> surface from the programming model.</p>
+<h3 id="questions-it-must-answer">Questions it must answer</h3>
+<ul>
+<li>Can a plain callable be used as a proposer and evaluator in local mode?</li>
+<li>Is the distinction between task, seed, proposer, evaluator, and search obvious in working code?</li>
+<li>Does changing search policy require no change to task or proposer code?</li>
+<li>Can failures and multi-metric evaluations be represented without exposing orchestration machinery?</li>
+<li>Which values must become durable records, and which abstractions are premature?</li>
+</ul>
+<h3 id="exit-gate">Exit gate</h3>
+<ul>
+<li>Both examples run through the same small public surface.</li>
+<li>The programming model is revised from observed use rather than aspiration alone.</li>
+<li>Any deliberately unsupported capability is named explicitly.</li>
+<li>None of the spike's internal structure becomes a kernel contract without Milestone 1 justification.</li>
+</ul>
+<h3 id="out-of-scope">Out of scope</h3>
+<p>Replay, crash recovery, ports and adapters, stable schemas, experience grants, workspace isolation, provider portability, and production-quality model integration.</p>
+<h2 id="common-definition-of-done">Common definition of done</h2>
+<p>A milestone is complete only when:</p>
+<ul>
+<li>its canonical example runs from a clean checkout;</li>
+<li>its acceptance tests pass locally and in CI where the required capabilities are available;</li>
+<li>events, artifacts, evaluations, and policy decisions retain causal lineage;</li>
+<li>public contracts and durable schemas are documented and versioned;</li>
+<li>newly added adapters pass their conformance suites;</li>
+<li>resource use and failure outcomes are observable;</li>
+<li>no later-milestone infrastructure was added speculatively;</li>
+<li>the next milestone can build on the result without replacing the kernel.</li>
+</ul>
+<h2 id="release-checkpoints">Release checkpoints</h2>
+<table>
+<thead>
+<tr>
+<th>Checkpoint</th>
+<th style="text-align: right;">Included milestones</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kernel proof</td>
+<td style="text-align: right;">1–3</td>
+<td>The abstractions compose, policies are replaceable, and agents can reuse prior experience.</td>
+</tr>
+<tr>
+<td>Durable local engine</td>
+<td style="text-align: right;">4–6</td>
+<td>Runs persist, real code can execute, and one SDK agent works end to end.</td>
+</tr>
+<tr>
+<td>Local v1</td>
+<td style="text-align: right;">7</td>
+<td>Several artifact domains use one public kernel without special cases.</td>
+</tr>
+<tr>
+<td>Evolution system</td>
+<td style="text-align: right;">8–9</td>
+<td>Harnesses and search policies can be evaluated as artifacts under external controls.</td>
+</tr>
+<tr>
+<td>Distributed v2</td>
+<td style="text-align: right;">10</td>
+<td>Trusted workers execute concurrently with correct leases, retries, and budgets.</td>
+</tr>
+<tr>
+<td>Federated direction</td>
+<td style="text-align: right;">11</td>
+<td>Independent installations exchange authorized, verifiable experience.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="github-tracking">GitHub tracking</h2>
+<p>The <a href="https://github.com/salzubi401/meta-evolve/issues/12">implementation roadmap issue</a> tracks the release checkpoints. Each milestone issue is an acceptance epic and can be decomposed into smaller implementation issues when work begins.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Milestone</th>
+<th>Issue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">spike</td>
+<td><a href="https://github.com/salzubi401/meta-evolve/issues/23">#23 — Pre-milestone API spike</a> (complete)</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td><a href="https://github.com/salzubi401/meta-evolve/issues/1">#1 — Deterministic in-memory kernel</a> (complete)</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td><a href="https://github.com/salzubi401/meta-evolve/issues/2">#2 — Replaceable search policies</a> (complete)</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td><a href="https://github.com/salzubi401/meta-evolve/issues/3">#3 — Shared experience and agent-directed exploration</a> (complete)</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td><a href="https://github.com/salzubi401/meta-evolve/issues/4">#4 — Durable local runs and crash recovery</a> (complete)</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td><a href="https://github.com/salzubi401/meta-evolve/issues/5">#5 — Executable artifacts and external evaluation</a> (complete)</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td><a href="https://github.com/salzubi401/meta-evolve/issues/6">#6 — Native-first SDK proposer portability</a> (complete)</td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td><a href="https://github.com/salzubi401/meta-evolve/issues/7">#7 — Cross-domain generality and local v1</a> (complete)</td>
+</tr>
+<tr>
+<td style="text-align: right;">8</td>
+<td><a href="https://github.com/salzubi401/meta-evolve/issues/8">#8 — Typed harness evolution</a></td>
+</tr>
+<tr>
+<td style="text-align: right;">9</td>
+<td><a href="https://github.com/salzubi401/meta-evolve/issues/9">#9 — Policy artifacts and meta-evolution</a></td>
+</tr>
+<tr>
+<td style="text-align: right;">10</td>
+<td><a href="https://github.com/salzubi401/meta-evolve/issues/10">#10 — Trusted concurrency and distributed workers</a></td>
+</tr>
+<tr>
+<td style="text-align: right;">11</td>
+<td><a href="https://github.com/salzubi401/meta-evolve/issues/11">#11 — Contributed and federated experience exchange</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="milestone-1-deterministic-kernel">Milestone 1: deterministic kernel</h2>
+<p><strong>Status: complete (July 21, 2026; <a href="https://github.com/salzubi401/meta-evolve/issues/1">#1</a>, <a href="https://github.com/salzubi401/meta-evolve/issues/32">#32</a>).</strong> The canonical number search, exact budget
+accounting, retained-event projection rebuild, built-in Greedy decision
+reproduction, failure replay, and the remaining acceptance tests now pass.
+Restart and resume were deliberately deferred to, and are now shipped by,
+Milestone 4.</p>
+<h3 id="goal_1">Goal</h3>
+<p>Prove the smallest complete improvement loop without language models, subprocesses, databases, or distributed workers.</p>
+<h3 id="canonical-demonstration">Canonical demonstration</h3>
+<p>An integer artifact begins away from a hidden target. Deterministic proposers add or subtract fixed values, a pure evaluator rewards proximity to the target, and a sequential coordinator runs until its evaluation budget is exhausted or the target is reached.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>select parent
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  → allocate bounded work
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  → produce proposal
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  → create successor artifact
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  → evaluate with evidence
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  → append events
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  → update projected state
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  → choose the next action
+</code></pre></div>
+<h3 id="deliverables">Deliverables</h3>
+<ul>
+<li>Frozen, serializable domain models for tasks, artifacts, proposals, trials, trial outcomes, evaluations, evidence, budgets, usage, policies, and typed events; a work-item delivery record stays internal to the kernel and out of user-facing types.</li>
+<li>Opaque typed identifiers and schema versions on durable envelopes.</li>
+<li>In-memory artifact and event stores.</li>
+<li>A deterministic callable proposer adapter and pure-function evaluator adapter.</li>
+<li>A sequential coordinator that validates transitions, authority, and budgets.</li>
+<li>A minimal <code>SearchProgram.next(state)</code> decision contract; remaining budget is part of projected state.</li>
+<li>Typed <code>OperatorSpec</code> values produced by operator policies rather than durable raw strings.</li>
+<li>Logical ordering, deterministic tie-breaking, and recorded named random substreams.</li>
+<li><code>examples/01_number_search/</code> with a documented run command.</li>
+</ul>
+<h3 id="expected-behavior">Expected behavior</h3>
+<ul>
+<li>The same task, initial artifact, policy, seed, and budget produce the same logical decisions and final projected state.</li>
+<li>Every artifact and evaluation can be traced to the trial, proposal, and search decision that caused it.</li>
+<li>Trial identity remains distinct from duplicate delivery or completion attempts.</li>
+<li>Duplicate completion is idempotent.</li>
+<li>Exhausted budgets prevent additional work.</li>
+<li>Invalid proposals and evaluator failures are recorded without being treated as low scores.</li>
+<li>The run can be rebuilt from its event stream without agent-local state.</li>
+</ul>
+<h3 id="acceptance-tests">Acceptance tests</h3>
+<ul>
+<li>Reachable and unreachable target scenarios.</li>
+<li>Exact evaluation and usage accounting.</li>
+<li>Deterministic replay from an empty projection.</li>
+<li>Decision reproduction with the same named random substreams and trial seeds.</li>
+<li>Optimistic append conflict in the in-memory event store.</li>
+<li>Duplicate work completion.</li>
+<li>Invalid transition and budget-exhaustion rejection.</li>
+<li>Failure taxonomy serialization and replay.</li>
+</ul>
+<h3 id="out-of-scope_1">Out of scope</h3>
+<p>SQLite, filesystem persistence, subprocesses, real agents, semantic search, snapshots, concurrency, and user interfaces beyond the example command.</p>
+<h2 id="milestone-2-replaceable-search-policies">Milestone 2: replaceable search policies</h2>
+<p><strong>Status: complete.</strong> M1 supplies the Greedy baseline and the generic
+preparation boundary. M2.1 adds durable archive decisions, linked decision
+explanations, and the first reusable policy-contract gate. M2.2 adds the public
+<code>BestOfN(max_trials=20)</code> preset, independent seed expansion, and historical
+decision reproduction through the same contract. M2.3 adds the public
+<code>Population(size=3, tournament_size=2, max_trials=20)</code> preset with explicit
+rank-ordered archive membership, deterministic tournament selection, and a
+corridor test showing retention of a temporarily worse branch. M2.4 adds strict
+compatible-run comparison and the canonical equal-budget three-policy benchmark.</p>
+<h3 id="goal_2">Goal</h3>
+<p>Prove that search behavior is a replaceable policy and that different policies can be compared fairly without changing the coordinator.</p>
+<h3 id="canonical-demonstration_1">Canonical demonstration</h3>
+<p>Run independent best-of-N, greedy hill climbing, and a small population policy against the same integer task, initial artifact, seed rules, and evaluation budget. Produce a comparison report containing best score, evaluations, usage, and lineage references.</p>
+<h3 id="deliverables_1">Deliverables</h3>
+<ul>
+<li>Independent best-of-N policy.</li>
+<li>The M1 Greedy baseline covered by the shared M2 policy conformance suite.</li>
+<li>Small population retention policy.</li>
+<li>Deterministic selection and tie-breaking rules.</li>
+<li>Explicit admission, stopping, and budget-allocation decisions.</li>
+<li>A run-comparison projection or report.</li>
+<li>One publishable benchmark example: an honest, reproducible equal-budget comparison (for example, greedy with context reuse versus independent best-of-N) presented as a notebook or report a reader can rerun, serving as the project's first credibility artifact.</li>
+<li><code>examples/02_policy_comparison/</code>.</li>
+</ul>
+<h3 id="expected-behavior_1">Expected behavior</h3>
+<ul>
+<li>Policies consume the same projected state and return typed decisions.</li>
+<li>Replacing a policy requires no coordinator, runtime, evaluator, or storage changes.</li>
+<li>Every policy decision records its inputs, policy version, rationale metadata, and observed logical step.</li>
+<li>Comparisons normalize results by the same declared budget.</li>
+<li>A policy cannot directly mutate projections or grant itself additional budget.</li>
+</ul>
+<h3 id="acceptance-tests_1">Acceptance tests</h3>
+<ul>
+<li>All three policies pass one shared policy conformance suite.</li>
+<li>Equal inputs produce deterministic decisions.</li>
+<li>Tie cases have stable outcomes.</li>
+<li>Population admission and eviction replay correctly.</li>
+<li>A historical policy decision can be reproduced without future evaluations.</li>
+<li>Adding a minimal test policy requires only implementing the policy contract.</li>
+</ul>
+<h3 id="out-of-scope_2">Out of scope</h3>
+<p>Pareto archives, novelty search, islands, bandits, MCTS, learned allocation, and policy evolution.</p>
+<h3 id="m24-completion">M2.4 completion</h3>
+<p><code>Run.summary()</code> and <code>Run.compare()</code> are immutable derived views over committed
+records. Fair comparison requires identical evaluator/proposer declarations,
+primary objective, task and effective run budgets, artifact kind, and initial
+artifact declaration and digest. Policy choice, policy configuration, and root
+seed may differ; exact primary scores tie without a usage or policy tiebreaker.</p>
+<p>The canonical <code>examples/02_policy_comparison/</code> sweep uses target <code>12</code>, moves
+<code>(-2, 1, 5)</code>, initial value <code>0</code>, nine evaluations, eight successor trials, and
+root seeds <code>0</code> through <code>39</code>. Its executed notebook reports complete score and
+usage distributions and representative star, chain, and tree-branch lineages,
+with an explicit small-illustration evidence disclaimer.
+The companion executed <code>milestone_2_tour.ipynb</code> introduces M2.1 through M2.4
+from the public callable path before showing optional kernel-level inspection.</p>
+<h2 id="milestone-3-shared-experience-and-agent-directed-exploration">Milestone 3: shared experience and agent-directed exploration</h2>
+<p><strong>Status: complete (July 24, 2026;
+<a href="https://github.com/salzubi401/meta-evolve/issues/3">#3</a>).</strong> M3.1 adds the
+read-only temporal experience projection, M3.2 adds bounded replayable
+policy-pushed context, M3.3 adds audited, strictly-prior agent-pulled access,
+and M3.4 adds declared derivation, run-aggregate experience usage,
+memory-strategy comparison, and the canonical four-variant demonstration.</p>
+<h3 id="goal_3">Goal</h3>
+<p>Make prior trials useful to later agents through both policy-pushed context and agent-pulled investigation.</p>
+<h3 id="canonical-demonstration_2">Canonical demonstration</h3>
+<p>Agent A produces several failed trials. Agent B searches those trials, opens a relevant proposal and evaluation, compares siblings, and uses the observed failure to choose a successful transformation. The new proposal records the exact experience B observed and used.</p>
+<h3 id="deliverables_2">Deliverables</h3>
+<ul>
+<li>An in-memory <code>ExperienceGraph</code> projection with occurrence-based node,
+  ancestor, child, inclusive-sibling, causal-leaf frontier, trace, and inclusive
+  historical <code>state_at</code> queries.</li>
+<li>A scoped, read-only <code>ExperienceReader</code> with exact filtering and traversal.</li>
+<li><code>ExperienceGrant</code> bounds for task, run, logical time, result count, context size, and resource use; identity and visibility remain single-user stubs.</li>
+<li><code>ContextPolicy</code> implementations for <code>NoMemory</code>, <code>AncestorsOnly</code>, and <code>BestSibling</code>.</li>
+<li>Events for automatic context selection, experience queries, opened records, and comparisons.</li>
+<li>Immutable <code>ContextBundle</code> records and exact query-result records, including ordering and truncation.</li>
+<li>Stable references from observed experience into <code>Proposal.derived_from</code>.</li>
+<li><code>examples/03_experience_reuse/</code> covering push-only, pull-only, and combined access.</li>
+</ul>
+<h3 id="expected-behavior_2">Expected behavior</h3>
+<ul>
+<li>Agents distinguish experience that existed from experience they actually observed.</li>
+<li>An <code>as_of</code> argument may narrow but never widen a work item's logical-time grant.</li>
+<li>Cross-task, out-of-run, retracted, or future experience is not returned.</li>
+<li>M3.2 context selection obeys record and rendering bounds without consuming
+  task usage; M3.3 pull operations count against their <code>ExperienceGrant</code>.</li>
+<li>The derivation graph remains acyclic while semantic relationships may be typed cross-links.</li>
+<li>Content deduplication does not collapse distinct causal occurrences.</li>
+</ul>
+<h3 id="acceptance-tests_2">Acceptance tests</h3>
+<ul>
+<li>Agent B improves by consulting Agent A's recorded failure.</li>
+<li>Push-only, pull-only, combined, and no-memory variants run under equal budgets.</li>
+<li>Ancestor, sibling, and historical-state queries return expected results.</li>
+<li>Attempts to cross task, run, or logical-time boundaries fail.</li>
+<li>Query result limits and usage limits are enforced.</li>
+<li>Replay reconstructs the same observed-context references and derived-from edges.</li>
+</ul>
+<h3 id="out-of-scope_3">Out of scope</h3>
+<p>Embeddings, vector databases, learned retrieval, graph databases, filesystem projections, principal-based authorization, licensing enforcement, and cross-installation experience.</p>
+<h3 id="m31-completion">M3.1 completion</h3>
+<p><code>replay_experience_graph()</code> derives one trial-centered node per committed trial
+occurrence through the validated run replay path. <code>ExperienceRef</code> uses the run,
+record kind, and existing occurrence identity; identical artifact payloads
+therefore remain distinct causal occurrences. Exact decision, explanation,
+proposal, artifact-creation, outcome, evidence, evaluation, and completed-trial
+records are retained without defining another lifecycle.</p>
+<p>Queries are scoped by task, run, and an optional inclusive logical step.
+Ancestors exclude self, siblings include self, frontier means visible causal
+leaves rather than archive membership, and a trace spans the target trial and
+its accessible ancestors while preserving committed event order with a fixed
+intra-event kind order. Missing, wrong-kind, cross-scope, future,
+hidden, retracted, and synthetic non-local direct targets all receive one opaque
+denial. Collection reads omit inaccessible occurrences and do not traverse
+through them.</p>
+<p>Only <code>ExperienceRef</code> is durable and exported through <code>meta_evolve.domain</code>.
+Graph and query views remain outside the package-root callable API. M3.1 adds no
+reader grant, pushed context, retrieval, durable graph store, authentication,
+licensing, or proposal-derivation contract.</p>
+<h3 id="m32-completion">M3.2 completion</h3>
+<p><code>meta.run(context=...)</code> accepts <code>NoMemory</code>, <code>AncestorsOnly</code>, <code>BestSibling</code>, or a
+compatible declared policy. <code>None</code> and <code>NoMemory()</code> preserve pre-M3.2 identity,
+stream, trial specs, and proposer behavior except that the internal
+<code>ProposerContext</code> now exposes a synthesized empty bundle. Non-default
+configuration contributes one final serialized <code>ContextSpec</code> identity segment.</p>
+<p><code>ContextPolicyDeclared</code> follows bootstrap evaluation. A transparent
+search-program wrapper stamps its policy reference only into successor specs,
+and a generic coordinator operation commits one <code>ContextSelected</code> after the
+decision explanation and before proposer invocation. Bundles snapshot exact
+typed records, stable reference order, canonical rendering, reason, truncation,
+and <code>ContextUsage</code>; record and character bounds are independent from task
+<code>Usage</code>.</p>
+<p><code>AncestorsOnly</code> flattens accessible ancestors in graph-node and committed-record
+order. <code>BestSibling</code> excludes the current node, ranks only successful sibling
+evaluations through <code>rank_evaluations</code>, and preserves completion-order ties.
+Replay validates the committed records against their strictly prior visible
+sources and returns the committed bundle without rerunning selection or
+rendering. Context declaration and selection facts remain inspectable in the
+experience graph but cannot themselves become policy candidates.</p>
+<h3 id="m33-completion">M3.3 completion</h3>
+<p><code>meta.run(experience=...)</code> accepts the run-level <code>ExperienceAccess</code> protocol;
+<code>PullAccess(max_operations=20, max_results=20, max_records=100,
+max_chars=32_000)</code> is the shipped declaration. <code>None</code> normalizes completely
+away. A non-default access declaration contributes the final serialized
+<code>ExperienceSpec</code> identity segment after any <code>ContextSpec</code>.</p>
+<p>Every successor receives a fresh immutable <code>ExperienceGrant</code> bounded to the
+same task/run and <code>as_of=trial.logical_step - 1</code>. Its <code>ExperienceReader</code>
+supports exact conjunctive search filters, open, ancestors, inclusive siblings,
+and right-minus-left numeric comparison. Results preserve committed ordering,
+exact structured snapshots, canonical prefix-bounded rendering, truncation,
+and cumulative operation/result/record/character usage. Failed evaluations
+remain inspectable and never become synthetic losses.</p>
+<p>The audited lifecycle is <code>grant → (attempt → success|denial|exhaustion)* →
+proposal</code>. Attempts charge before validation, opaque denials disclose no
+protected content, and over-ceiling calls receive a separate content-free
+exception. Replay validates authority, placement, reproducible operation
+identities, cumulative charging, and terminal matching, and holds every
+success to the shared deterministic contract: records must equal committed
+sources inside the effective boundary, references must stay visible, deltas
+must derive from the paired records, and rendering must prefix the canonical
+rendering of the committed records. Selection, traversal, filtering, and
+comparison logic is never re-run, and committed outcomes are returned
+directly. Context and pull-audit facts remain graph-inspectable but are
+excluded from both push and pull candidate sets, and naming them in a search
+filter is a malformed request. Pull usage does not change task budgets,
+logical steps, or named randomness.</p>
+<h3 id="m34-completion">M3.4 completion</h3>
+<p><code>Proposal</code> and callable <code>ProposalResult</code> now carry an explicit ordered
+<code>derived_from</code> declaration. One shared pure validator reconstructs pushed and
+pulled observations from committed records and requires a unique,
+strictly-prior same-run subsequence. Resource exhaustion precedes derivation
+policy failure; both coordinator-imposed failures clear edges and commit no
+candidate. Valid typed proposer failures and failed independent evaluations
+retain their declared lineage.</p>
+<p>Canonical serialization omits empty derivation and rejects an explicitly
+encoded empty default, so old proposal, event, context, and replay bytes remain
+unchanged at schema version 1. <code>RunExperienceUsage</code>, <code>Run.experience_usage()</code>,
+and expanded summaries report context and pull totals. Comparisons continue to
+require equal task/run budgets and core declarations while allowing different
+memory strategies, with exact declaration-match flags.</p>
+<p>The runnable <code>examples/03_experience_reuse/</code> experiment gives no-memory,
+push-only, pull-only, and combined variants the same task, proposer, evaluator,
+chain search, seed, and task/run budget. It records early evaluator failures,
+then succeeds only when prior failure evidence is reused and cited. Replay
+reconstructs the same derivation edges. The companion executed
+<code>milestone_3_tour.ipynb</code> introduces M3.1 through M3.4 from the public callable
+path, with <code>push_pull_lab.ipynb</code> and <code>derivation_comparison_lab.ipynb</code> as
+focused kernel-level labs.</p>
+<h2 id="milestone-4-durable-local-runs-and-crash-recovery">Milestone 4: durable local runs and crash recovery</h2>
+<p><strong>Status: complete (July 24, 2026; <a href="https://github.com/salzubi401/meta-evolve/issues/4">#4</a>, <a href="https://github.com/salzubi401/meta-evolve/pull/47">#47</a>).</strong> Durable artifacts and events, atomic commit, verified manifests, corruption detection, migration, recovery-frontier replay, and context/experience-aware <code>resume</code> satisfy the acceptance gate without changing the M1–M3 logical identities or trajectories.</p>
+<h3 id="goal_4">Goal</h3>
+<p>Persist the kernel without changing its logical behavior and prove that interrupted runs resume safely.</p>
+<h3 id="canonical-demonstration_3">Canonical demonstration</h3>
+<p>Start a deterministic run, complete several trials, terminate the process, rebuild the coordinator and projections from disk, resume from the committed frontier, and compare the outcome with an uninterrupted run.</p>
+<h3 id="deliverables_3">Deliverables</h3>
+<ul>
+<li>SQLite append-only event store with optimistic concurrency.</li>
+<li>Content-addressed filesystem artifact store.</li>
+<li>Durable run, trial, population, work-item, usage, and experience projections.</li>
+<li>Stable idempotency keys and committed logical steps.</li>
+<li>A resume command or documented API.</li>
+<li>Migration/versioning strategy for durable schemas.</li>
+<li><code>examples/04_crash_recovery/</code>.</li>
+</ul>
+<h3 id="expected-behavior_3">Expected behavior</h3>
+<ul>
+<li>SQLite and in-memory adapters satisfy the same event-store contract.</li>
+<li>Identical payload bytes reuse content identity while occurrence provenance remains distinct.</li>
+<li>Only atomically committed object records and transition events affect reconstructed state.</li>
+<li>Restarting does not repeat completed logical work or lose remaining budget.</li>
+<li>Historical state is initially reconstructed from immutable object records and transition events; snapshots are optional future caches.</li>
+<li>Corrupt or incompatible durable data fails explicitly rather than being silently ignored.</li>
+</ul>
+<h3 id="acceptance-tests_3">Acceptance tests</h3>
+<ul>
+<li>Interrupted and uninterrupted deterministic runs reach equivalent logical results.</li>
+<li>Restart before and after each important transition.</li>
+<li>Duplicate completion across a restart.</li>
+<li>Optimistic concurrency conflicts across two store clients.</li>
+<li>Artifact deduplication with distinct causal occurrences.</li>
+<li>Projection rebuild from empty projection tables using durable object records and transition events.</li>
+<li>Durable schema-version rejection and supported migration tests.</li>
+</ul>
+<h3 id="out-of-scope_4">Out of scope</h3>
+<p>Graph databases, remote databases, object stores, parallel workers, filesystem snapshots, and backup services.</p>
+<h2 id="milestone-5-executable-artifacts-and-external-evaluation">Milestone 5: executable artifacts and external evaluation</h2>
+<p><strong>Status: complete (July 24, 2026).</strong> M5.4 closes the canonical script,
+executed notebook, integrated acceptance, durable-query, and documentation
+gates without adding a production API or widening the development sandbox.</p>
+<h3 id="goal_5">Goal</h3>
+<p>Safely enough for development, execute candidate source artifacts in private workspaces while keeping evaluation outside candidate authority.</p>
+<h3 id="canonical-demonstration_4">Canonical demonstration</h3>
+<p>A deterministic patch agent improves a small Python function. Each candidate is materialized into its own workspace and evaluated by external unit tests that the candidate cannot modify.</p>
+<h3 id="deliverables_4">Deliverables</h3>
+<ul>
+<li>[x] Immutable <code>SourceTree</code> with stable <code>utf8-tree-v1</code> digesting.</li>
+<li>[x] Synchronous directory-copy <code>WorkspaceProvider</code> for materialize, capture, and dispose.</li>
+<li>[x] Exact-file <code>TextPatch</code>, rich <code>PatchResult</code>, and workspace-backed <code>PatchProposer</code>.</li>
+<li>[x] Generic <code>ProposerRunner</code> seam preserving the decoded callable path.</li>
+<li>[x] Clearly named development subprocess <code>SandboxProvider</code> with timeouts and captured output.</li>
+<li>[x] External evaluator adapter with versioned environment and evidence.</li>
+<li>[x] Typed process outcomes for success, timeout, resource exhaustion, policy violation, infrastructure failure, and task failure.</li>
+<li>[x] <code>examples/05_python_function/</code>.</li>
+<li>[x] Executed <code>milestone_5_tour.ipynb</code> with deterministic semantic output.</li>
+</ul>
+<h3 id="expected-behavior_4">Expected behavior</h3>
+<ul>
+<li>Every work item receives a private writable workspace derived from an immutable parent.</li>
+<li>Capturing changes produces a new immutable artifact without altering its parent.</li>
+<li>Evaluator code and hidden tests remain outside the candidate mutation boundary.</li>
+<li>Process execution and task evaluation failures remain distinguishable.</li>
+<li>Workspace cleanup runs after success and failure.</li>
+<li>Durable local history remains queryable, while cold resume of local
+  workspace components fails explicitly with <code>CapabilityError</code>.</li>
+<li>The subprocess adapter makes no claim to safely execute untrusted community code.</li>
+</ul>
+<h3 id="acceptance-tests_4">Acceptance tests</h3>
+<ul>
+<li>Passing, failing, invalid, and unchanged patches.</li>
+<li>Parent immutability after workspace capture.</li>
+<li>Timeout and process-output capture.</li>
+<li>Workspace cleanup after evaluator or runtime failure.</li>
+<li>Candidate attempts to modify external evaluator inputs.</li>
+<li>Stable source-tree digests and artifact round trips.</li>
+<li>Workspace and sandbox adapter conformance suites.</li>
+</ul>
+<p>The acceptance suite pins the broken and repaired content digests, scores
+<code>0 → 1</code>, process exits <code>1 → 0</code>, evidence kinds, winning lineage, reopened
+best/lineage equivalence, clean-checkout script output, and temporary notebook
+re-execution. It also proves a failed cold resume leaves events, artifacts, and
+both workspace trees unchanged. The exact development boundary is unchanged:
+patch traversal is rejected, capture excludes the grader, and the canonical
+run leaves grader bytes intact; hostile-runtime filesystem isolation is not
+claimed.</p>
+<h3 id="out-of-scope_5">Out of scope</h3>
+<p>Containers, hardened untrusted execution, Git worktree optimization, remote
+volumes, real LLM agents, multi-repository artifacts, and portable runtime
+reconstruction.</p>
+<h2 id="milestone-6-native-first-sdk-proposer-portability">Milestone 6: native-first SDK proposer portability</h2>
+<p><strong>Status: complete (July 28, 2026).</strong> The
+implementation-coupled M6.1–M6.3 runtime framework and Claude walking skeleton
+were removed. Their replacement starts at the existing structural proposer
+boundary. All M6.0 Claude and Codex measurements and fixtures remain.</p>
+<h3 id="goal_6">Goal</h3>
+<p>Run Claude and Codex end to end as ordinary proposers without coordinator
+branches, provider-shaped kernel vocabulary, or a speculative shared runtime.</p>
+<h3 id="repair-sequence">Repair sequence</h3>
+<ol>
+<li><strong>R1 — restore the proposer seam (complete).</strong> Ship structural proposer
+   binding, exact candidate context, pure preflight validation, and configured
+   local identity while preserving the callable path.</li>
+<li><strong>R2 — thin Claude proposer (complete).</strong> One closed provider-module adapter
+   now runs directly at that seam with recorded replay and separate opt-in live
+   drift. Deterministic replay runs in CI; the four credentialed live cases and
+   the credentialed <code>proposer</code> recapture passed with <code>claude-sonnet-4-5</code> on
+   July 28, 2026.</li>
+<li><strong>R3 — independent Codex proposer (complete).</strong> The closed provider-module
+   adapter meets the same producer-neutral conformance without Claude-shaped
+   transport or a production provider abstraction. One repository-success
+   assertion is a shared test helper; capture, no-change, usage,
+   structured-output, typed-failure, cancellation, cleanup precedence, and
+   pre-mutation rejection are asserted per provider against equal expectations,
+   and R4 owns deciding which of them become the frozen shared set. Four
+   credentialed live cases, the reviewed proposer capture, and all Codex drift
+   scenarios passed with <code>gpt-5.4-mini</code> on July 28, 2026.
+   The live gate exposed typed <code>error</code> notifications that can carry the native
+   failure classification separately from the terminal record; R3 now
+   correlates and retains that readback. It also confirmed that provider step
+   count is volatile, while terminal, mutation, accounting, authority, and
+   canary postconditions remain drift-gated.</li>
+<li><strong>R4 — compare and close (complete).</strong> The common public-run proof freezes
+   only producer-neutral assertions and both adapters bind native pull
+   experience over the existing authoritative reader. Granular Codex HTTP MCP
+   authority and Claude in-process MCP were measured before production work.
+   Five credentialed cases per provider, including real pull reads and
+   derivations, passed with <code>claude-sonnet-4-5</code> and <code>gpt-5.4-mini</code>; reviewed
+   proposer and pull captures passed per provider. Claude drift matched every
+   scenario. Codex R3 drift matched fully, and R4 positively measured its HTTP
+   transport and granular approval mechanism. Two closure <code>pull_transport</code>
+   drift retries were honest no-tool-call model-compliance misses; deterministic
+   conformance and the direct mechanism gates remained unchanged and passing.</li>
+</ol>
+<h3 id="canonical-demonstration_5">Canonical demonstration</h3>
+<p>The same tiny repository task runs through thin Claude and Codex structural
+proposers. Both receive the same ordered objectives, exact committed pushed
+context, <code>PullAccess</code>, and effective trial/evaluation bounds. Each owns
+its native workspace/session mechanics and returns an ordinary proposal result;
+evaluation stays outside candidate authority. Recorded adapter replay is
+deterministic, while credentialed provider drift remains separate and opt in.</p>
+<h3 id="deliverables_5">Deliverables</h3>
+<ul>
+<li>Scrubbed, regenerable Claude and Codex SDK measurements, pinned SDK
+  versions, recorded fixtures, and a capability matrix distinguishing declared
+  meaning, native mechanism, verified guarantees, and observations.</li>
+<li>R1 structural binding for non-callable <code>propose(parent, context)</code> objects,
+  typed <code>ProposerContext</code>, pure preflight validation, and exact configured
+  local component identity.</li>
+<li>Thin native-first Claude and Codex proposer adapters, each owning its native
+  session, tools, workspace, structured output, usage, interruption, cleanup,
+  and evidence mechanics.</li>
+<li>Producer-neutral conformance asserted through <code>meta.run</code> and the existing
+  proposer runner boundary, never through provider event types or prompt text.</li>
+<li>Native experience bindings over the existing authoritative
+  <code>ExperienceGrant</code> and <code>ExperienceReader</code>, with no public provider or tool
+  abstraction.</li>
+<li>Recorded fixtures or fakes for deterministic CI; credentialed live drift
+  tests remain separate and never rewrite fixtures.</li>
+<li><code>examples/06_sdk_coding_agent/</code>.</li>
+</ul>
+<h3 id="expected-behavior_5">Expected behavior</h3>
+<ul>
+<li>Core owns objective order, context and experience scope, evaluation, budgets,
+  promotion, logical experience time, charging, auditing, and derivation
+  validation. Adapters own provider rendering and exact native configuration.</li>
+<li><code>validate_run</code> receives only artifact kind/representation, objectives,
+  effective budget, and normalized experience. Unsupported combinations fail
+  before provider traffic, workspace mutation, or genesis.</li>
+<li>Native sessions, callbacks, raw SDK responses, and opaque provider options
+  remain adapter details. M6 adds neither canonical tool names nor a generic
+  provider-options map.</li>
+<li>Usage sums disjoint native token categories once. Inclusive cache or
+  reasoning subsets are not added again. Unknown dimensions stay unknown;
+  monetary cost is provider evidence only.</li>
+<li>Structured output is independently revalidated. Typed native records and
+  machine postconditions are evidence; final model text is not.</li>
+<li>Structured experience preserves existing grant, charging, audit,
+  observation, and derivation semantics, including completed reads on typed
+  failures.</li>
+<li>Malformed, partial, refused, interrupted, policy, provider, and
+  infrastructure outcomes remain typed and non-rankable where appropriate.</li>
+<li>A wall deadline is accepted only when native interruption and cleanup are
+  verified. R2 Claude accepts an unbounded wall budget or a finite wall budget
+  at least as large as its per-proposal timeout. Claude's pinned sample was
+  positive; Codex's was negative, so R3 rejects every finite wall budget and
+  may block indefinitely on an unresponsive native turn.</li>
+<li>Native configuration verification and sampled behavior do not claim hostile
+  code containment. Verification reaches only what typed readback reports, so
+  Codex project configuration that changes nothing reported at thread start is
+  prevented by the untrusted project entry rather than detected. Two authority
+  looseness facts are deliberate and recorded rather than closed: the native
+  session inherits the host process environment because the pinned SDK cannot
+  clear it, and workspace-write leaves <code>/tmp</code> and <code>$TMPDIR</code> writable. Neither
+  reaches the candidate, because only the captured workspace is candidate
+  authority. The Codex <code>exclude_tmpdir_env_var</code> and <code>exclude_slash_tmp</code>
+  private-home settings are a known deferred tightening because they change
+  recorded profile evidence and require a separately accepted credentialed
+  recapture.</li>
+</ul>
+<h3 id="acceptance-tests_5">Acceptance tests</h3>
+<ul>
+<li>A non-callable propose-only object runs through ordinary <code>meta.run</code>; runners
+  retain precedence, malformed declarations have no fallback, and no Task or
+  evaluator authority enters <code>ProposerContext</code>.</li>
+<li>Run and resume pass byte-identical preflight declarations, including an
+  overridden effective run budget and recorded experience. Validator failures
+  are sanitized with their causes preserved.</li>
+<li>Identical safe configurations share proposer identity; every semantic
+  configuration change changes it; authentication material is absent.</li>
+<li>Local structural proposers are manifest-free and rejected by
+  <code>durable-local</code>.</li>
+<li>Claude and Codex pass the same producer-neutral success, capture, no-change,
+  usage, structured-output, typed-failure, cancellation, cleanup, and
+  pre-mutation rejection assertions.</li>
+<li>Recorded fixture provenance, scrubbing, SDK pinning, regeneration, and
+  opt-in drift detection are verified. Fixtures are never updated
+  automatically.</li>
+<li>Five credentialed live cases and reviewed real proposer and pull-experience
+  captures passed per provider with <code>claude-sonnet-4-5</code> and <code>gpt-5.4-mini</code> on
+  July 28, 2026. Claude drift matched fully. Codex R3 drift matched fully; its
+  R4 HTTP transport and granular approval mechanism were positively measured,
+  while two closure <code>pull_transport</code> drift retries stopped at honest
+  no-tool-call model-compliance misses. Deterministic and direct mechanism
+  gates were not weakened. Default CI continues to skip credentialed traffic.</li>
+<li>Canonical Task bytes, TaskId, representative M1–M5 RunIds, named random
+  substreams, callable experience, workspace lifecycle, and all existing
+  compatibility tests remain byte-for-byte stable.</li>
+<li>Interrupted or lost provider execution never reports unknown accounting as
+  zero and makes no local proposer resume claim.</li>
+</ul>
+<h3 id="out-of-scope_6">Out of scope</h3>
+<p>Cost budgeting or cross-provider cost equivalence, generic tool budgets,
+parallel trials, provider-independent session resumption, durable native
+sessions or raw responses, filesystem-shaped experience, Pi, hardened
+hostile-code containment, remote sandboxes, production secret management,
+proposer composites, durable structural adapters, and large benchmark
+campaigns.</p>
+<h2 id="milestone-7-generality-proof-and-local-v1">Milestone 7: generality proof and local v1</h2>
+<p><strong>Status: complete (August 2, 2026;
+<a href="https://github.com/salzubi401/meta-evolve/issues/7">#7</a>, PRs
+<a href="https://github.com/salzubi401/meta-evolve/pull/94">#94</a>–<a href="https://github.com/salzubi401/meta-evolve/pull/97">#97</a>).</strong>
+Four artifact
+domains — number, text, repository, and skill set — reach the coordinator
+through one <code>meta.run</code> call site and leave an identical kernel record, with
+four distinct kinds over three representations
+(<a href="https://github.com/salzubi401/meta-evolve/blob/main/tests/test_four_domain_kernel.py"><code>tests/test_four_domain_kernel.py</code></a>).
+No domain needed a coordinator branch, and the proving phase changed no file
+under <code>src/</code>. A static gate holds the property open: application modules import
+no concrete adapter outside a justified wiring allowlist, and nothing
+dispatches on a concrete artifact type outside the codecs and the adapters
+(<a href="https://github.com/salzubi401/meta-evolve/blob/main/tests/test_application_purity.py"><code>tests/test_application_purity.py</code></a>).
+The add-a-domain walkthrough is
+<a href="../adding-an-artifact-domain/"><code>docs/adding-an-artifact-domain.md</code></a>; its code
+blocks are one script, executed in a fresh interpreter from an empty directory
+and compared against the output the page claims, so the documentation
+walkthrough cannot drift from the library.</p>
+<p>Three deliverables landed differently from their wording above, and the
+difference is not absorbed into it:</p>
+<ul>
+<li><strong>Extension contracts.</strong> M7 added the <code>ArtifactCodec</code> contract and the
+  optional <code>RunIndex</code> capability, and changed <code>ProposalResult</code> to carry an
+  artifact value rather than a frozen payload. The runtime, evaluator,
+  workspace, and sandbox ports and the search- and context-policy contracts
+  already existed and gained no members here.</li>
+<li><strong>Commands.</strong> The command line ships five verbs, not four: <code>list</code> joins
+  <code>run</code>, <code>inspect</code>, <code>resume</code>, and <code>compare</code>. Run ids are content-derived
+  digests rather than names anyone retypes from memory, so without enumeration
+  every other verb becomes unreachable once an id leaves the terminal. It rests
+  on one new read-only storage surface, <code>Storage.runs()</code>.</li>
+<li><strong>Conformance utilities cover two of the seven component types.</strong>
+  <code>meta_evolve.conformance</code> publishes suites for artifact codecs and for
+  repository-editing proposers. Search policies, workspaces, and sandboxes keep
+  reusable function-based suites under <code>tests/</code> that were not published;
+  evaluators and context policies have concrete tests and no reusable suite at
+  all. An extension author writing any of those five has nothing to subclass.
+  Publishing the rest is additive and remains open, tracked in
+  <a href="https://github.com/salzubi401/meta-evolve/issues/98">#98</a>. M8 evaluates
+  harnesses under external control, so it is the first milestone likely to need
+  a published evaluator or policy suite.</li>
+</ul>
+<h4 id="the-defect-repair-pass-july-30-august-2-2026">The defect-repair pass (July 30 – August 2, 2026)</h4>
+<p>Building examples 07–17 and hardening their reopening path exposed six defects
+in M7's own deliverables. Each is backed by something that actually broke while
+measuring, not by review speculation, and three of them turned real
+measurements into misleading ones. They are recorded here rather than deferred
+because a milestone that ships a misleading measurement has not met its own
+acceptance gate.</p>
+<table>
+<thead>
+<tr>
+<th>defect</th>
+<th>what it cost</th>
+<th>closed by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No public accessor for a losing attempt</td>
+<td>six examples reached into <code>run._projection()</code> or inferred failure from <code>evaluation_count</code>; two invented "no candidate" as a reason for what was really a timeout</td>
+<td><code>Run.trials()</code> and <code>TrialView.state</code></td>
+</tr>
+<tr>
+<td>A missing extra became a per-candidate score</td>
+<td>a <code>CapabilityError</code> in an evaluator surfaced as <code>NoSuccessfulEvaluation</code>, blaming the candidate for the machine</td>
+<td><code>CapabilityError</code> reserved as abort control flow at both boundaries</td>
+</tr>
+<tr>
+<td>A hardcoded turn limit measured itself</td>
+<td>three corrupted measurements, including an A/B that lost 7 of 8 control reps</td>
+<td><code>Claude(max_turns=…, pull_max_turns=…)</code></td>
+</tr>
+<tr>
+<td><code>compare</code> could not see a model inside an evaluator closure</td>
+<td>a winner reported for an uncontrolled comparison</td>
+<td><code>name_only_components</code> reports it; <code>ComponentRef.configured_local</code> lets a caller close it</td>
+</tr>
+<tr>
+<td>The comparison refusal was untyped</td>
+<td>a bare <code>ValueError</code> escaped the command line's translation and reached the user as a traceback</td>
+<td><code>RunsNotComparable</code>, a <code>RunError</code> carrying the <code>declaration</code> that differed</td>
+</tr>
+<tr>
+<td>A stored custom-domain local run could not be decoded after restart</td>
+<td>durable storage outlived the live codec index, but <code>Run(id, storage)</code> knew built-ins only</td>
+<td>keyword-only <code>Run(..., registry=...)</code> reconstructs the read-only codec index without granting execution authority</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Reopening a closed milestone sets a precedent, so the justification is
+narrow and stated rather than assumed.</strong> These are repairs to M7's own shipped
+surface, found by M7's own acceptance examples, and they add no milestone
+scope. The passage below about Pi integration and filesystem-shaped experience
+is <strong>not</strong> a general convention authorizing this — it is specific to those two
+post-M6 follow-ups. Anything that is genuinely new capability belongs in M8.</p>
+<p>Two things this pass deliberately did <strong>not</strong> do. It did not raise either turn
+limit: the <em>defaults</em> emit byte-identical native profiles, so a run recorded
+before the pass still replays. That statement is about the library's defaults
+only. Any run that <em>declares</em> a turn ceiling declares a different component,
+and its <code>component.version</code> and <code>RunId</code> move accordingly — which is correct,
+and is why <code>compare</code> refuses two runs whose ceilings differ. Examples 12, 15,
+16 and 17 all declare one, so all four moved; example 17's evaluator identity
+moved for a second, independent reason.
+And it did not make <code>compare</code> infer a configuration it was never told about —
+<code>compare</code> still refuses only on what a run declared, which is why the gap is
+<em>reported</em> as well as made closeable.</p>
+<p>One tightening in the same pass is not a defect repair, so it is recorded
+apart from the table. <code>Registry.register_artifact_type</code> now refuses a <code>kind</code>,
+<code>representation</code>, or declared interface name that is empty or carries outer
+whitespace, through the same <code>_require_text</code> the rest of the domain uses. An
+empty <code>interfaces</code> tuple stays valid and means the codec declares no
+consumer-facing interface. These fields reach durable records and
+content-derived ids, so registration refuses a bad declaration rather than
+normalizing it — a silently trimmed <code>kind</code> would encode artifacts under a name
+its own author never wrote. The observable change for an extension author is
+the exception type: a non-string <code>kind</code> raised <code>TypeError</code> before this pass and
+raises <code>ValueError</code> now, so declaration validity is one error family instead of
+two.</p>
+<h3 id="goal_7">Goal</h3>
+<p>Demonstrate that the kernel is a reusable framework rather than an implementation specialized for one artifact or task domain.</p>
+<h3 id="canonical-demonstrations">Canonical demonstrations</h3>
+<p>Run four use cases through the same coordinator:</p>
+<ol>
+<li>deterministic number search;</li>
+<li>text or prompt optimization;</li>
+<li>repository/code improvement;</li>
+<li>skill-set evolution.</li>
+</ol>
+<p>Only artifact codecs, task definitions, proposers, evaluators, and policy configuration may differ between the examples.</p>
+<h3 id="deliverables_6">Deliverables</h3>
+<ul>
+<li>Public extension contracts for artifact codecs, runtimes, evaluators, search policies, context policies, workspaces, and sandboxes.</li>
+<li>A small artifact-type registry with schema validation and declared interfaces.</li>
+<li>Text/prompt and skill-set artifact implementations.</li>
+<li>Minimal user-facing API and commands to run, inspect, resume, and compare experiments.</li>
+<li>Adapter conformance-test utilities for extension authors.</li>
+<li>A concise tutorial for adding a new artifact domain.</li>
+<li><code>examples/07_text_optimization/</code> and <code>examples/08_skill_evolution/</code>.</li>
+</ul>
+<h3 id="expected-behavior_6">Expected behavior</h3>
+<ul>
+<li>No coordinator branch checks a concrete artifact type, provider, evaluator, or policy.</li>
+<li>A new domain is added by registering implementations behind existing contracts.</li>
+<li>All examples expose comparable lineage, budgets, evaluations, and experience views.</li>
+<li>Users can inspect why a candidate exists, what an agent observed, and why it was evaluated or admitted.</li>
+<li>A clean local installation can run deterministic examples without provider credentials.</li>
+<li>Provider-dependent examples fail with actionable setup guidance.</li>
+</ul>
+<h3 id="acceptance-tests_6">Acceptance tests</h3>
+<ul>
+<li>Run all four domains through one shared kernel test harness.</li>
+<li>Static or behavioral check that the coordinator imports no concrete adapters or artifact implementations.</li>
+<li>Create a minimal custom artifact/evaluator in a test without modifying core packages.</li>
+<li>Public API serialization and schema-version tests.</li>
+<li>CLI smoke tests for run, inspect, resume, and compare.</li>
+<li>Documentation walkthrough from a clean environment.</li>
+</ul>
+<h3 id="exit-gate_1">Exit gate</h3>
+<p>If a use case requires a domain-specific coordinator branch, stop and repair the abstraction before beginning harness evolution. Passing this gate defines the local v1 architecture.</p>
+<h3 id="out-of-scope_7">Out of scope</h3>
+<p>Complete harness mutation, policy evolution, concurrency, remote workers, federation, dashboards, and plugin marketplaces.</p>
+<p>Pi integration and filesystem-shaped experience are post-M6 follow-ups. They
+do not retroactively widen M6's portability or conformance gate and enter M7
+only through separately accepted issues.</p>
+<h2 id="milestone-8-harness-evolution">Milestone 8: harness evolution</h2>
+<h3 id="goal_8">Goal</h3>
+<p>Treat an executable agent harness as a typed composite artifact whose permitted components can be improved under external evaluation and promotion controls.</p>
+<h3 id="canonical-demonstration_6">Canonical demonstration</h3>
+<p>A worker harness performs held-out tasks. An outer agent investigates earlier harness source and traces, then modifies one or two declared surfaces—initially a planner prompt and context policy. External evaluation determines whether the successor is admitted.</p>
+<h3 id="deliverables_7">Deliverables</h3>
+<ul>
+<li><code>HarnessArtifact</code> manifest containing component references and declared interfaces.</li>
+<li>Typed parameters for initial mutable surfaces such as <code>TextParam</code> and <code>PolicyParam</code>.</li>
+<li>Explicit <code>MutationSurface</code> separating candidate-controlled components from hidden evaluation, secrets, permissions, budgets, audit history, and promotion policy.</li>
+<li>Harness materialization, execution, capture, and validation.</li>
+<li>Held-out task split and promotion rule.</li>
+<li>Harness-specific comparison views over quality, cost, and failure behavior.</li>
+<li><code>examples/18_harness_evolution/</code>.</li>
+</ul>
+<h3 id="expected-behavior_7">Expected behavior</h3>
+<ul>
+<li>A candidate can modify only manifest-declared mutable surfaces.</li>
+<li>Component references and the composite harness both retain content identity and causal lineage.</li>
+<li>Harness evaluation runs fresh executions rather than trusting self-reported improvements.</li>
+<li>Failed or invalid harnesses remain inspectable experience.</li>
+<li>Later agents can compare complete harness code and traces, not only summary feedback.</li>
+<li>Additional mutation surfaces can be registered without changing the coordinator.</li>
+</ul>
+<h3 id="acceptance-tests_7">Acceptance tests</h3>
+<ul>
+<li>Valid prompt and context-policy mutations.</li>
+<li>Rejection of hidden-evaluator, permission, budget, and promotion-policy changes.</li>
+<li>Composite artifact digest and provenance tests.</li>
+<li>Fresh held-out evaluation and deterministic fixture tests.</li>
+<li>Comparison against the unchanged baseline harness under equal budgets.</li>
+<li>Resume and replay of a harness-evolution run.</li>
+</ul>
+<h3 id="out-of-scope_8">Out of scope</h3>
+<p>All mutation surfaces at once, unrestricted self-modification, automatic promotion to production, policy meta-evolution, and claims of general recursive self-improvement.</p>
+<h2 id="milestone-9-policy-artifacts-and-meta-evolution">Milestone 9: policy artifacts and meta-evolution</h2>
+<h3 id="goal_9">Goal</h3>
+<p>Evaluate search or update policies as artifacts by measuring the improvement episodes they produce on held-out task distributions.</p>
+<h3 id="canonical-demonstration_7">Canonical demonstration</h3>
+<p>Two versioned <code>PolicyArtifact</code>s each control fresh inner-loop optimization episodes across training and held-out tasks. An outer policy compares their quality, cost, robustness, and failure rates under equal nested budgets.</p>
+<h3 id="deliverables_8">Deliverables</h3>
+<ul>
+<li>Serializable <code>PolicyArtifact</code> with declared interfaces and mutation boundaries.</li>
+<li>Nested run/episode relationships and separate inner/outer budgets.</li>
+<li>Task-distribution artifacts and held-out evaluation splits.</li>
+<li>Explicit caching keys and leakage boundaries.</li>
+<li>Aggregation of quality, cost, uncertainty, and failure metrics across episodes.</li>
+<li>External promotion decision for policy candidates.</li>
+<li><code>examples/19_policy_evolution/</code>.</li>
+</ul>
+<h3 id="expected-behavior_8">Expected behavior</h3>
+<ul>
+<li>A policy candidate cannot inspect held-out results before its evaluation episode permits them.</li>
+<li>Inner-loop events retain their own lineage while linking to the outer policy evaluation.</li>
+<li>Cache hits are valid only when task, artifact, policy, evaluator, environment, seed, and relevant budget semantics match.</li>
+<li>Promotion uses fresh evidence across multiple tasks or seeds rather than a policy's self-report.</li>
+<li>Budget exhaustion in an inner episode does not consume undeclared outer authority.</li>
+</ul>
+<h3 id="acceptance-tests_8">Acceptance tests</h3>
+<ul>
+<li>Compare two deterministic policy artifacts across several task fixtures.</li>
+<li>Nested budget accounting and exhaustion.</li>
+<li>Held-out leakage rejection.</li>
+<li>Cache-key correctness and invalidation.</li>
+<li>Episode aggregation with failed and incomplete runs.</li>
+<li>Replay from an outer decision to every supporting inner evaluation.</li>
+</ul>
+<h3 id="out-of-scope_9">Out of scope</h3>
+<p>Learned schedulers, model-weight training inside the kernel, autonomous authority changes, production deployment, and claims that improvement generalizes beyond measured tasks.</p>
+<h2 id="milestone-10-trusted-concurrency-and-distribution">Milestone 10: trusted concurrency and distribution</h2>
+<h3 id="goal_10">Goal</h3>
+<p>Execute work concurrently on trusted workers without corrupting history, budgets, population state, or promotion decisions.</p>
+<h3 id="canonical-demonstration_8">Canonical demonstration</h3>
+<p>Several worker processes claim bounded work through leases. Workers finish out of wall-clock order, one lease expires, and one result is submitted twice. The reconstructed logical run preserves one trial across delivery retries, contains one accepted outcome, and has correct budget accounting.</p>
+<h3 id="deliverables_9">Deliverables</h3>
+<ul>
+<li>Durable work states and atomic lease acquisition, renewal, expiration, cancellation, and completion.</li>
+<li><code>WorkAttempt</code> identities that remain distinct from their logical <code>Trial</code> and <code>WorkItem</code>.</li>
+<li>Worker capability and resource declarations.</li>
+<li>Idempotent result submission and retry policy.</li>
+<li>Atomic budget reservation and settlement.</li>
+<li>Scheduler matching work requirements to trusted workers.</li>
+<li>Explicit consistency rules for durable facts, leases, heuristic frontier statistics, and promotion.</li>
+<li>Multi-process load and fault-injection test harness.</li>
+<li><code>examples/20_trusted_workers/</code>.</li>
+</ul>
+<h3 id="expected-behavior_9">Expected behavior</h3>
+<ul>
+<li>At most one completion has logical effect for an idempotency key.</li>
+<li>Expired workers cannot overwrite an accepted result.</li>
+<li>Out-of-order completion does not create future-information leakage.</li>
+<li>Durable events and evaluations are strongly inserted; heuristic statistics may tolerate documented staleness.</li>
+<li>Promotion and budget accounting use authoritative state.</li>
+<li>Local and distributed runs preserve the same task, artifact, trial, work, evaluation, and event semantics.</li>
+</ul>
+<h3 id="acceptance-tests_9">Acceptance tests</h3>
+<ul>
+<li>Competing lease claims.</li>
+<li>Lease renewal and expiration races.</li>
+<li>Duplicate and late result submission.</li>
+<li>Worker termination during execution and evaluation.</li>
+<li>Atomic budget reservation under concurrency.</li>
+<li>Projection rebuild after out-of-order events.</li>
+<li>Load test with simulated trusted workers before paid agent fleets.</li>
+</ul>
+<h3 id="out-of-scope_10">Out of scope</h3>
+<p>Arbitrary untrusted community code, Byzantine workers, public federation, reputation economies, and universal strong consistency.</p>
+<h2 id="milestone-11-contributed-and-federated-network">Milestone 11: contributed and federated network</h2>
+<h3 id="goal_11">Goal</h3>
+<p>Allow independent installations to contribute and exchange authorized agents, evaluators, artifacts, evidence, and experience subgraphs with verifiable provenance.</p>
+<h3 id="canonical-demonstration_9">Canonical demonstration</h3>
+<p>Two Meta-Evolve installations exchange a signed, policy-filtered experience bundle. The receiving installation verifies identity and content, imports only authorized records, preserves source provenance and restrictions, independently evaluates a promoted candidate, and processes a later retraction.</p>
+<h3 id="deliverables_10">Deliverables</h3>
+<ul>
+<li>Signed manifests for contributors, agents, evaluators, tasks, environments, and artifact schemas.</li>
+<li>Scoped identities and task-specific trust policies.</li>
+<li>Canonical export/import format for policy-filtered experience subgraphs.</li>
+<li>Verification of signatures, content digests, schema compatibility, causal closure, and access labels.</li>
+<li>Provenance, licensing, embargo, attribution, and retraction propagation through derivation edges.</li>
+<li>Independent or redundant evaluation for promotion-sensitive results.</li>
+<li>Minimal dispute and reputation projections based on recorded evidence.</li>
+<li><code>examples/21_federated_exchange/</code> using two local installations.</li>
+</ul>
+<h3 id="expected-behavior_10">Expected behavior</h3>
+<ul>
+<li>Import never grants broader access than the source export policy and receiving trust policy allow.</li>
+<li>Missing private ancestors can be represented by verifiable redacted references without fabricating lineage.</li>
+<li>Invalid signatures, digests, schemas, or causal references are rejected.</li>
+<li>Imported evaluations are evidence, not automatic local promotion.</li>
+<li>Retractions and permission changes identify dependent artifacts, datasets, skills, and checkpoints.</li>
+<li>Operators may keep private events while publishing permitted claims and artifacts.</li>
+</ul>
+<h3 id="acceptance-tests_10">Acceptance tests</h3>
+<ul>
+<li>Successful signed export/import between two installations.</li>
+<li>Tampered payload, signature, digest, and causal-edge rejection.</li>
+<li>Private, embargoed, and redacted source handling.</li>
+<li>Conflicting evaluator results and independent verification.</li>
+<li>Retraction propagation through derived records.</li>
+<li>Duplicate import idempotency and schema-version negotiation.</li>
+<li>Threat-model review covering code execution, evaluator collusion, poisoning, sybil behavior, reward hacking, and correlated replication.</li>
+</ul>
+<h3 id="out-of-scope_11">Out of scope</h3>
+<p>Token economies, unrestricted peer-to-peer execution, global consensus, claims that containers alone secure untrusted code, and scientific validity without domain-governed evidence and replication.</p>
+<h2 id="architecture-gate-across-all-milestones">Architecture gate across all milestones</h2>
+<p>The following test should remain true throughout development:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>new use case
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  = artifact codec and schema
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  + task and evaluator
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  + agent or mutator
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  + search/context configuration
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  + optional infrastructure adapters
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>new use case
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  ≠ coordinator branch
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>  ≠ new durable semantics
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  ≠ bypassed authority boundary
+</code></pre></div>
+<p>When a new domain does not fit, first determine whether it needs a general protocol capability or whether it lies outside evaluated artifact-improvement loops. The kernel should grow only for the former.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../architecture/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Architecture">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Architecture
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../implementation-plan/" class="md-footer__link md-footer__link--next" aria-label="Next: Implementation plan">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Implementation plan
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "navigation.footer", "navigation.path", "navigation.sections", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

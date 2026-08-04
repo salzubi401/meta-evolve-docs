@@ -1,0 +1,3105 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Programmable evaluated improvement loops over versioned artifacts">
+      
+      
+      
+      
+        <link rel="prev" href="../milestones/">
+      
+      
+        <link rel="next" href="../adding-an-artifact-domain/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Implementation plan - Meta-Evolve</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#implementation-plan" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Meta-Evolve" class="md-header__button md-logo" aria-label="Meta-Evolve" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Meta-Evolve
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Implementation plan
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/salzubi401/meta-evolve" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    salzubi401/meta-evolve
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Meta-Evolve" class="md-nav__button md-logo" aria-label="Meta-Evolve" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Meta-Evolve
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/salzubi401/meta-evolve" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    salzubi401/meta-evolve
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../start-here/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Start here
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning path
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Learning path
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/01-policy-tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understand search policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/02-policy-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compare uncertain search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/03-experience-tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reuse experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/04-push-pull/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inspect push and pull
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/05-derivation-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trace derivation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/06-crash-recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recover a run
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/notebooks/07-source-patching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evolve source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SealQA research labs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SealQA research labs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sealqa-research-labs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/research-labs/01-feedback-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feedback Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/research-labs/02-autodata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AutoData
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/research-labs/03-meta-harness-precursor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta-Harness precursor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/research-labs/04-evoskill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EvoSkill
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learn/autoresearch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoresearch setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operations-and-extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations and extensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../live-agent-track/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Live agent track
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributor-code-tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributor code tour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m8-design-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    M8 design capstone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../programming-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../milestones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation plan
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pre-milestone-api-spike" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-milestone API spike
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#staged-package-shape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Staged package shape
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-1-deterministic-in-memory-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 1: deterministic in-memory kernel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 1: deterministic in-memory kernel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#domain-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain records
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimal-ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal ports
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequential-coordinator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequential coordinator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-problem-and-exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference problem and exit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-2-replaceable-search-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 2: replaceable search policies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-3-shared-experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 3: shared experience
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-4-durable-local-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 4: durable local kernel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 4: durable local kernel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sqlite-object-and-transition-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQLite object and transition store
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filesystem-artifact-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filesystem artifact store
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recovery-scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recovery scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-5-executable-artifacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 5: executable artifacts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-6-native-first-sdk-proposer-portability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 6: native-first SDK proposer portability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-7-cross-domain-local-v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 7: cross-domain local v1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestones-89-harness-and-policy-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestones 8–9: harness and policy evolution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-10-trusted-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 10: trusted distribution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-11-contributed-and-federated-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 11: contributed and federated network
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interface-staging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface staging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-not-to-build-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What not to build first
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#near-term-definition-of-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Near-term definition of done
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding-an-artifact-domain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add an artifact domain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Executed notebooks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Executed notebooks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/02_policy_comparison/milestone_2_tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestone 2 tour: one loop, replaceable search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/02_policy_comparison/policy_comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fair comparison of three search policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/03_experience_reuse/milestone_3_tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestone 3 tour: experience that remains causal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/03_experience_reuse/push_pull_lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push and pull lab: two routes to the same experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/03_experience_reuse/derivation_comparison_lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Derivation, replay, and fair memory comparison
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/04_crash_recovery/crash_recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crash recovery for durable runs ()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/05_python_function/milestone_5_tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestone 5 tour: immutable source, external evidence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/19_autoresearch/autoresearch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoresearch, in miniature
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Live-only research notebooks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Live-only research notebooks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/18_sealqa_research_labs/01_feedback_descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feedback Descent lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/18_sealqa_research_labs/02_autodata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AutoData lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/18_sealqa_research_labs/03_meta_harness_precursor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta-Harness precursor lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notebooks/18_sealqa_research_labs/04_evoskill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EvoSkill lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research references
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pre-milestone-api-spike" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-milestone API spike
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#staged-package-shape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Staged package shape
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-1-deterministic-in-memory-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 1: deterministic in-memory kernel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 1: deterministic in-memory kernel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#domain-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain records
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimal-ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal ports
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sequential-coordinator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequential coordinator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-problem-and-exit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference problem and exit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-2-replaceable-search-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 2: replaceable search policies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-3-shared-experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 3: shared experience
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-4-durable-local-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 4: durable local kernel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Milestone 4: durable local kernel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sqlite-object-and-transition-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQLite object and transition store
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filesystem-artifact-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filesystem artifact store
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recovery-scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recovery scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-5-executable-artifacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 5: executable artifacts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-6-native-first-sdk-proposer-portability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 6: native-first SDK proposer portability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-7-cross-domain-local-v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 7: cross-domain local v1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestones-89-harness-and-policy-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestones 8–9: harness and policy evolution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-10-trusted-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 10: trusted distribution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#milestone-11-contributed-and-federated-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Milestone 11: contributed and federated network
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interface-staging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface staging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-not-to-build-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What not to build first
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#near-term-definition-of-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Near-term definition of done
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/salzubi401/meta-evolve/edit/main/docs/implementation-plan.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/salzubi401/meta-evolve/raw/main/docs/implementation-plan.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="implementation-plan">Implementation Plan</h1>
+<p>This document is the technical companion to the canonical <a href="../milestones/">milestone roadmap</a>. The roadmap owns implementation order, demonstrations, and acceptance gates. The <a href="../programming-model/">programming model</a> owns public API signatures. This plan records only the package boundaries, ports, adapters, and technical choices needed to implement each milestone.</p>
+<h2 id="pre-milestone-api-spike">Pre-milestone API spike</h2>
+<p><strong>Status: complete.</strong> The spike lives under <code>experiments/00_api_spike/</code> and ran both required demonstrations; its ergonomic findings are recorded in <a href="https://github.com/salzubi401/meta-evolve/blob/main/experiments/00_api_spike/real_model_findings.md"><code>real_model_findings.md</code></a> and reflected in the programming model. The section below is kept as the record of what the spike was scoped to prove.</p>
+<p>Before creating the durable package, build a disposable one-to-three-file prototype under <code>experiments/00_api_spike/</code>.</p>
+<p>It must run the same target API against:</p>
+<ol>
+<li>deterministic integer improvement with greedy and best-of-N search;</li>
+<li>a real-model prompt-optimization example with a small callable proposer and evaluator.</li>
+</ol>
+<p>The spike may use closures, live objects, and an in-memory list. It does not need events, ports, grants, persistence, or production provider handling. Its purpose is to test whether <code>Task</code>, <code>meta.run</code>, <code>Proposer</code>, <code>Evaluator</code>, <code>SearchProgram</code>, and <code>Run</code> feel coherent in working code.</p>
+<p>Treat the implementation as disposable. Feed ergonomic findings back into the programming model, then implement only the justified contracts in Milestone 1.</p>
+<h2 id="staged-package-shape">Staged package shape</h2>
+<p>The expected package may eventually look like this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>src/meta_evolve/
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── domain/
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│   ├── ids.py
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│   ├── task.py
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│   ├── artifact.py
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│   ├── proposal.py
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│   ├── trial.py
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│   ├── evaluation.py
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│   ├── evidence.py
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│   ├── policy.py
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│   ├── budget.py
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│   ├── work.py
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│   └── events.py
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>├── ports/
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>│   ├── artifact_store.py
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>│   ├── event_store.py
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>│   ├── proposer.py
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>│   ├── evaluator.py
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>│   ├── experience_graph.py
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>│   ├── experience_reader.py
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>│   ├── runtime.py
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>│   ├── workspace.py
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>│   └── sandbox.py
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>├── application/
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>│   ├── coordinator.py
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>│   ├── projections.py
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>│   ├── context.py
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>│   └── experience_access.py
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>├── adapters/
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>│   ├── memory/
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>│   ├── sqlite/
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>│   ├── filesystem/
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>│   ├── callable/
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>│   ├── fake/
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>│   └── sdk/
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>└── policies/
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>    ├── greedy.py
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>    ├── population.py
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>    └── context.py
+</code></pre></div>
+<p>This is a destination map, not a command to create every module upfront. A module or port appears only when its milestone requires an independently testable seam. Domain code contains immutable values and transitions; adapters contain infrastructure; the coordinator depends only on the ports introduced so far.</p>
+<h2 id="milestone-1-deterministic-in-memory-kernel">Milestone 1: deterministic in-memory kernel</h2>
+<p><strong>Status: complete (July 21, 2026).</strong> The exit gate is covered by the canonical
+number-search example and the retained-event reconstruction acceptance suite.
+This is event-to-projection replay and built-in decision reproduction, not
+process restart or resume.</p>
+<h3 id="domain-records">Domain records</h3>
+<p>Implement frozen, serializable models for only the first complete logical loop:</p>
+<ul>
+<li><code>Task</code></li>
+<li><code>Artifact</code></li>
+<li><code>Proposal</code></li>
+<li><code>TrialSpec</code>, <code>Trial</code>, and <code>TrialOutcome</code></li>
+<li><code>Evaluation</code> and <code>Evidence</code></li>
+<li><code>SearchDecision</code>, <code>PolicyRef</code>, and <code>OperatorSpec</code></li>
+<li><code>Budget</code> and <code>Usage</code></li>
+<li>the minimal typed events and projected <code>SearchState</code></li>
+</ul>
+<p><code>Trial</code> is the logical experiment. <code>WorkItem</code> is its delivery envelope and stays an internal kernel record: the sequential local coordinator may introduce it when scheduling needs a seam, and it never appears in user-facing types. Do not add leases or retry-attempt identities until distribution requires them.</p>
+<p>Use opaque typed identifiers and schema versions on durable envelopes. Keep semantic artifact kind separate from storage representation. Simple integers or strings are normalized through a basic artifact codec rather than special-cased by the coordinator.</p>
+<p>Durable foreign references use explicit <code>_id</code> and <code>_ids</code> suffixes. The common artifact envelope exposes <code>kind</code>, <code>representation</code>, <code>schema_version</code>, and <code>parent_ids</code>; <code>Task.artifact_kind</code> names the same semantic classification as <code>Artifact.kind</code>.</p>
+<h3 id="minimal-ports">Minimal ports</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ArtifactStore</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">artifact</span><span class="p">:</span> <span class="n">Artifact</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">artifact_id</span><span class="p">:</span> <span class="n">ArtifactId</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Artifact</span><span class="p">:</span> <span class="o">...</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">class</span><span class="w"> </span><span class="nc">EventStore</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">append</span><span class="p">(</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="n">run_id</span><span class="p">:</span> <span class="n">RunId</span><span class="p">,</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="n">expected_version</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="n">events</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">EventEnvelope</span><span class="p">],</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span> <span class="o">...</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        <span class="n">run_id</span><span class="p">:</span> <span class="n">RunId</span><span class="p">,</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        <span class="n">after</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">EventEnvelope</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span> <span class="o">...</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="k">class</span><span class="w"> </span><span class="nc">Proposer</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">propose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CandidateLike</span> <span class="o">|</span> <span class="n">ProposalResult</span><span class="p">:</span> <span class="o">...</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="k">class</span><span class="w"> </span><span class="nc">Evaluator</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candidate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EvaluationLike</span><span class="p">:</span> <span class="o">...</span>
+</code></pre></div>
+<p>Start with callable proposer and evaluator adapters plus in-memory stores. Do not introduce <code>ExperienceGraph</code>, SDK runtime, workspace, sandbox, or SQLite ports in this milestone.</p>
+<p>M1.1 deliberately made <code>Artifact</code> responsible for freezing payloads, validating content digests, and carrying occurrence identity. Storage adapters therefore accept complete, already validated artifacts and preserve them as-is instead of reconstructing artifacts from separate payload and metadata arguments.</p>
+<p>M1.3 keeps replay as a pure <code>events → SearchState</code> fold. Durable event facts
+record the run configuration, policy decisions, completed trials, artifact
+occurrences, and evaluations; the disposable state derives best-so-far,
+failures, usage, remaining budgets, and decision-scoped randomness through
+plain properties. Historical budget overages remain replayable and floor
+projected remaining resources at zero, while <code>Budget.remaining_after</code> retains
+its strict rejection semantics for prospective accounting. Named seeds and
+logical decision ids use versioned SHA-256 derivation rather than Python's
+process-randomized hash.</p>
+<p>The M1.3 <code>SearchProgram</code> contract intentionally contains only <code>next(state)</code>.
+Archive composition remains Milestone 2 work. Proposal submission facts,
+in-flight trial transitions, authority checks, and idempotent completion remain
+with the callable-adapter and coordinator slices that can establish their full
+semantics.</p>
+<p>M1.4 adds the independently testable callable boundary. <code>Proposer</code> and
+<code>Evaluator</code> ports operate on decoded Python values, and local callable adapters
+normalize plain or rich returns into immutable <code>ProposalResult</code> and
+<code>EvaluationResult</code> records. <code>EvidenceDraft</code> carries validated evidence content
+before the coordinator assigns identity. Evaluator normalization validates
+finite metrics, non-negative uncertainty, and coverage of the task objectives;
+additional diagnostic metrics remain valid, while objective direction stays in
+the task. Callable-reported tokens and wall time remain attributable to the
+action, but nonzero trial or evaluation counts are invalid because the
+coordinator owns those counts. When a returned failure is converted to
+<code>InvalidOutput</code> — a role-mismatched failure kind or a count violation — the
+original failure's kind, message, and details are preserved in the invalid
+output's details. These boundary records are not durable types and
+do not expand the root public API or serialization allowlist.</p>
+<p>M1.5 implements the sequential coordinator and durable conversion. One rich
+lifecycle projection is the replay validator and derives the smaller
+policy-facing <code>SearchState</code>. The coordinator commits a causal bootstrap trial
+without charging a successor attempt, commits successor proposals and artifacts
+before evaluation, mints evidence identity, preserves lineage across evaluator
+failure, and accounts for authoritative proposal attempts and evaluator calls.</p>
+<p>M1.6 records one durable <code>SearchSpec</code> on <code>RunStarted</code>: the policy reference,
+frozen declared configuration, and authorized proposer. Internal
+<code>prepare_search()</code> composes that declaration with the executable program and a
+deterministic identity key. Presets bind themselves structurally; <code>Greedy.bind</code>
+owns its <code>mutate</code> operator and unit trial allocation, while already executable
+custom programs pass through unchanged. This keeps preset-specific binding and
+identity formatting out of <code>run()</code> and lets retained events reproduce built-in
+Greedy decisions without adding replay to the root API.</p>
+<h3 id="sequential-coordinator">Sequential coordinator</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">state</span> <span class="o">=</span> <span class="n">projections</span><span class="o">.</span><span class="n">search_state</span><span class="p">(</span><span class="n">run_id</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">decision</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">next</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">decision</span><span class="p">,</span> <span class="n">Stop</span><span class="p">):</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="n">coordinator</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="n">decision</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="k">break</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">coordinator</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">decision</span><span class="p">)</span>
+</code></pre></div>
+<p>For a <code>TrialSpec</code>, the coordinator:</p>
+<ol>
+<li>validates authority and remaining budget;</li>
+<li>derives and records named deterministic random substreams;</li>
+<li>commits the stable <code>Trial</code> identity with the decision;</li>
+<li>allocates a local <code>WorkItem</code>;</li>
+<li>invokes the proposer and commits its proposal before evaluation;</li>
+<li>captures the successor artifact occurrence;</li>
+<li>commits the execution <code>TrialOutcome</code> and usage;</li>
+<li>invokes the evaluator outside candidate authority and records its separate evaluation and evidence.</li>
+</ol>
+<p>The seed follows the same causal record chain through a coordinator-owned
+bootstrap trial at logical step zero. It consumes one evaluation but zero
+successor trials, so policy logical step one and <code>Greedy.max_trials</code> begin with
+the first proposer attempt. Projected counts sum the authoritative usage on
+outcomes and evaluations rather than counting record collections.</p>
+<p>Operator policies return typed <code>OperatorSpec</code> values. User-facing string shorthands are normalized before the trial is committed.</p>
+<h3 id="reference-problem-and-exit">Reference problem and exit</h3>
+<p>Use integer search. The same task, initial artifact, root random seed, policy, and budget must produce the same decisions and projected state. Rebuilding a fresh in-memory projection from the retained event list must reproduce the result; process restart and filesystem persistence remain Milestone 4 concerns.</p>
+<p>The kernel exits this milestone when trial identity, lineage, budgets, failure taxonomy, deterministic randomness, duplicate completion, replay, and policy replacement have focused tests.</p>
+<h2 id="milestone-2-replaceable-search-policies">Milestone 2: replaceable search policies</h2>
+<p>M2.1 establishes the shared durable boundary before adding another preset.
+<code>ArchiveUpdate</code> is a record-only <code>SearchDecision</code>: projection validates its
+evaluation, candidate, admission or rejection, optional eviction, and complete
+rank-ordered membership. <code>PolicyDecisionExplained</code> immediately links rationale
+to a decision without changing the frozen M1 decision or trial schemas.</p>
+<p>The runtime commits trials, archive updates, and stops through one application
+path. Policies may optionally describe a decision and name the random streams
+they used; the runtime derives the recorded seeds. Deterministic fallbacks keep
+a custom policy's required contract at <code>next(state)</code> only. The initial shared
+conformance harness covers Greedy and such a minimal custom policy. Ranking,
+tournament selection, and composed archive or stopping policies wait for a
+second concrete use in BestOfN or Population.</p>
+<p>M2.2 adds <code>BestOfN(max_trials=20)</code> through the same preset-binding and
+<code>SearchProgram.next(state)</code> contracts as Greedy. It always expands the seed,
+uses the derived stable top-1 result view, emits no <code>ArchiveUpdate</code>, and binds a
+<code>mutate</code> operator with a one-trial, one-evaluation allocation narrowed by
+remaining budget. Its versioned declaration is <code>best-of-n@1</code> with frozen
+<code>max_trials</code> configuration. The bootstrap evaluation participates in ranking
+but consumes neither a successor trial nor a policy step.</p>
+<p>Keep this small implementation parallel to Greedy in M2.2. M2.3 is the
+extraction checkpoint: Population supplies the third concrete policy shape
+needed to judge whether shared selection, allocation, stopping, ranking, or
+archive seams simplify the code. Put Greedy, BestOfN, Population, and a minimal
+custom policy behind one conformance suite without adding coordinator cases.</p>
+<p>M2.3 adds <code>Population(size=3, tournament_size=2, max_trials=20)</code> through the
+same preset contracts. The extraction checkpoint yielded exactly one shared
+seam: the private stable-ranking primitive <code>rank_evaluations</code> in the domain,
+which now backs the incumbent view, the derived result view, and population
+membership. Selection, allocation, and stopping seams stay inlined; three
+policies did not justify them. Population processes every evaluation through
+one record-only <code>ArchiveUpdate</code> before any stop, and draws tournament members
+from the named <code>selection</code> stream with a self-contained integer draw rather
+than <code>random.Random</code>, whose sampling algorithm may change across Python
+versions and would break historical decision reproduction. When no member is
+admitted it stops with <code>population_empty</code> rather than expanding a non-member
+seed.</p>
+<p>M2.4 completes the milestone with frozen, slotted <code>RunSummary</code> and
+<code>RunComparison</code> application views. <code>Run.summary()</code> retains only immutable
+identities, declarations, usage, content references, and frozen payload values;
+it carries no storage or run-token dependency. <code>Run.compare()</code> rejects every
+task, primary-objective, budget, initial-artifact, evaluator, and proposer
+declaration mismatch independently. Policy declarations/configurations and root
+seeds may differ, and exact primary scores tie without secondary tiebreaking.
+The views remain outside the durable serialization allowlist.</p>
+<p><code>examples/02_policy_comparison/</code> owns the deterministic 40-seed benchmark and
+aggregation. A tiny <code>main.py</code> executes it under its canonical local callable
+identity, while an executed notebook presents the full score, evaluation, and
+usage distributions plus representative topology. Notebook verification uses
+locked <code>nbconvert</code> tooling and always writes execution output to a temporary
+file. The companion executed <code>milestone_2_tour.ipynb</code> is the guided entry point
+for the completed milestone and keeps internal projection inspection explicitly
+separate from the simple callable path.</p>
+<p>The coordinator must not know which policy is active. <code>Selector</code>, <code>Allocator</code>, <code>OperatorPolicy</code>, <code>ArchivePolicy</code>, and <code>StopPolicy</code> may begin as small protocols or values only when at least two implementations justify each seam.</p>
+<p>Record each decision's policy version, logical identity, observed state reference, named random substreams, and rationale metadata. Comparisons use equal declared evaluation budgets and deterministic tie-breaking.</p>
+<h2 id="milestone-3-shared-experience">Milestone 3: shared experience</h2>
+<p>Add the first experience-specific ports only now:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ExperienceGraph</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span> <span class="o">...</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">ancestors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span> <span class="o">...</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span> <span class="o">...</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">siblings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span> <span class="o">...</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">frontier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span> <span class="o">...</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">trace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span> <span class="o">...</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">state_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span> <span class="o">...</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="k">class</span><span class="w"> </span><span class="nc">ExperienceReader</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">record_kinds</span><span class="o">=</span><span class="p">(),</span> <span class="n">failure_kinds</span><span class="o">=</span><span class="p">(),</span> <span class="n">as_of</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExperienceObservation</span><span class="p">:</span> <span class="o">...</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">as_of</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExperienceObservation</span><span class="p">:</span> <span class="o">...</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">ancestors</span><span class="p">(</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>        <span class="bp">self</span><span class="p">,</span> <span class="n">trial_ref</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">as_of</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExperienceObservation</span><span class="p">:</span> <span class="o">...</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">siblings</span><span class="p">(</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>        <span class="bp">self</span><span class="p">,</span> <span class="n">trial_ref</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">as_of</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExperienceObservation</span><span class="p">:</span> <span class="o">...</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">compare</span><span class="p">(</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>        <span class="bp">self</span><span class="p">,</span> <span class="n">left_trial_ref</span><span class="p">,</span> <span class="n">right_trial_ref</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">as_of</span><span class="o">=</span><span class="kc">None</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ExperienceComparison</span><span class="p">:</span> <span class="o">...</span>
+</code></pre></div>
+<p>M3.1 is the read-only temporal projection only. It adds durable
+<code>ExperienceRef(run_id, kind, occurrence_id)</code> values based on existing occurrence
+identities and internal immutable <code>ExperienceRecord</code>, trial-centered
+<code>ExperienceNode</code>, <code>ExperienceQuery(task_id, run_id, as_of)</code>, and
+<code>ExperienceState</code> views. <code>replay_experience_graph()</code> first uses the validated run
+replay path, then attaches the exact committed decision, explanation, proposal,
+artifact-creation, outcome, evidence, evaluation, and completed-trial records.
+It does not change coordinator, event-store, artifact-store, existing identity,
+event-byte, or package-root callable contracts.</p>
+<p>Parent edges follow declared parent artifact occurrences to their producing
+trials. Relations preserve parent order and deduplicate; returned nodes sort by
+<code>(logical_step, trial_id)</code>. Ancestors exclude self, siblings include self,
+frontier returns visible causal leaves rather than archive members, and a trace
+covers the target trial plus its accessible ancestors, with records sorted by
+event sequence plus a fixed kind order. Historical <code>as_of</code> boundaries are
+inclusive, including bootstrap step zero.</p>
+<p>One private access predicate enforces matching task and run, inclusive logical
+time, local occurrence, visibility, and synthetic retraction. All inaccessible
+direct targets raise the same content-free <code>ExperienceAccessDenied</code>; collection
+queries omit inaccessible nodes and do not cross them. The hidden, retracted,
+and non-local sets exist only to test the filtering contract. They are not a
+public policy abstraction and establish no Milestone 11 governance contract.</p>
+<p>M3.2 implements <code>NoMemory</code>, <code>AncestorsOnly</code>, and <code>BestSibling</code> with direct
+<code>max_records=20</code> and <code>max_chars=8_000</code> defaults. <code>None</code> and <code>NoMemory()</code> add no
+declaration, wrapper, identity input, fact, or trial policy. A non-default
+<code>ContextSpec</code> is the next run-identity input after the M1/M2 segments and is
+declared after bootstrap.
+A generic search wrapper stamps its <code>PolicyRef</code> into successor <code>TrialSpec</code>
+values; a separate generic coordinator operation selects or reloads the exact
+bundle. No coordinator branch depends on a policy or graph relation.</p>
+<p>Without pull access, selection follows <code>PolicyDecisionMade →
+PolicyDecisionExplained → ContextSelected → ProposalSubmitted</code>; with pull
+access, grant issuance and audited operations sit between selection and
+proposal. Replay validates declaration authority, ordering, uniqueness,
+observed version, strictly prior visible references, and exact source values,
+then returns the committed bundle without invoking the selector or renderer.
+Context record/render usage remains separate from task <code>Usage</code>.</p>
+<p>M3.3 adds run-level <code>PullAccess</code>, durable <code>ExperienceSpec</code> and per-successor
+<code>ExperienceGrant</code>, scoped pull operations, exact observations/comparisons, and
+cumulative <code>ExperienceUsage</code>. The serialized access spec follows any
+<code>ContextSpec</code> in run identity. <code>None</code> contributes no identity segment, event,
+grant, reader, or compatibility change.</p>
+<p>The local grant fixes task, run, trial, and <code>as_of=logical_step - 1</code>, then
+enforces operation, result, record, and independently rendered-character
+bounds. Each structurally valid call commits an attempt before validation and
+then exactly one success, denial, or exhaustion. Attempt 21 under the default
+20-operation limit is charged as operation 21 and audited as exhausted.
+Successes store the exact returned value; replay holds each success to the
+shared deterministic contract against committed sources and returns the
+committed value without re-running live retrieval, traversal, or rendering
+logic. The reader holds only its grant, a view of its own committed
+operations, a grant-scoped graph built once per grant, and a trial-bound
+append capability for the permitted audit facts. Identity
+and visibility remain single-user stubs. Principal authorization, licensing,
+and federation policy are deliberately deferred; future-information leakage
+and observation recording are not.</p>
+<p>Evaluate push-only context, pull-only exploration, combined access, and no-memory baselines under equal budgets.</p>
+<p>M3.4 adds no new lifecycle event. Durable and callable proposals gain an
+ordered <code>derived_from</code> tuple whose empty default is canonically omitted. A
+small application contract reconstructs the trial observation ledger from
+committed context selections and successful pull results, then serves both live
+completion and proposal replay. The coordinator applies resource exhaustion,
+derivation policy, and reported proposer failure in that order.</p>
+<p><code>RunExperienceUsage</code> is a derived application view. It sums committed bundle
+usage and the final cumulative pull ledger once per grant. <code>RunSummary</code> carries
+both memory declarations and this projection; <code>RunComparison</code> allows different
+memory declarations and reports exact equality flags. The canonical
+<code>examples/03_experience_reuse/</code> experiment closes the milestone with all four
+memory variants under identical non-memory declarations and budgets.</p>
+<h2 id="milestone-4-durable-local-kernel">Milestone 4: durable local kernel</h2>
+<p><strong>Status: complete (July 24, 2026; <a href="https://github.com/salzubi401/meta-evolve/issues/4">#4</a>, <a href="https://github.com/salzubi401/meta-evolve/pull/47">#47</a>).</strong> The implementation uses filesystem content-addressed artifacts, an append-only SQLite event stream, explicit component manifests, atomic storage composition, and shared replay/resume validation.</p>
+<h3 id="sqlite-object-and-transition-store">SQLite object and transition store</h3>
+<p>Store immutable domain objects as normalized append-only records or content-addressed envelopes. Store lifecycle changes in an append-only event ledger. Creation of an object and its corresponding transition event occurs in one transaction.</p>
+<p>Add:</p>
+<ul>
+<li>optimistic event-stream concurrency;</li>
+<li>durable run, trial, work-item, usage, population, and experience projections;</li>
+<li>stable idempotency keys and logical steps;</li>
+<li>exact context bundles and experience-query results;</li>
+<li>as-of search-state reconstruction;</li>
+<li>explicit schema versions and migrations.</li>
+</ul>
+<p>Object records are authoritative for object content. Events are authoritative for the fact that transitions occurred. Projections are disposable and rebuildable.</p>
+<h3 id="filesystem-artifact-store">Filesystem artifact store</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>.meta-evolve/
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>├── artifacts/sha256/...
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>├── runs/...
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>└── meta-evolve.sqlite
+</code></pre></div>
+<p>Identical payload bytes reuse content identity while distinct artifact occurrences retain trial, proposal, contributor, and parent lineage.</p>
+<h3 id="recovery-scenario">Recovery scenario</h3>
+<p>Terminate a deterministic run at each important transition, reconstruct a new coordinator from disk, resume from committed state, and compare it with an uninterrupted run. Closures are rejected in <code>durable-local</code> mode or cause an explicit capability error before execution; they never silently create a run advertised as resumable.</p>
+<h2 id="milestone-5-executable-artifacts">Milestone 5: executable artifacts</h2>
+<p><strong>Status: complete.</strong> Milestone 5 is complete through the M5.4 canonical clamp
+acceptance. The closure adds integrated assertions, an executed tour, and
+documentation only; it adds no production port, schema, registry, patch
+format, or authority claim.</p>
+<p>M5.1 ships the first synchronous source-workspace vertical:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">WorkspaceProvider</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">materialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">artifact</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Workspace</span><span class="p">:</span> <span class="o">...</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">capture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workspace</span><span class="p">:</span> <span class="n">Workspace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span> <span class="o">...</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">dispose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workspace</span><span class="p">:</span> <span class="n">Workspace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="k">class</span><span class="w"> </span><span class="nc">ProposerRunner</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="n">component</span><span class="p">:</span> <span class="n">ComponentRef</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">validate_run</span><span class="p">(</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>        <span class="o">*</span><span class="p">,</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>        <span class="n">artifact_kind</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>        <span class="n">artifact_representation</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>        <span class="n">objectives</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Objective</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>        <span class="n">budget</span><span class="p">:</span> <span class="n">Budget</span><span class="p">,</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>        <span class="n">experience</span><span class="p">:</span> <span class="n">ExperienceSpec</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>        <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>        <span class="n">parents</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Artifact</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>        <span class="n">context</span><span class="p">:</span> <span class="n">ProposerContext</span><span class="p">,</span>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProposalResult</span><span class="p">:</span> <span class="o">...</span>
+</code></pre></div>
+<p><code>SourceTree</code> uses the stable <code>utf8-tree-v1</code> representation. <code>PatchProposer</code>
+accepts one exact-file command, while <code>PatchResult</code> carries the same evidence,
+usage, metadata, failure, and derivation information as an ordinary proposal.
+A decoded-value runner preserves the original callable path; the coordinator
+does not branch on either runner.</p>
+<p><code>DirectoryWorkspaces</code> copies immutable source into a fresh private directory,
+captures through the same source validation, and disposes before result
+commitment. A disposal failure is an infrastructure failure and prevents
+success commitment because M5.1 has no honest mixed
+success-plus-infrastructure-warning outcome.</p>
+<p>M5.2 ships the synchronous <code>SandboxProvider</code>, immutable <code>ProcessSpec</code> and
+<code>ProcessResult</code>, and the clearly named <code>DevelopmentSubprocessSandbox</code>. The
+POSIX adapter enforces an absolute executable, workspace-contained normalized
+cwd, exact declared environment, timeout, independent raw-byte output bounds,
+whole-process-group termination, and lifecycle cleanup. Policy, timeout,
+resource, and infrastructure failures remain typed; ordinary nonzero exits are
+not interpreted. Narrow clock and process-operation seams make precedence and
+cleanup behavior deterministic under test. It makes no claim to secure
+arbitrary untrusted code. Add Git worktrees only as an optimization.</p>
+<p>M5.3 ships <code>CommandEvaluator</code>, <code>EvaluationEnvironment</code>, and root-exported
+<code>ProcessSpec</code>. The evaluator is a declared local callable component and uses
+the existing callable-evaluator path. Its digest-backed component version
+commits the complete command, environment, scoring, adapter, and exit-protocol
+semantics. Task construction invokes a general optional evaluator
+<code>validate_task</code> hook after normalization; no concrete evaluator branch enters
+the coordinator.</p>
+<p>The adapter materializes only a <code>SourceTree</code>, runs the declared process, and
+always disposes the workspace. Exit <code>0</code> and <code>1</code> produce passing and failing
+metrics; other exits become <code>EvaluatorFailure</code>. Existing process failures stay
+typed and non-rankable. Environment and bounded process-result evidence remain
+separate from metrics, and evaluator usage receives process wall time without
+claiming coordinator-owned evaluation counts. Cleanup failure overrides prior
+completion while retaining its classification, evidence, and usage.</p>
+<p>The evaluator-owned grader remains outside the candidate mutation surface.
+The development sandbox still makes no hostile-code filesystem-isolation
+claim; stronger providers remain replaceable at the same structural port.</p>
+<p>M5.4 pins deterministic content digests and semantic outcomes, while treating
+measured wall time as occurrence data. Reopened durable storage supports
+best-artifact and lineage queries; cold resume of these local live components
+fails explicitly and without side effects. M6 ships native SDK proposers as
+local-only components; portable reconstruction of patch, command, and native
+SDK proposer components remains later work.</p>
+<p>The M5-owned file audit splits patch-proposer core behavior from
+lifecycle/resume failures and sandbox declarations/contracts from process
+execution. Canonical design documents remain cohesive source-of-truth
+exceptions to the 300-line guideline, and unrelated pre-M5 suites are not
+refactored as part of this closure.</p>
+<h2 id="milestone-6-native-first-sdk-proposer-portability">Milestone 6: native-first SDK proposer portability</h2>
+<p><strong>Status: complete (July 28, 2026).</strong> Milestone 7 has since completed;
+Milestone 8 is next. The former
+M6.1–M6.3 implementation was removed. It introduced a provider framework before
+one adapter proved the seam, and its Claude walking skeleton coupled tests to
+that framework. Every M6.0 measurement and fixture remains canonical input to
+the replacement adapters.</p>
+<p>M6 closed through four acceptance-gated repair slices:</p>
+<ol>
+<li><strong>R1 — restore the proposer seam (complete).</strong> Put the frozen, slotted,
+   keyword-only <code>ProposerContext</code> in the proposer port with required randomness,
+   step, ordered objectives, exact context bundle, and optional experience
+   reader. Accept non-callable <code>propose(parent, context)</code> objects and preserve
+   runner precedence. Replace proposer-side Task validation with pure
+   <code>validate_run(...)</code>; invoke it once after binding in both <code>run</code> and <code>resume</code>,
+   before provider/workspace activity or writes. Preserve <code>CapabilityError</code>,
+   sanitize every other validator failure, and retain its cause. Widen only
+   proposer <code>ComponentRef</code> adapters to structural objects. Configured proposers
+   own a secret-safe identity payload and digest-backed version; declared local
+   proposers remain non-resumable and fail closed in <code>durable-local</code>.</li>
+<li><strong>R2 — prove one thin Claude proposer (complete).</strong> The closed
+   <code>meta_evolve.claude.Claude</code> structural proposer owns its worker loop, fresh
+   native session, prompt rendering, workspace lifecycle, fixed
+   tool/approval/sandbox profile, output decoding, timeout interruption,
+   cleanup, and Claude-qualified evidence. <code>validate_run</code> rejects unsupported
+   artifact, budget, and experience combinations before SDK startup. Recorded
+   replay and four separate opt-in live cases replace the removed walking
+   skeleton. No shared provider transport or option model was added.</li>
+<li><strong>R3 — prove Codex without reshaping R1 (complete).</strong> The independent thin
+   Codex proposer runs at the same structural seam and shares only a test
+   conformance helper with Claude. Native thread/turn, discovery, approvals,
+   sandbox, structured output, and interruption differences stay inside the
+   adapter. Four credentialed live cases, a reviewed proposer capture, and all
+   seven Codex drift scenarios passed with <code>gpt-5.4-mini</code> on July 28, 2026.</li>
+<li><strong>R4 — compare and close (complete).</strong> The provider-selectable repository
+   example uses identical task, source, <code>PullAccess</code>, evaluation/trial bounds,
+   and unbounded core token/wall declarations. Shared deterministic conformance
+   freezes only producer-neutral outcomes. Claude and Codex bind native pull
+   tools over the authoritative reader without a new public type, port,
+   coordinator branch, or durable schema. Five credentialed cases and reviewed
+   proposer and pull captures passed per provider. Claude drift matched fully;
+   Codex R3 drift matched fully and the R4 HTTP/granular-approval mechanism was
+   positively measured. Two closure <code>pull_transport</code> drift retries were honest
+   no-tool-call model-compliance misses, without weakening deterministic
+   conformance or the direct mechanism gates.</li>
+</ol>
+<p>R2 keeps the public facade in <code>meta_evolve/claude.py</code>; declaration, preflight,
+identity, and workspace orchestration live in <code>claude_proposer.py</code>; deterministic
+prompt/context/schema conversion in <code>claude_prompt.py</code>; SDK options and lifecycle
+in <code>claude_transport.py</code>; immutable execution records in
+<code>claude_snapshots.py</code>; usage, evidence, and failure classification over those
+records in <code>claude_normalization.py</code>; the fixed authority profile and deadline
+bounds in <code>claude_profile.py</code>; and the synchronous worker boundary in
+<code>claude_loop.py</code>. The typed SDK inspection/conversion helper remains private
+and provider-specific. <code>claude_profile.py</code> is the single owner of the native
+option set, so transport configuration, recorded evidence, and configured
+identity cannot disagree about the ceiling actually requested.</p>
+<p>The recorded replay record is the Claude-only <code>proposer</code> scenario of the
+existing M6.0 capture entry point, committed beside the other Claude fixtures.
+Its replay input and drift-comparable evidence are produced by the capture
+module's pure builders, so the committed record is regenerable rather than
+transcribed, and a shape change fails the library replay test. The committed
+record was recaptured from a credentialed <code>claude-sonnet-4-5</code> run on July 28,
+2026. <code>meta-evolve[claude]</code> pins
+<code>claude-agent-sdk==0.2.128</code> and adds <code>jsonschema&gt;=4.26,&lt;5</code> only at the adapter
+edge so provider-decoded output is independently validated; core dependencies
+remain empty.</p>
+<p>Shipped Claude accepts <code>SourceTree</code>, arbitrary ordered objectives, exact
+pushed context, native pull access, no finite token budget, and either an
+unbounded wall
+budget or a finite wall budget satisfying
+<code>timeout_seconds &lt;= budget.wall_seconds</code>. Its closed profile is
+<code>Read</code>/<code>Edit</code>/<code>Write</code>, <code>acceptEdits</code>, the <code>claude_code</code> preset, empty setting
+sources and ordinary MCP configuration, an enabled
+empty-network-allowlist sandbox, and four turns. Pull adds one in-process MCP
+server with the six experience tools and uses 12 turns. Unknown accounting
+after possible execution escapes the local run; workspace capture remains the
+candidate authority, and partial files from failed turns are never committed.</p>
+<p>R3 mirrors the package split without sharing a production runtime:
+<code>meta_evolve/codex.py</code> is the provider-only facade;
+<code>codex_proposer.py</code> owns declaration, identity, preflight orchestration, and
+workspace capture; <code>codex_prompt.py</code> renders deterministic pushed context;
+<code>codex_transport.py</code>, <code>codex_sdk.py</code>, and <code>codex_loop.py</code> own the pinned native
+lifecycle; <code>codex_home.py</code> owns the disposable authority boundary; and
+<code>codex_snapshots.py</code>, <code>codex_normalization.py</code>, and <code>codex_profile.py</code> own
+SDK-free evidence, failure/accounting conversion, and the literal native
+profile. The root exports remain unchanged.</p>
+<p>Shipped Codex accepts <code>SourceTree</code>, ordered objectives, exact pushed context,
+native pull access, and no finite token or wall budget. Its constructor is limited to
+<code>model</code>, <code>instructions</code>, optional <code>output_schema</code>, and an optional
+<code>WorkspaceProvider</code>. The fixed profile uses one fresh client, an ephemeral
+exact-cwd thread, deny-all approvals, workspace-write sandboxing, and one
+medium-effort turn. A disposable private home copies only regular file-backed
+OAuth bytes at mode <code>0600</code>, excludes ambient home authority, and installs an
+exact-cwd untrusted gate that keeps project <code>.codex</code> inactive. Exact parent
+<code>AGENTS.md</code> remains workspace input through native discovery.</p>
+<p>Typed profile readback must pass before mutation records are accepted, and it
+reaches only fields that response reports: project configuration changing
+nothing reported there is prevented by the untrusted gate rather than detected.
+The private home isolates configuration files, not the process environment,
+which the pinned SDK cannot clear, and workspace-write leaves <code>/tmp</code> and
+<code>$TMPDIR</code> writable. Native shell, discovery, and possible provider tools remain
+irreducible; no exact tool ceiling or hostile-process/network containment is
+claimed. Provider prose
+is discarded, workspace files are the sole candidate, and structured final
+text is independently revalidated as evidence. Codex usage is input plus
+output, with cached input and reasoning output retained as inclusive detail.
+Cancellation interrupts and drains/closes where possible, but descendant
+cleanup remains unconfirmed. Every finite wall budget is rejected, so an
+unresponsive native turn may block indefinitely. Unknown required accounting
+escapes rather than becoming fabricated zero usage or a resume claim.</p>
+<p>R4 adds <code>experience_session.py</code> and <code>experience_tools.py</code> as private
+adapter-layer seams shared by the two bindings. The session assigns
+trial-local handles, projects pushed and pulled records, serializes handlers on
+one execution thread, latches read exhaustion and faults, and resolves the last
+valid ordered declaration. It reuses the pure reference-ordering function
+owned by <code>application/derivation.py</code>, so comparison interleaving cannot drift
+from replay validation.</p>
+<p>Claude builds one SDK in-process MCP server and verifies connected status,
+tool inventory, and annotations before querying. Codex runs one authenticated
+stdlib loopback HTTP MCP server, writes its URL and bearer-token environment
+name into literal private-home TOML, and grants per-tool approval to exactly
+the six adapter tools while the thread remains <code>deny_all</code>. Full typed status is
+verified before the turn. Codex reader faults start a separate drain watcher;
+after 60 seconds it closes the client, rejects all workspace mutations, and
+preserves unknown-accounting semantics. The deferred
+<code>exclude_tmpdir_env_var</code> and <code>exclude_slash_tmp</code> settings are not silently
+enabled.</p>
+<p>Both providers render prompt protocol v3. Pushed envelope references become
+opaque handles while values and policy-rendered content remain exact. Derivation
+protocol <code>ordered-observed-handle-subsequence-v2</code> records that declaration
+remains available after read exhaustion while an unexpected reader fault still
+rejects it.
+Successful reads return structured values, handles, kinds, logical steps,
+truncation, and cumulative usage. Expected denial/exhaustion are content-free;
+malformed binding requests and unknown handles do not enter the reader. A
+final valid ordered derivation declaration is required for native success, and
+because it is unaudited it remains callable after read exhaustion.
+Structural provider components remain local-only.</p>
+<p>The protocol identity rotation requires no provider recapture. Native MCP
+transport, bearer authentication, granular approvals, typed status and
+inventory, tool schemas, and provider profiles are unchanged, so the reviewed
+captures remain byte-identical. Prompt-dependent exhaustion behavior is covered
+by deterministic conformance.</p>
+<p>The Codex-only <code>proposer</code> capture uses the same print-only entry point and pure
+replay/stable-evidence builders. Its reviewed live record contains scrubbed
+typed profile, terminal/item, usage, structured-output, and deterministic
+workspace postconditions. Exact provider step sequences remain replay/volatile
+observations; drift compares contract-level invariants. The optional
+<code>meta-evolve[codex]</code> extra pins <code>openai-codex==0.144.4</code> and supplies
+adapter-only <code>jsonschema&gt;=4.26,&lt;5</code>.</p>
+<p>The M6.0 evidence imposes these adapter requirements:</p>
+<ul>
+<li>Count every disjoint native token category exactly once. Codex total is input
+  plus output because cached input and reasoning output are inclusive subsets.
+  Claude total is ordinary input plus cache creation plus cache read plus
+  output; its ephemeral cache buckets are inclusive detail.</li>
+<li>An unreported dimension stays unknown. Codex does not report cache writes or
+  monetary cost. Claude-reported cost remains provider evidence, never a shared
+  budget or cross-provider equivalence claim.</li>
+<li>Revalidate decoded structured output in ordinary Python. Typed native tool
+  records and machine postconditions are evidence; plausible final model text
+  is not.</li>
+<li>Verify the exact native configuration an adapter claims before mutation.
+  Native tools and options remain provider-owned; there is no canonical tool
+  vocabulary or generic provider configuration map.</li>
+<li>A deadline is accepted only when the adapter can stop in-flight work and
+  verify cleanup. The pinned Claude probe supplied positive sampled evidence;
+  the pinned Codex probe left a command alive after terminal interruption, so
+  the Codex adapter must reject such a deadline until a new mechanism is
+  separately verified.</li>
+<li>After an interrupted or lost execution, execution and accounting are unknown
+  unless non-execution is proven. R1 adds no retry or durability claim for local
+  structural proposers, and adapters must never turn an unknown amount into
+  zero.</li>
+</ul>
+<h2 id="milestone-7-cross-domain-local-v1">Milestone 7: cross-domain local v1</h2>
+<p>Add the artifact registry and public extension contracts only after number, text, and code examples have exercised them.</p>
+<p>The common artifact envelope contains semantic kind, representation, schema, interfaces, payload reference, content digest, parent occurrences, and provenance. Domain names such as <code>TextArtifact</code>, <code>GitTreeArtifact</code>, and <code>SkillSetArtifact</code> are typed constructors or views rather than a required inheritance hierarchy.</p>
+<p>M7 P1+P2 formalized the <code>SourceTree</code> payload shape into an explicit codec
+protocol, <code>ArtifactCodec</code> (<code>ports/codecs.py</code>): every kind, including the
+default <code>python-value</code>, now resolves through a per-run <code>CodecIndex</code>
+(<code>application/codecs.py</code>) instead of a hard-coded dispatch. Declared
+interfaces resolve through the registered codec (<code>Registry.artifact_interfaces</code>),
+not through a new field on the <code>Artifact</code> envelope, so this added no durable
+schema bump — <code>CURRENT_SCHEMA_VERSION</code> is unchanged. <code>Registry.register_artifact_type</code>
+rejects every codec offered for an already-built-in <code>(kind, representation)</code>
+key — the built-in object included — so the four built-in keys
+(<code>python-value</code>/<code>canonical-json</code>, <code>source-tree</code>/<code>utf8-tree-v1</code>,
+<code>text</code>/<code>utf8-text-v1</code>, <code>skill-set</code>/<code>utf8-tree-v1</code>) remain non-overridable. The
+unit is the key, not the
+kind: a new representation of a built-in kind is a distinct key and registers
+like any other custom type.</p>
+<p>P3 added <code>skill-set</code> (<code>domain/skill_set.py</code>), the first kind to reuse another
+kind's representation and the first codec with a non-empty <code>interfaces</code>
+declaration (<code>skill-documents/v1</code>). <code>SkillSet</code> wraps <code>SourceTree</code>
+construction and adds one rule, layout: every path matches <code>skills/&lt;name&gt;.md</code>.
+It carries no manifest — M8's <code>HarnessArtifact</code> defines those against a real
+consumer — and no content validation, since content meaning belongs to
+whoever reads the skills. Its codec is a fourth <em>built-in</em> rather than a
+registered custom type: the <code>durable-local</code> gate exists because a registered
+codec is a live object with no verifiable manifest, and a codec shipped with
+the library is verifiable exactly like the other three, so skill-set runs stay
+durable and resumable. That registration works for third parties is proven
+separately by <code>tests/test_artifact_type_registry.py</code>.</p>
+<p>Proposed candidates route through the same <code>CodecIndex</code> as the seed, in
+<code>application/proposal_completion.py</code> — the original plan scoped only seed
+encoding — so a candidate the codec rejects becomes a typed <code>InvalidOutput</code>
+that fails its trial without raising into the run, and a custom artifact type
+now works through proposer output as well as input. <code>application/runtime.py</code>'s
+<code>durable-local</code> validation block fails closed with <code>CapabilityError</code> when a
+task's <code>(kind, representation)</code> is not one of the built-in keys: a
+registered codec is
+a live object rather than a source function, so <code>require_source_function</code>
+cannot reach it, and a resumed run would otherwise rebuild payloads with
+unverified code.</p>
+<p>The codec index is a per-run dependency. <code>application/runtime.py</code> and
+<code>application/resume.py</code> construct it once and return active results through the
+private <code>Run._reopen(run_id, storage, codecs)</code> path, preserving the exact codec
+objects used for that run. The public
+<code>Run(run_id, storage, *, registry: Registry | None = None)</code> constructor builds a
+read-only index with <code>CodecIndex.with_extras(registry.artifact_types())</code> when a
+registry is supplied, merging its custom codecs with all built-ins while the
+built-ins retain precedence. This intentionally exposes every codec in that
+registry to decoding; the replayed run projection still selects the artifact
+kind read by each query, and the constructor grants no execution or mutation
+authority. Without a registry it remains the built-in reopening path. Codec
+declaration validation lives once in
+<code>registry_support.validate_artifact_codec</code>: <code>kind</code>, <code>representation</code>, and every
+interface name are non-empty and whitespace-exact, while an empty interface
+tuple remains valid. Both registry registration and the published codec suite
+call that same validator.</p>
+<p>P4 demonstrated the milestone's exit gate. <code>tests/test_four_domain_kernel.py</code> drives
+number, text, repository, and skill-set runs through one <code>meta.run</code> call site;
+everything M7 permits a use case to vary lives in one <code>Domain</code> record, and no
+assertion is written for a single domain. The four leave an identical kernel
+record — same event sequence, usage, scores, logical steps, and audited
+experience — while declaring four distinct kinds over three representations,
+two of which share <code>utf8-tree-v1</code>. No domain needed a coordinator branch,
+special case, or workaround, and the phase changed no file under <code>src/</code>: the
+generality was already there to be measured, which is what makes the result a
+proof rather than a repair.</p>
+<p><em>The purity allowlists are decisions, not accidents.</em> Two properties are pinned
+by <code>tests/test_application_purity.py</code>, each with an explicit allowlist whose
+every member carries its justification in the test file itself, and each with a
+companion test that fails once a member stops being needed — so an exemption
+cannot quietly outlive its reason.</p>
+<ul>
+<li><strong>Imports.</strong> Application modules import no concrete adapter except
+  <code>storage.py</code> (composes the default memory/filesystem/sqlite stores),
+  <code>unit_of_work.py</code> (owns the atomic durable commit across both stores),
+  <code>run_support.py</code> (constructs the callable-adapter runners for run and
+  resume), and <code>runtime.py</code> (wires the public <code>run()</code> entry point). All four
+  are wiring: something has to name the concrete implementations a default
+  <code>meta.run</code> composes, and the allowlist exists to keep that set visible and
+  small rather than to excuse it.</li>
+<li><strong>Type dispatch.</strong> Nothing calls <code>isinstance</code> against a concrete artifact
+  type outside <code>application/codecs.py</code> and <code>adapters/</code>. The codec <em>is</em> the
+  artifact-type dispatch — <code>encode</code> must refuse a value of the wrong type
+  before it can become a payload — and adapters translate at the edge, where an
+  external system's output first has to become a declared artifact value or a
+  typed failure. The watched set is derived rather than listed: any class in
+  <code>meta_evolve.domain</code> declaring string <code>KIND</code> and <code>REPRESENTATION</code> — the pair
+  <code>Task(artifact=...)</code> reads — falls under the gate the moment it exists, and a
+  guard test pins the derived set so a fifth artifact type is a visible
+  decision rather than a silent widening.</li>
+</ul>
+<p>P5a added the milestone's one new storage surface, the read-only listing
+<code>Storage.runs() -&gt; tuple[RunId, ...]</code>, so the CLI's <code>list</code> verb (and any
+caller whose ids have left the terminal scrollback) can reach <code>Run</code>, <code>resume</code>,
+and <code>compare</code> again. Two decisions are worth recording.</p>
+<p><em>Enumeration is an optional capability, not a widened port.</em> <code>EventStore</code>
+keeps exactly <code>append</code> and <code>read</code>; the listing is a separate one-method
+protocol, <code>ports.RunIndex</code>, that both bundled stores implement. Both required
+methods are run-scoped, so an implementation can be addressable without being
+enumerable — one stream handed in at construction, a backend exposing only
+<code>GET /runs/{id}/events</code>, a store sharded so that "all runs" spans shards.
+Requiring enumeration of every implementation would earn complexity from a
+hypothetical rather than the current gate, and would break the hand-built
+<code>Storage(artifact_store, event_store)</code> pair that <code>LocalOnlyUnitOfWork</code> exists
+to serve. <code>Storage.runs()</code> checks <code>isinstance(self.events, RunIndex)</code> and
+raises <code>CapabilityError</code> otherwise; it never reports a non-enumerable store as
+an empty one. This follows the <code>is_durable</code> principle — a capability is
+declared by the component, never inferred from a concrete type — but not its
+mechanism: durability needs a separate boolean because it is invisible in a
+commit strategy's method set, whereas here the capability <em>is</em> the method, so
+implementing it is the declaration and a parallel flag could only disagree
+with it.</p>
+<p><em>Ids, sorted.</em> The listing returns <code>RunId</code>s rather than a richer record:
+<code>Run.summary()</code> already owns per-run detail, and a richer listing would force
+the SQLite backend to decode every envelope just to enumerate. Ordering is
+lexicographic by id, not insertion — in-memory insertion order is a <code>dict</code>
+accident and SQLite has no insertion column short of <code>rowid</code>, an
+implementation detail unstable across VACUUM and interleaved appends. Sorting
+makes the two backends provably agree, which is the property callers depend
+on. Run ids are <code>run-&lt;sha256&gt;</code>, so the order carries no chronological meaning
+and is documented not to.</p>
+<p>P5b added <code>meta_evolve.cli</code> and the <code>meta-evolve</code> entry point: five verbs —
+<code>run</code>, <code>list</code>, <code>inspect</code>, <code>resume</code>, <code>compare</code> — over the same public API, using
+stdlib <code>argparse</code>, no configuration DSL, and no capability logic of its own. A
+<code>run</code> takes an <em>experiment module</em> exposing one <code>experiment()</code> factory with no
+import-time side effects; the command line supplies only <code>--storage</code> and
+<code>--mode</code>. <code>list</code> is one verb beyond the milestone's four because run ids are
+content-derived digests rather than names anyone retypes from memory: without
+enumeration, every other verb is unreachable once an id leaves the terminal.
+Exit codes are 0 for success, 1 for a domain failure (<code>RunError</code>),
+and 2 for a usage or experiment-module error; anything else keeps its
+traceback rather than being flattened into a message.</p>
+<p><strong>Closed by the M7 defect-repair pass.</strong> <code>compare_runs</code> previously refused two
+incompatible runs with a bare <code>ValueError</code> from <code>_require_equal</code>
+(<code>application/comparisons.py</code>), which is not a <code>RunError</code> and so escaped the
+command line's typed-failure translation, reaching the user as a traceback.
+<code>_require_equal</code> now raises <code>RunsNotComparable</code>, a <code>RunError</code> carrying the
+<code>declaration</code> that differed as structured data rather than only in its message.
+The message text is unchanged, so prose matching still works; the command line
+now reports it as one error line and exit code 1 like every other typed failure.</p>
+<p><strong>The other four decisions of that pass.</strong> The surfaces themselves are
+<a href="../programming-model/"><code>docs/programming-model.md</code></a>'s; what is recorded here is
+why each landed the way it did.</p>
+<ul>
+<li><strong>One accessor, not a second view type.</strong> <code>Run.trials()</code> returns the existing
+  <code>TrialView</code>, which gained a <code>state</code> field set from the projection records
+  rather than re-derived from other view fields. <code>failure</code> was deliberately
+  left alone: splitting it is breaking, and it still could not express
+  <code>"unevaluated"</code>, which is an authorization outcome rather than a fault. The
+  seed trial is included, because three of the six workarounds it replaced
+  depended on unpacking it.</li>
+<li><strong><code>CapabilityError</code> is reserved abort control flow</strong>, escaping both the
+  proposer and the evaluator boundary unwrapped. <code>RunError</code> is deliberately
+  <em>not</em> in either escape tuple: examples 08, 16 and 17 call <code>summary()</code> on an
+  inner run inside their evaluator, which raises <code>NoSuccessfulEvaluation</code>, so a
+  broad escape would crash three shipped examples. Because <code>CapabilityError</code> is
+  publicly exported, the contract binds user code and is documented, not merely
+  implemented.</li>
+<li><strong>The name-only report keys on the <code>run-local</code> version sentinel, never on
+  <code>origin == "local"</code>.</strong> <code>CommandEvaluator</code> is local-origin and versions itself
+  with a configuration digest; keying on origin would condemn exactly the local
+  comparisons that are controlled. <code>ComponentRef.configured_local</code> refuses that
+  sentinel for the same reason, and derives <code>origin</code> and the retained adapter
+  rather than accepting them, since <code>Task</code>'s declaration hook admits a component
+  only when it is local and holds that exact callable by identity.</li>
+<li><strong>Declarable turn limits keep their existing defaults exactly.</strong> The defaults
+  emit byte-identical native profiles, so no <code>component.version</code> and no Claude
+  run id moves. <code>native_profile</code> takes the limit keyword-required instead of
+  choosing between two constants, so a normalizer and a transport cannot
+  silently disagree about what was sent. Rejected: <code>max(requested, PULL_MIN)</code> —
+  silently rewriting a chosen number is the defect class being removed.</li>
+</ul>
+<p>P6 published the conformance kit and the tutorial.</p>
+<p><em>Published conformance covers two of the seven component types.</em>
+<code>meta_evolve.conformance</code> ships subclassable pytest suites, on the pandas
+<code>ExtensionArray</code> model, for artifact codecs (<code>ArtifactCodecTests</code>) and for
+repository-editing proposers (<code>RepositoryProposerTests</code>,
+<code>PullRepositoryProposerTests</code>). Evaluators, search policies, context policies,
+workspaces, and sandboxes are <strong>not</strong> published, and they are not uniform among
+themselves: search policies, workspaces, and sandboxes keep reusable
+function-based suites under <code>tests/</code> (<code>policy_contract.py</code>,
+<code>workspace_contract.py</code>, <code>sandbox_contract.py</code>, alongside the store suite in
+<code>store_contract.py</code>) that an author outside this repository cannot reach, while
+evaluators and context policies have concrete tests and no reusable suite at
+all. This paragraph previously projected all seven, and that was a plan rather
+than a description. The class form buys a
+subclass hook worth nothing to a suite whose only callers live beside it, so a
+suite converts when it is published and is published when an extension author
+needs one; the remaining five are additive work of exactly this shape.
+<code>tests/</code> subclasses the published classes for the four built-in codecs and both
+providers, so the kit and the kernel's own conformance are the same code and
+cannot drift. <code>pytest</code> is imported by that subpackage and nowhere else in the
+package, pinned by an AST scan plus a subprocess check that importing
+<code>meta_evolve</code> never loads it, and surfaced as a <code>conformance</code> extra beside
+<code>claude</code> and <code>codex</code>.</p>
+<p>The codec suite checks round trips, rejection signaling, identity independence,
+repeated calls within one process, and common <code>open</code>/socket entry points. The
+last two are deliberately scoped evidence: they do not prove arbitrary purity
+or cross-process reproducibility. A separate built-in test creates artifacts in
+fresh interpreters under two fixed <code>PYTHONHASHSEED</code> values and compares their
+content digests.</p>
+<p><em>The tutorial is executed, not illustrated.</em>
+<code>docs/adding-an-artifact-domain.md</code> is written as one script split across
+fenced <code>python</code> blocks, followed by a single fenced <code>text</code> block holding the
+output it claims. <code>tests/test_add_a_domain_tutorial.py</code> joins the code back
+together, runs it in a fresh interpreter from an empty directory with no
+<code>PYTHONPATH</code>, and compares stdout byte for byte; it also checks that the script
+imports nothing but the <code>meta_evolve</code> root and the standard library, that every
+repository path the page links to exists, and that the page's "four built-in
+keys" claim still matches <code>BUILTIN_CODECS</code>. The tutorial's own codec then runs
+the published <code>ArtifactCodecTests</code>, which is the step the page tells its reader
+to take. Extraction beat mirroring the code into a test: a mirror drifts
+silently in exactly the direction that matters, because nothing forces the copy
+a reader sees to be the copy that ran.</p>
+<h2 id="milestones-89-harness-and-policy-evolution">Milestones 8–9: harness and policy evolution</h2>
+<p>Add a typed <code>MutationSurface</code> describing mutable paths, fixed interfaces, required validation, and authority ceiling. Harness and policy candidates may modify only candidate-controlled fields. Task suites, hidden evaluation, enclosing budgets, permissions, and promotion remain experiment- or governance-controlled.</p>
+<p>Local episode suites may use closures and are explicitly marked non-portable. Durable suites use versioned factories or typed manifests. Do not introduce a stringly typed template DSL; any textual rendering maps to a validated object model.</p>
+<p>Evaluate harness and policy artifacts through fresh bounded inner runs on held-out tasks. Nested random seeds, budgets, environments, cache keys, and evidence remain explicit.</p>
+<h2 id="milestone-10-trusted-distribution">Milestone 10: trusted distribution</h2>
+<p>Only after local semantics are stable:</p>
+<ul>
+<li>add <code>WorkAttempt</code> and durable lease acquisition, renewal, expiration, cancellation, and completion;</li>
+<li>retain one logical <code>Trial</code> across delivery retries;</li>
+<li>introduce trusted worker identities and capability matching;</li>
+<li>add atomic budget reservation and settlement;</li>
+<li>make idempotent result submission explicit;</li>
+<li>define consistency requirements per state type;</li>
+<li>load-test simulated populations before paid agent fleets.</li>
+</ul>
+<p>Worker liveness and queue estimates are ephemeral. Accepted outcomes, evaluations, budgets, and promotion decisions are durable. Out-of-order wall-clock completion must not alter logical random choices or reveal future experience.</p>
+<h2 id="milestone-11-contributed-and-federated-network">Milestone 11: contributed and federated network</h2>
+<p>Add signed manifests, scoped contributor identities, task-specific trust policies, visibility, licensing, embargoes, attribution, retraction, disputes, and reputation. Exchange policy-filtered subgraphs rather than assuming universal access.</p>
+<p>References may be redacted, tombstoned, or inaccessible while preserving enough metadata to maintain causal structure. Untrusted execution, evaluator collusion, poisoning, sybil attacks, reward hacking, and correlated replication remain separate threats with separate controls.</p>
+<h2 id="interface-staging">Interface staging</h2>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>First implementation</th>
+<th>Later implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Proposer</td>
+<td>local callable</td>
+<td>SDK agent, human workflow, composite harness</td>
+</tr>
+<tr>
+<td>Evaluator</td>
+<td>pure callable</td>
+<td>isolated grader, simulator, proof checker</td>
+</tr>
+<tr>
+<td>Artifact store</td>
+<td>in-memory payloads</td>
+<td>content-addressed filesystem or object store</td>
+</tr>
+<tr>
+<td>Event store</td>
+<td>in-memory list</td>
+<td>SQLite, then durable service</td>
+</tr>
+<tr>
+<td>Search</td>
+<td>greedy and best-of-N</td>
+<td>populations, Pareto, islands, learned allocation</td>
+</tr>
+<tr>
+<td>Experience</td>
+<td>no memory</td>
+<td>exact graph traversal, then measured semantic retrieval</td>
+</tr>
+<tr>
+<td>Workspace</td>
+<td>absent</td>
+<td>directory copy, Git tree/worktree, remote volume</td>
+</tr>
+<tr>
+<td>Sandbox</td>
+<td>absent</td>
+<td>development subprocess, container, hardened remote sandbox</td>
+</tr>
+<tr>
+<td>Identity</td>
+<td>absent or local stub</td>
+<td>trusted worker, then signed contributor identity</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-not-to-build-first">What not to build first</h2>
+<ul>
+<li>every module in the destination package tree;</li>
+<li>a custom graph or vector database;</li>
+<li>a peer-to-peer protocol or token economy;</li>
+<li>a thousand-agent deployment;</li>
+<li>a web dashboard before event and query semantics stabilize;</li>
+<li>universal agent communication;</li>
+<li>learned scheduling without strong baselines;</li>
+<li>unrestricted self-modification;</li>
+<li>a template DSL when local closures and typed durable manifests suffice;</li>
+<li>scientific-discovery claims without domain evidence and replication.</li>
+</ul>
+<h2 id="near-term-definition-of-done">Near-term definition of done</h2>
+<p>Meta-Evolve has a credible first release when a user can define a task, seed artifact, proposer, and evaluator through the canonical small API; choose a search and context policy; run callable and SDK-backed proposers in appropriate execution profiles; evaluate immutable successors; inspect exact causal experience; resume durable runs after failure; and compare runs under equal budgets.</p>
+<p>Everything beyond that should extend the same contracts rather than replace the kernel.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../milestones/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Milestones">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Milestones
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../adding-an-artifact-domain/" class="md-footer__link md-footer__link--next" aria-label="Next: Add an artifact domain">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Add an artifact domain
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "navigation.footer", "navigation.path", "navigation.sections", "navigation.tracking"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
