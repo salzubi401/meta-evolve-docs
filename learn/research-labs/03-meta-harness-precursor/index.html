@@ -773,6 +773,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#walkthrough-one-improvement-cycle-in-four-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Walkthrough: one improvement cycle in four phases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-four-sessions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1715,6 +1726,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#walkthrough-one-improvement-cycle-in-four-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Walkthrough: one improvement cycle in four phases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-four-sessions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1994,21 +2016,73 @@ checks paths, UTF-8 strings, non-identity, and policy JSON.</p>
 <p>Only after that guard returns a new immutable tree are the two validation
 sessions authorized. Invalid mutation therefore cannot consume held-out
 evaluation or leave a partial successor.</p>
+<h2 id="walkthrough-one-improvement-cycle-in-four-phases">Walkthrough: one improvement cycle in four phases</h2>
+<p>These are outer orchestration phases, not repeated search iterations. Each
+solver or mutator session is an independent, one-trial inner <code>meta.run</code>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Phase</th>
+<th>Meta-Evolve components</th>
+<th>State entering the phase</th>
+<th>State leaving the phase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1. Diagnose parent</td>
+<td>Baseline <code>SourceTree</code>; diagnostic solver request; local exact grader</td>
+<td>Baseline planner/policy and the public diagnostic case</td>
+<td>Baseline <code>SessionRecord</code>, diagnostic measurement, answer, and trace kinds</td>
+</tr>
+<tr>
+<td style="text-align: right;">2. Propose and guard mutation</td>
+<td>Mutator request; <code>apply_mutation()</code> authority check</td>
+<td>Read-only prior source and diagnostic evidence; no validation row</td>
+<td>Candidate <code>SourceTree</code>, or a typed failure with no successor</td>
+</tr>
+<tr>
+<td style="text-align: right;">3. Validate equal arms</td>
+<td>Two solver requests using the same unseen public row</td>
+<td>Baseline and candidate trees under identical model, schema, grader, and budgets</td>
+<td>Baseline and candidate validation measurements</td>
+</tr>
+<tr>
+<td style="text-align: right;">4. Compare and retain</td>
+<td>Evaluator-owned <code>compare()</code>; <code>LabResult</code></td>
+<td>Both rankable measurements or a typed failure</td>
+<td>Improvement/tie/regression/failure label, artifacts, evidence, usage, and <code>automatic_promotion=False</code></td>
+</tr>
+</tbody>
+</table>
+<p>The bounded state transition is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>SourceTree(baseline)
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  ── diagnostic evaluator ──► measurement + trace evidence
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  ── mutator SessionRequest ──► proposed file replacements
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  ── apply_mutation allowlist ──► SourceTree(candidate)
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  ── equal unseen validation ──► comparison
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  ── retain without promotion ──► LabResult
+</code></pre></div>
+<p>The mutation proposal is not itself an artifact. Outer Python first validates
+its paths and contents, then creates an immutable successor tree. This is the
+point where Meta-Evolve's proposal/promotion separation is concrete: the model
+suggests files, the experiment admits or rejects them, the evaluator compares
+them, and no component deploys the result.</p>
 <h2 id="the-four-sessions">The four sessions</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>baseline harness ──► diagnostic attempt
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>       │                    │
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>       │                    ▼
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>       │            source + score + trace
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>       │                    │
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>       │                    ▼
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>       │              mutation session
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>       │                    │
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>       ├──────────────┐     ▼
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>       ▼              ▼  candidate harness
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>baseline validation  candidate validation
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>       └──────────────┬───────────────┘
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>                      ▼
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>          equal-declaration comparison
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>baseline harness ──► diagnostic attempt
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>       │                    │
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>       │                    ▼
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>       │            source + score + trace
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>       │                    │
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>       │                    ▼
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>       │              mutation session
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>       │                    │
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>       ├──────────────┐     ▼
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>       ▼              ▼  candidate harness
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>baseline validation  candidate validation
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>       └──────────────┬───────────────┘
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>                      ▼
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>          equal-declaration comparison
 </code></pre></div>
 <table>
 <thead>
@@ -2058,25 +2132,25 @@ evaluation or leave a partial successor.</p>
 budget controls, audit history, or promotion decision.</p>
 <h2 id="mutation-authority">Mutation authority</h2>
 <p>The structured mutation shape is:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;files&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">&quot;planner.md&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Complete replacement planner text&quot;</span><span class="p">,</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nt">&quot;context_policy.json&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;max_documents\&quot;: 10, \&quot;order\&quot;: \&quot;given\&quot;}&quot;</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="p">}</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;files&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">&quot;planner.md&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Complete replacement planner text&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nt">&quot;context_policy.json&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;max_documents\&quot;: 10, \&quot;order\&quot;: \&quot;given\&quot;}&quot;</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">}</span>
 </code></pre></div>
 <p>The local validator applies an exact allowlist:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>allowed
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  planner.md
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  context_policy.json
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>protected examples
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  evaluation_data.json
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  permissions.json
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>  budgets.json
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>  audit_history.jsonl
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>  evidence.jsonl
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>  promotion.json
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>allowed
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  planner.md
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  context_policy.json
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>protected examples
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>  evaluation_data.json
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>  permissions.json
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>  budgets.json
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>  audit_history.jsonl
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>  evidence.jsonl
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>  promotion.json
 </code></pre></div>
 <p>Any path outside the two-file allowlist is a typed <code>PolicyViolation</code>. Protected
 controls are named in its evidence, and <strong>no successor <code>SourceTree</code> is
@@ -2125,28 +2199,28 @@ session is spent.</p>
 identify a better local artifact; neither the candidate nor this evaluator may
 deploy it.</p>
 <h2 id="minimal-runnable-mechanism">Minimal runnable mechanism</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClaudeSessionRunner</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs.meta_harness</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ClaudeSessionRunner</span><span class="p">())</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;baseline:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;baseline&quot;</span><span class="p">])</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;candidate:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;candidate&quot;</span><span class="p">))</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;comparison:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;comparison&quot;</span><span class="p">))</span>
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;automatic promotion:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;automatic_promotion&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;measurements:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">measurements</span><span class="p">)</span>
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;usage:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">usage</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClaudeSessionRunner</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs.meta_harness</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ClaudeSessionRunner</span><span class="p">())</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;baseline:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;baseline&quot;</span><span class="p">])</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;candidate:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;candidate&quot;</span><span class="p">))</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;comparison:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;comparison&quot;</span><span class="p">))</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;automatic promotion:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;automatic_promotion&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;measurements:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">measurements</span><span class="p">)</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;usage:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">usage</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><span class="filename">Illustrative shape — live run, nothing captured</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>baseline: &lt;planner and context-policy SourceTree&gt;
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>candidate: &lt;allowlisted successor SourceTree or None&gt;
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>comparison: &lt;improvement, tie, regression, or unrankable typed failure&gt;
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>automatic promotion: False
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>measurements: &lt;equal-declaration validation measurements&gt;
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>usage: &lt;aggregated provider usage&gt;
+<div class="highlight"><span class="filename">Illustrative shape — live run, nothing captured</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>baseline: &lt;planner and context-policy SourceTree&gt;
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>candidate: &lt;allowlisted successor SourceTree or None&gt;
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>comparison: &lt;improvement, tie, regression, or unrankable typed failure&gt;
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>automatic promotion: False
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>measurements: &lt;equal-declaration validation measurements&gt;
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>usage: &lt;aggregated provider usage&gt;
 </code></pre></div>
 <p>Run it with:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nv">META_EVOLVE_LIVE_CLAUDE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--extra<span class="w"> </span>claude<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span>python<span class="w"> </span>examples/18_sealqa_research_labs/run_all.py<span class="w"> </span>meta_harness
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nv">META_EVOLVE_LIVE_CLAUDE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--extra<span class="w"> </span>claude<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span>python<span class="w"> </span>examples/18_sealqa_research_labs/run_all.py<span class="w"> </span>meta_harness
 </code></pre></div>
 <p>If mutation is invalid, only two sessions are needed: the diagnostic and
 mutator. The baseline/candidate validation pair is skipped because there is no

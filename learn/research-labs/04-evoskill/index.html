@@ -801,6 +801,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#walkthrough-one-improvement-cycle-in-four-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Walkthrough: one improvement cycle in four phases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-eight-sessions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1737,6 +1748,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#walkthrough-one-improvement-cycle-in-four-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Walkthrough: one improvement cycle in four phases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-eight-sessions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2029,6 +2051,59 @@ into:</p>
 only by appending the rendered skill to <code>BASE_INSTRUCTIONS</code>. This makes the
 skill artifact—not a model, case, schema, or budget change—the intended cause
 of any measured difference.</p>
+<h2 id="walkthrough-one-improvement-cycle-in-four-phases">Walkthrough: one improvement cycle in four phases</h2>
+<p>The four phases describe the outer lab algorithm. The eight Claude sessions
+inside them are independent inner <code>meta.run</code> calls with one trial each, not
+eight optimizer iterations.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Phase</th>
+<th>Meta-Evolve components</th>
+<th>Candidate-visible observation</th>
+<th>Retained evaluator result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1. Record induction behavior</td>
+<td>Baseline solver requests; local grader; two <code>EvidenceDraft</code>s</td>
+<td>Each solver sees only its public induction case</td>
+<td>Predictions, exact-if-valid, and failure kinds; expected answers stay private</td>
+</tr>
+<tr>
+<td style="text-align: right;">2. Analyze bounded experience</td>
+<td>Pull-enabled analyzer request with <code>meta.PullAccess</code></td>
+<td>Only the two projected failure records, read through audited pull operations</td>
+<td>Failure patterns, procedures, pull counters, or a typed failure</td>
+</tr>
+<tr>
+<td style="text-align: right;">3. Build successor skill</td>
+<td>Builder request; immutable <code>meta.SkillSet</code></td>
+<td><code>analysis.json</code> only; no raw experience or held-out rows</td>
+<td>One validated Markdown skill at <code>skills/sealqa.md</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">4. Compare on held-out rows</td>
+<td>Four fresh solver requests; reused grader; per-row comparison; <code>LabResult</code></td>
+<td>Baseline sees base instructions; skill arm adds only the rendered skill</td>
+<td>Two independent comparison labels plus sessions, measurements, lineage, experience usage, and provider usage</td>
+</tr>
+</tbody>
+</table>
+<p>The artifact and evidence flow is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>baseline induction SessionRecords
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  ── evaluator projection ──► two EvidenceDraft failure records
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  ── PullAccess analyzer ──► structured patterns and procedures
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  ── builder SessionRequest ──► SkillSet(skills/sealqa.md)
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  ── two equal held-out pairs ──► two external comparisons
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  ── retain ──► LabResult
+</code></pre></div>
+<p>There is no mutable skill before phase 3. The analyzer proposes an explanation,
+the builder proposes Markdown, schema checks lift that Markdown into the
+versioned artifact, and only fresh held-out evaluations measure it. If analysis
+or building fails, the lab retains the typed failure and does not spend the
+held-out sessions.</p>
 <h2 id="the-eight-sessions">The eight sessions</h2>
 <table>
 <thead>
@@ -2087,12 +2162,12 @@ answers on which the skill is judged.</p>
 <h2 id="what-an-induction-failure-contains">What an induction failure contains</h2>
 <p>Each completed induction episode is graded locally. The experience record
 contains:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;case_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;longseal-004&quot;</span><span class="p">,</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;prediction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;the agent&#39;s answer, if any&quot;</span><span class="p">,</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">&quot;exact&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nt">&quot;failure_kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;case_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;longseal-004&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nt">&quot;prediction&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;the agent&#39;s answer, if any&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nt">&quot;exact&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="nt">&quot;failure_kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">}</span>
 </code></pre></div>
 <p>If the provider or adapter fails, <code>exact</code> is absent and <code>failure_kind</code> names the
 typed outcome. The record deliberately omits:</p>
@@ -2108,36 +2183,36 @@ turning evaluator secrets into proposer-visible experience.</p>
 <p>The analyzer is not handed a manually concatenated failure report. The two
 failure records are committed as seed evaluation evidence in an ordinary inner
 run, and the analyzer receives bounded <code>meta.PullAccess</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">meta</span><span class="o">.</span><span class="n">PullAccess</span><span class="p">(</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">max_operations</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">max_results</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">max_records</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">max_chars</span><span class="o">=</span><span class="mi">32_000</span><span class="p">,</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">meta</span><span class="o">.</span><span class="n">PullAccess</span><span class="p">(</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">max_operations</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">max_results</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">max_records</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">max_chars</span><span class="o">=</span><span class="mi">32_000</span><span class="p">,</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">)</span>
 </code></pre></div>
 <p>Claude's native experience tools can search and open those strictly prior
 records. The proposal must declare which experience it derived from. Pull
 usage is retained separately from provider token/wall usage.</p>
 <p>That distinction yields two different null results:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>skill did not help, analyzer used experience
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>skill did not help, analyzer never read the offered experience
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>skill did not help, analyzer used experience
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>skill did not help, analyzer never read the offered experience
 </code></pre></div>
 <p>The second says nothing about whether failure-driven induction helps; it says
 the configured agent did not exercise the mechanism.</p>
 <h2 id="analyzer-and-skill-contracts">Analyzer and skill contracts</h2>
 <p>The analyzer returns:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;failure_patterns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;General pattern observed across failures&quot;</span><span class="p">],</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">&quot;procedures&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Reusable action an agent should take&quot;</span><span class="p">]</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">&quot;failure_patterns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;General pattern observed across failures&quot;</span><span class="p">],</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">&quot;procedures&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Reusable action an agent should take&quot;</span><span class="p">]</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="p">}</span>
 </code></pre></div>
 <p>The separate builder sees this analysis—not the held-out cases—and returns:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">&quot;skill_markdown&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;# Skill title\n\nProcedure...\n\n## Verification\n- Check...&quot;</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;skill_markdown&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;# Skill title\n\nProcedure...\n\n## Verification\n- Check...&quot;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">}</span>
 </code></pre></div>
 <p>The emitted <code>meta.SkillSet</code> contains one path:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>skills/sealqa.md
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>skills/sealqa.md
 </code></pre></div>
 <p>Keeping it as Markdown makes the learned procedure directly inspectable. The
 builder instruction requires explicit verification checks so the skill is more
@@ -2146,12 +2221,12 @@ than generic advice such as “be careful.”</p>
 <p>For each held-out row, two fresh sessions receive the same public question,
 documents, model, answer schema, turn/timeout/wall bounds, and exact grader.
 Only the instruction block differs:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>baseline arm
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  base solver instructions
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>skill arm
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>  base solver instructions
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>  + rendered skills/sealqa.md
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>baseline arm
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  base solver instructions
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>skill arm
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>  base solver instructions
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>  + rendered skills/sealqa.md
 </code></pre></div>
 <p>Each pair is classified independently:</p>
 <table>
@@ -2183,28 +2258,28 @@ Only the instruction block differs:</p>
 <p>The report retains both results. It does not average a provider failure into a
 low score or hide a regression behind the other row's improvement.</p>
 <h2 id="minimal-runnable-mechanism">Minimal runnable mechanism</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClaudeSessionRunner</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs.evoskill</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ClaudeSessionRunner</span><span class="p">())</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;analysis:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;analysis&quot;</span><span class="p">))</span>
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;skill set:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;skill_set&quot;</span><span class="p">))</span>
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;experience usage:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;experience_usage&quot;</span><span class="p">))</span>
-<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;held-out comparisons:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;held_out_comparisons&quot;</span><span class="p">))</span>
-<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;measurements:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">measurements</span><span class="p">)</span>
-<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;usage:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">usage</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClaudeSessionRunner</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs.evoskill</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ClaudeSessionRunner</span><span class="p">())</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;analysis:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;analysis&quot;</span><span class="p">))</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;skill set:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;skill_set&quot;</span><span class="p">))</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;experience usage:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;experience_usage&quot;</span><span class="p">))</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;held-out comparisons:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;held_out_comparisons&quot;</span><span class="p">))</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;measurements:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">measurements</span><span class="p">)</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;usage:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">usage</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><span class="filename">Illustrative shape — live run, nothing captured</span><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>analysis: &lt;failure patterns and procedures&gt;
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>skill set: &lt;one inspectable Markdown skill&gt;
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>experience usage: &lt;operations, records, characters, and unused evidence&gt;
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>held-out comparisons: &lt;two improvement, tie, regression, or failure labels&gt;
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>measurements: &lt;induction and held-out measurements&gt;
-<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>usage: &lt;aggregated provider usage&gt;
+<div class="highlight"><span class="filename">Illustrative shape — live run, nothing captured</span><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>analysis: &lt;failure patterns and procedures&gt;
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>skill set: &lt;one inspectable Markdown skill&gt;
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>experience usage: &lt;operations, records, characters, and unused evidence&gt;
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>held-out comparisons: &lt;two improvement, tie, regression, or failure labels&gt;
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>measurements: &lt;induction and held-out measurements&gt;
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>usage: &lt;aggregated provider usage&gt;
 </code></pre></div>
 <p>Run it with:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nv">META_EVOLVE_LIVE_CLAUDE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--extra<span class="w"> </span>claude<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span>python<span class="w"> </span>examples/18_sealqa_research_labs/run_all.py<span class="w"> </span>evoskill
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nv">META_EVOLVE_LIVE_CLAUDE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--extra<span class="w"> </span>claude<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span>python<span class="w"> </span>examples/18_sealqa_research_labs/run_all.py<span class="w"> </span>evoskill
 </code></pre></div>
 <p>If analysis or building fails, held-out sessions are skipped: there is no valid
 skill artifact to compare. Eight is the maximum complete path.</p>

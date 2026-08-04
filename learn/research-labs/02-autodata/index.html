@@ -745,6 +745,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#walkthrough-one-improvement-cycle-in-three-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Walkthrough: one improvement cycle in three phases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-seven-sessions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1726,6 +1737,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#walkthrough-one-improvement-cycle-in-three-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Walkthrough: one improvement cycle in three phases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-seven-sessions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2025,6 +2047,51 @@ evidence. <code>quality_checks()</code> then reads the generator item and both
 reason—is written into <code>LabResult.artifacts["evidence"]</code>. The rewrite workspace
 contains the seed recipe and this report. The successor is lifted back into
 <code>meta.Text</code> and sent through the identical <code>_evaluate_recipe()</code> function.</p>
+<h2 id="walkthrough-one-improvement-cycle-in-three-phases">Walkthrough: one improvement cycle in three phases</h2>
+<p>Each phase below is outer Python orchestration. Its generator, solver, and
+rewriter sessions are separate inner <code>meta.run</code> calls with one trial each; the
+lab does not run three greedy search iterations.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Phase</th>
+<th>Meta-Evolve components</th>
+<th>What the candidate can observe</th>
+<th>Evaluator-owned result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1. Evaluate seed recipe</td>
+<td>Seed <code>meta.Text</code>; generator request; restricted and informed solver requests</td>
+<td>Generator sees the public bundle; restricted solver sees only the generated question; informed solver sees only selected evidence</td>
+<td><code>quality_checks()</code> records accepted/rejected reasons and a seed measurement</td>
+</tr>
+<tr>
+<td style="text-align: right;">2. Propose successor recipe</td>
+<td>Rewriter request; successor <code>meta.Text</code></td>
+<td>Seed recipe, generated item, solver records, and the complete deterministic report</td>
+<td>Schema and non-identity checks decide whether a successor exists</td>
+</tr>
+<tr>
+<td style="text-align: right;">3. Evaluate and retain successor</td>
+<td>The same <code>_evaluate_recipe()</code> protocol; <code>LabResult</code></td>
+<td>A fresh generator applies only the successor recipe; solver visibility remains split</td>
+<td>Successor acceptance measurement plus both recipes, reports, sessions, lineage, and usage</td>
+</tr>
+</tbody>
+</table>
+<p>The state transition is therefore:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>meta.Text(seed recipe)
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  ── generator + two probes ──► seed acceptance report
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  ── rewriter SessionRequest ──► meta.Text(successor recipe)
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  ── same generator + two probes ──► successor acceptance report
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  ── retain ──► LabResult
+</code></pre></div>
+<p>The generated QA items are temporary evaluation episodes. They appear in the
+evidence record, but the lineage edge connects recipe to recipe. The local
+acceptance gate, not the generator or rewriter, decides whether each episode
+meets the declared behavior.</p>
 <h2 id="the-seven-sessions">The seven sessions</h2>
 <p>One recipe evaluation uses three Claude sessions:</p>
 <ol>
@@ -2080,15 +2147,15 @@ contains the seed recipe and this report. The successor is lifted back into
 </tbody>
 </table>
 <p>The local checks between sessions are deterministic and make no provider calls:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>3 seed sessions + 1 rewrite + 3 successor sessions = 7 maximum
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>3 seed sessions + 1 rewrite + 3 successor sessions = 7 maximum
 </code></pre></div>
 <h2 id="the-generated-item-contract">The generated-item contract</h2>
 <p>The generator must return:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;question&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;One generated fact-seeking question&quot;</span><span class="p">,</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">&quot;reference_answer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;One exact short answer&quot;</span><span class="p">,</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nt">&quot;evidence_doc_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;doc-03&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;doc-09&quot;</span><span class="p">]</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;question&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;One generated fact-seeking question&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">&quot;reference_answer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;One exact short answer&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="nt">&quot;evidence_doc_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;doc-03&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;doc-09&quot;</span><span class="p">]</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">}</span>
 </code></pre></div>
 <p>The schema requires all three fields, non-empty strings, and no extra fields.
 Document IDs must exist in the candidate-visible bundle. They are stable local
@@ -2139,8 +2206,8 @@ generator. It is not the evaluator-only answer of the frozen SealQA row.</p>
 </tbody>
 </table>
 <p>In compact form, the desired behavior is:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>restricted answer != reference answer
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>informed answer    == reference answer
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>restricted answer != reference answer
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>informed answer    == reference answer
 </code></pre></div>
 <p>This is a proxy for grounded usefulness, not proof. The restricted model may
 guess incorrectly despite already knowing the fact, and the informed model may
@@ -2155,34 +2222,34 @@ match for the wrong reason.</p>
 </ul>
 <p>It is told to generalize rather than copy the generated question or answer. Its
 structured output is simply:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span><span class="nt">&quot;recipe&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The complete successor generation recipe.&quot;</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span><span class="nt">&quot;recipe&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The complete successor generation recipe.&quot;</span><span class="p">}</span>
 </code></pre></div>
 <p>The result retains both recipes, both generated examples, both solver pairs,
 both acceptance reports, evaluator identity, typed failures, and aggregate
 usage. That makes the causal story inspectable:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>seed recipe + seed rejection evidence ──► successor recipe
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>seed recipe + seed rejection evidence ──► successor recipe
 </code></pre></div>
 <h2 id="minimal-runnable-mechanism">Minimal runnable mechanism</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClaudeSessionRunner</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs.autodata</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ClaudeSessionRunner</span><span class="p">())</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;seed recipe:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;seed_recipe&quot;</span><span class="p">])</span>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;successor recipe:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;successor_recipe&quot;</span><span class="p">))</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;evidence:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;evidence&quot;</span><span class="p">])</span>
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;measurements:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">measurements</span><span class="p">)</span>
-<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;usage:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">usage</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClaudeSessionRunner</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs.autodata</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ClaudeSessionRunner</span><span class="p">())</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;seed recipe:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;seed_recipe&quot;</span><span class="p">])</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;successor recipe:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;successor_recipe&quot;</span><span class="p">))</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;evidence:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;evidence&quot;</span><span class="p">])</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;measurements:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">measurements</span><span class="p">)</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;usage:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">usage</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><span class="filename">Illustrative shape — live run, nothing captured</span><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>seed recipe: &lt;original generation instructions&gt;
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>successor recipe: &lt;evidence-guided rewritten instructions&gt;
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>evidence: &lt;generated items, solver answers, decisions, and rejection reasons&gt;
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>measurements: &lt;seed and successor acceptance metrics or typed failures&gt;
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>usage: &lt;aggregated provider usage&gt;
+<div class="highlight"><span class="filename">Illustrative shape — live run, nothing captured</span><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>seed recipe: &lt;original generation instructions&gt;
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>successor recipe: &lt;evidence-guided rewritten instructions&gt;
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>evidence: &lt;generated items, solver answers, decisions, and rejection reasons&gt;
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>measurements: &lt;seed and successor acceptance metrics or typed failures&gt;
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>usage: &lt;aggregated provider usage&gt;
 </code></pre></div>
 <p>Run it with:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nv">META_EVOLVE_LIVE_CLAUDE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--extra<span class="w"> </span>claude<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span>python<span class="w"> </span>examples/18_sealqa_research_labs/run_all.py<span class="w"> </span>autodata
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nv">META_EVOLVE_LIVE_CLAUDE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--extra<span class="w"> </span>claude<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span>python<span class="w"> </span>examples/18_sealqa_research_labs/run_all.py<span class="w"> </span>autodata
 </code></pre></div>
 <h2 id="how-to-read-the-result">How to read the result</h2>
 <p>Compare the two acceptance reports rather than looking only at the final flag:</p>

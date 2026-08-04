@@ -717,6 +717,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#walkthrough-one-improvement-cycle-in-four-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Walkthrough: one improvement cycle in four phases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-five-sessions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1704,6 +1715,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#walkthrough-one-improvement-cycle-in-four-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Walkthrough: one improvement cycle in four phases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-five-sessions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1969,6 +1991,60 @@ unchanged edit, records <code>edit_derived_from="feedback.comparison"</code>, an
 the same <code>_solve()</code> and <code>grade_record()</code> path used for the seeds.</p>
 <p>This reuse is what makes the final comparison interpretable: the artifact is
 different, while public case, model, schema, grader, and bounds remain fixed.</p>
+<h2 id="walkthrough-one-improvement-cycle-in-four-phases">Walkthrough: one improvement cycle in four phases</h2>
+<p>This walkthrough uses <strong>phase</strong> for an outer algorithm step. The five provider
+sessions inside the phases are five independent inner <code>meta.run</code> calls with
+<code>Greedy(max_trials=1)</code>; they are not five search iterations.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Phase</th>
+<th>Meta-Evolve components</th>
+<th>State entering the phase</th>
+<th>State leaving the phase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1. Measure seeds</td>
+<td>Two immutable <code>meta.Text</code> artifacts; two solver <code>SessionRequest</code>s; evaluator-owned <code>grade_record()</code></td>
+<td>Prompt A, prompt B, and the same public case</td>
+<td>Two <code>SessionRecord</code>s and two exact measurements</td>
+</tr>
+<tr>
+<td style="text-align: right;">2. Derive feedback</td>
+<td>Comparator request with <code>COMPARISON_SCHEMA</code></td>
+<td>Both observed answers plus the evaluator-only reference</td>
+<td>Preferred seed name and textual feedback, or a typed failure</td>
+</tr>
+<tr>
+<td style="text-align: right;">3. Propose successor</td>
+<td>Editor request over a two-file <code>SourceTree</code></td>
+<td>Preferred <code>prompt.md</code> and <code>feedback.md</code>; no hidden answer</td>
+<td>New <code>meta.Text</code> prompt with lineage to <code>feedback.comparison</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">4. Measure and retain</td>
+<td>Reused solver path and exact grader; <code>LabResult</code></td>
+<td>Successor prompt and the unchanged public case</td>
+<td>Edited measurement, all session evidence, artifacts, lineage, and usage</td>
+</tr>
+</tbody>
+</table>
+<p>The authority boundary stays visible at every handoff. Solvers can answer but
+cannot grade; the comparator can read the reference but cannot edit the
+artifact; the editor can edit but sees only feedback; and outer Python decides
+whether a structured result is a measurement, a successor, or an unrankable
+failure.</p>
+<p>For a concrete state trace, suppose candidate B is preferred. No live outcome
+is being claimed here—the names show how records would flow:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>meta.Text(prompt B)
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  + SessionRecord(candidate B answer)
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  + SessionRecord(comparison feedback)
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  ── editor request ──► meta.Text(edited prompt)
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  ── unchanged solver/evaluator ──► Measurement(edited)
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  ── retain ──► LabResult
+</code></pre></div>
 <h2 id="the-five-sessions">The five sessions</h2>
 <table>
 <thead>
@@ -2014,50 +2090,50 @@ different, while public case, model, schema, grader, and bounds remain fixed.</p
 </table>
 <p>The editor never sees the reference answer or gold URL. Its input is exactly
 the preferred prompt plus the feedback, so the successor can record:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>edited prompt derived_from feedback.comparison
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>edited prompt derived_from feedback.comparison
 </code></pre></div>
 <p>If the comparison or editor fails, later dependent sessions do not run. Five
 is the ceiling for one complete path, not a promise to spend five calls after a
 typed failure makes the remaining comparison meaningless.</p>
 <h2 id="structured-evidence">Structured evidence</h2>
 <p>The evaluator must return this closed-world shape:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;preferred_candidate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;candidate_a&quot;</span><span class="p">,</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">&quot;textual_feedback&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A general explanation of what the prompt should change.&quot;</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;preferred_candidate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;candidate_a&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">&quot;textual_feedback&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A general explanation of what the prompt should change.&quot;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">}</span>
 </code></pre></div>
 <p><code>preferred_candidate</code> may be only <code>candidate_a</code> or <code>candidate_b</code>. Feedback must
 be non-empty, and extra fields are rejected. The independent validator runs for
 both live Claude output and injected test output.</p>
 <p>The editor separately returns:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span><span class="nt">&quot;prompt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The complete rewritten solver prompt.&quot;</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span><span class="nt">&quot;prompt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The complete rewritten solver prompt.&quot;</span><span class="p">}</span>
 </code></pre></div>
 <p>An empty or unchanged prompt is a typed <code>ProposerFailure</code>; it is not evaluated
 as if it were a new candidate.</p>
 <h2 id="minimal-runnable-mechanism">Minimal runnable mechanism</h2>
 <p>The real implementation is deliberately small:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClaudeSessionRunner</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs.feedback_descent</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ClaudeSessionRunner</span><span class="p">())</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;preferred:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;preferred&quot;</span><span class="p">))</span>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;feedback:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;feedback&quot;</span><span class="p">))</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;edited:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;edited&quot;</span><span class="p">))</span>
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;derived from:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;edit_derived_from&quot;</span><span class="p">))</span>
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;edited measurement:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">measurements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;edited&quot;</span><span class="p">))</span>
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;usage:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">usage</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClaudeSessionRunner</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs.feedback_descent</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ClaudeSessionRunner</span><span class="p">())</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;preferred:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;preferred&quot;</span><span class="p">))</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;feedback:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;feedback&quot;</span><span class="p">))</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;edited:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;edited&quot;</span><span class="p">))</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;derived from:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;edit_derived_from&quot;</span><span class="p">))</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;edited measurement:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">measurements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;edited&quot;</span><span class="p">))</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;usage:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">usage</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><span class="filename">Illustrative shape — live run, nothing captured</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>preferred: &lt;candidate_a-or-candidate_b&gt;
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>feedback: &lt;structured evaluator rationale&gt;
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>edited: &lt;complete rewritten prompt&gt;
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>derived from: feedback.comparison
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>edited measurement: &lt;exact metric or typed failure&gt;
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>usage: &lt;aggregated provider usage&gt;
+<div class="highlight"><span class="filename">Illustrative shape — live run, nothing captured</span><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>preferred: &lt;candidate_a-or-candidate_b&gt;
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>feedback: &lt;structured evaluator rationale&gt;
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>edited: &lt;complete rewritten prompt&gt;
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>derived from: feedback.comparison
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>edited measurement: &lt;exact metric or typed failure&gt;
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>usage: &lt;aggregated provider usage&gt;
 </code></pre></div>
 <p>Run it from the repository root after authenticating Claude Code:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nv">META_EVOLVE_LIVE_CLAUDE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--extra<span class="w"> </span>claude<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span>python<span class="w"> </span>examples/18_sealqa_research_labs/run_all.py<span class="w"> </span>feedback_descent
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nv">META_EVOLVE_LIVE_CLAUDE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--extra<span class="w"> </span>claude<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span>python<span class="w"> </span>examples/18_sealqa_research_labs/run_all.py<span class="w"> </span>feedback_descent
 </code></pre></div>
 <p>The five sessions all use the pinned Haiku model, equal 50-turn ceilings, a
 1,800-second adapter timeout, and a 1,860-second inner wall budget.</p>
