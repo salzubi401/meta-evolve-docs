@@ -1,0 +1,6707 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Programmable evaluated improvement loops over versioned artifacts">
+      
+      
+      
+      
+        <link rel="prev" href="../../references/">
+      
+      
+        <link rel="next" href="../experience-provenance/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Shipped API - Meta-Evolve</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#shipped-api-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Meta-Evolve" class="md-header__button md-logo" aria-label="Meta-Evolve" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Meta-Evolve
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Shipped API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/salzubi401/meta-evolve" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    salzubi401/meta-evolve
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Meta-Evolve" class="md-nav__button md-logo" aria-label="Meta-Evolve" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Meta-Evolve
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/salzubi401/meta-evolve" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    salzubi401/meta-evolve
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learn
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Learn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start-here/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Start here
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/01-define-better/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Define better
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/02-change-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Change search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/03-inspect-results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inspect results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/04-improve-source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Improve source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/05-use-experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Use experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/06-persist-run/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persist a run
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/07-where-next/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Where next
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/runs-and-results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runs and results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/evaluation-and-budgets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluation and budgets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/experience/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/durability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Durability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Providers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations-and-extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adding-an-artifact-domain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add an artifact domain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/autoresearch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoresearch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../live-agent-track/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bounded live agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sealqa-research-labs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/research-labs/01-feedback-descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feedback Descent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/research-labs/02-autodata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AutoData
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/research-labs/03-meta-harness-precursor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta-Harness precursor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/research-labs/04-evoskill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EvoSkill
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shipped API
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shipped API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#everyday-run-and-artifacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Everyday run and artifacts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-and-source-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation and source execution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Experience
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#durability-inspection-and-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Durability, inspection, and errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generated-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generated entries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ArtifactView" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ArtifactView
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.AncestorsOnly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AncestorsOnly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.BestOfN" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BestOfN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BestOfN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.BestOfN.bind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bind
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.BestSibling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BestSibling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Budget
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.BudgetUnavailable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BudgetUnavailable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.CapabilityError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CapabilityError
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ContextPolicy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ContextPolicy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.CommandEvaluator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CommandEvaluator
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ExperienceAccess" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExperienceAccess
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ExperienceAccessDenied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExperienceAccessDenied
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ExperienceBudgetExhausted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExperienceBudgetExhausted
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ExperienceReader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExperienceReader
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.EvaluationEnvironment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EvaluationEnvironment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Greedy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Greedy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Greedy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Greedy.bind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bind
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.InvalidDecision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        InvalidDecision
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Maximize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maximize
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Minimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimize
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.NoSuccessfulEvaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NoSuccessfulEvaluation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.NoMemory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NoMemory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Population" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Population
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Population">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Population.bind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bind
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ProcessSpec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ProcessSpec
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.PatchProposer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PatchProposer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.PatchResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PatchResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.PullAccess" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PullAccess
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Registry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Registry.register_context_policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        register_context_policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Registry.resolve_context_policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        resolve_context_policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Registry.register_artifact_type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        register_artifact_type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Registry.resolve_policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        resolve_policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Run">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Run.trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        trials
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.RunComparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RunComparison
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.RunExperienceUsage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RunExperienceUsage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.RunError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RunError
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.RunNotFound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RunNotFound
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.RunSummary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RunSummary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.RunsNotComparable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RunsNotComparable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.SkillSet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SkillSet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Storage.durable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        durable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Storage.compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Storage.commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        commit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Storage.runs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        runs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.SourceTree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SourceTree
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Text
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.TrialView" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TrialView
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.TextPatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TextPatch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.UnboundSearchProgram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UnboundSearchProgram
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.resume" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        resume
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.load_source_tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        load_source_tree
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experience-provenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experience provenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programming model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributor-code-tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributor code tour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design and Roadmap
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design and Roadmap
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Status and authority
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/destination-map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    A3 destination map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Future search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/meta-evolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta-evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/scientific-direction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scientific direction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/network-direction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network direction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/m8-harness-evolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    M8 harness evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../m8-design-capstone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    M8 compatibility route
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../milestones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../implementation-plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evidence
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Evidence
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/notebooks/01-policy-tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Policy lesson
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/notebooks/02-policy-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Policy comparison lesson
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/notebooks/03-experience-tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experience lesson
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/notebooks/04-push-pull/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push and pull lesson
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/notebooks/05-derivation-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Derivation lesson
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/notebooks/06-crash-recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recovery lesson
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../learn/notebooks/07-source-patching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Detailed source tour
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/02_policy_comparison/milestone_2_tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestone 2 tour: one loop, replaceable search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/02_policy_comparison/policy_comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fair comparison of three search policies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/03_experience_reuse/milestone_3_tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestone 3 tour: experience that remains causal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/03_experience_reuse/push_pull_lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Push and pull lab: two routes to the same experience
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/03_experience_reuse/derivation_comparison_lab/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Derivation, replay, and fair memory comparison
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/04_crash_recovery/crash_recovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crash recovery for durable runs ()
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/05_python_function/milestone_5_tour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestone 5 tour: immutable source, external evidence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/19_autoresearch/autoresearch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoresearch, in miniature
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/18_sealqa_research_labs/01_feedback_descent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feedback Descent lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/18_sealqa_research_labs/02_autodata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AutoData lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/18_sealqa_research_labs/03_meta_harness_precursor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta-Harness precursor lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/18_sealqa_research_labs/04_evoskill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EvoSkill lab
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#everyday-run-and-artifacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Everyday run and artifacts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-and-source-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation and source execution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Experience
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#durability-inspection-and-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Durability, inspection, and errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generated-entries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generated entries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ArtifactView" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ArtifactView
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.AncestorsOnly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AncestorsOnly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.BestOfN" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BestOfN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BestOfN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.BestOfN.bind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bind
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.BestSibling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BestSibling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Budget
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.BudgetUnavailable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BudgetUnavailable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.CapabilityError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CapabilityError
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ContextPolicy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ContextPolicy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.CommandEvaluator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CommandEvaluator
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ExperienceAccess" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExperienceAccess
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ExperienceAccessDenied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExperienceAccessDenied
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ExperienceBudgetExhausted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExperienceBudgetExhausted
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ExperienceReader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExperienceReader
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.EvaluationEnvironment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EvaluationEnvironment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Greedy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Greedy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Greedy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Greedy.bind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bind
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.InvalidDecision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        InvalidDecision
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Maximize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maximize
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Minimize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimize
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.NoSuccessfulEvaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NoSuccessfulEvaluation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.NoMemory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NoMemory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Population" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Population
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Population">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Population.bind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bind
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ProcessSpec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ProcessSpec
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.PatchProposer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PatchProposer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.PatchResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PatchResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.PullAccess" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PullAccess
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Registry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Registry.register_context_policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        register_context_policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Registry.resolve_context_policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        resolve_context_policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Registry.register_artifact_type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        register_artifact_type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Registry.resolve_policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        resolve_policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Run">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Run.trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        trials
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.RunComparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RunComparison
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.RunExperienceUsage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RunExperienceUsage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.RunError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RunError
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.RunNotFound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RunNotFound
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.RunSummary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RunSummary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.RunsNotComparable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RunsNotComparable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.SkillSet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SkillSet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Storage.durable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        durable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Storage.compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Storage.commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        commit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meta_evolve.Storage.runs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        runs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.SourceTree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SourceTree
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Text
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.TrialView" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TrialView
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.TextPatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TextPatch
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.UnboundSearchProgram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UnboundSearchProgram
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.Usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.resume" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        resume
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.load_source_tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        load_source_tree
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Reference
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/salzubi401/meta-evolve/edit/main/docs/reference/api.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/salzubi401/meta-evolve/raw/main/docs/reference/api.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="shipped-api-reference">Shipped API reference</h1>
+<p><strong>Status: Shipped.</strong> Every entry on this page is generated from the installed
+<code>meta_evolve</code> package. The four tiers organize the root imports without changing
+or hiding them.</p>
+<h2 id="everyday-run-and-artifacts">Everyday run and artifacts</h2>
+<ul>
+<li><a class="autorefs autorefs-internal" title="run(*, task, seed, proposer, search=None, context=None, experience=None, storage=None, budget=None, random_seed=0, mode='local', registry=None)" href="#meta_evolve.run"><code>run</code></a></li>
+<li><a class="autorefs autorefs-internal" title="Task
+
+
+  
+      dataclass
+  " href="#meta_evolve.Task"><code>Task</code></a></li>
+<li><a class="autorefs autorefs-internal" title="Budget
+
+
+  
+      dataclass
+  " href="#meta_evolve.Budget"><code>Budget</code></a></li>
+<li><a class="autorefs autorefs-internal" title="Maximize
+
+
+  
+      dataclass
+  " href="#meta_evolve.Maximize"><code>Maximize</code></a></li>
+<li><a class="autorefs autorefs-internal" title="Minimize
+
+
+  
+      dataclass
+  " href="#meta_evolve.Minimize"><code>Minimize</code></a></li>
+<li><a class="autorefs autorefs-internal" title="Greedy
+
+
+  
+      dataclass
+  " href="#meta_evolve.Greedy"><code>Greedy</code></a></li>
+<li><a class="autorefs autorefs-internal" title="BestOfN
+
+
+  
+      dataclass
+  " href="#meta_evolve.BestOfN"><code>BestOfN</code></a></li>
+<li><a class="autorefs autorefs-internal" title="Population
+
+
+  
+      dataclass
+  " href="#meta_evolve.Population"><code>Population</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.Text"><code>Text</code></a></li>
+<li><a class="autorefs autorefs-internal" title="SourceTree
+
+
+  
+      dataclass
+  " href="#meta_evolve.SourceTree"><code>SourceTree</code></a></li>
+<li><a class="autorefs autorefs-internal" title="SkillSet
+
+
+  
+      dataclass
+  " href="#meta_evolve.SkillSet"><code>SkillSet</code></a></li>
+<li><a class="autorefs autorefs-internal" title="load_source_tree(path)" href="#meta_evolve.load_source_tree"><code>load_source_tree</code></a></li>
+</ul>
+<h2 id="evaluation-and-source-execution">Evaluation and source execution</h2>
+<ul>
+<li><a class="autorefs autorefs-internal" title="CommandEvaluator
+
+
+  
+      dataclass
+  " href="#meta_evolve.CommandEvaluator"><code>CommandEvaluator</code></a></li>
+<li><a class="autorefs autorefs-internal" title="EvaluationEnvironment
+
+
+  
+      dataclass
+  " href="#meta_evolve.EvaluationEnvironment"><code>EvaluationEnvironment</code></a></li>
+<li><a class="autorefs autorefs-internal" title="ProcessSpec
+
+
+  
+      dataclass
+  " href="#meta_evolve.ProcessSpec"><code>ProcessSpec</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.PatchProposer"><code>PatchProposer</code></a></li>
+<li><a class="autorefs autorefs-internal" title="PatchResult
+
+
+  
+      dataclass
+  " href="#meta_evolve.PatchResult"><code>PatchResult</code></a></li>
+<li><a class="autorefs autorefs-internal" title="TextPatch
+
+
+  
+      dataclass
+  " href="#meta_evolve.TextPatch"><code>TextPatch</code></a></li>
+</ul>
+<h2 id="experience">Experience</h2>
+<ul>
+<li><a class="autorefs autorefs-internal" title="AncestorsOnly
+
+
+  
+      dataclass
+  " href="#meta_evolve.AncestorsOnly"><code>AncestorsOnly</code></a></li>
+<li><a class="autorefs autorefs-internal" title="BestSibling
+
+
+  
+      dataclass
+  " href="#meta_evolve.BestSibling"><code>BestSibling</code></a></li>
+<li><a class="autorefs autorefs-internal" title="NoMemory
+
+
+  
+      dataclass
+  " href="#meta_evolve.NoMemory"><code>NoMemory</code></a></li>
+<li><a class="autorefs autorefs-internal" title="PullAccess
+
+
+  
+      dataclass
+  " href="#meta_evolve.PullAccess"><code>PullAccess</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.ContextPolicy"><code>ContextPolicy</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.ExperienceAccess"><code>ExperienceAccess</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.ExperienceReader"><code>ExperienceReader</code></a></li>
+<li><a class="autorefs autorefs-internal" title="RunExperienceUsage
+
+
+  
+      dataclass
+  " href="#meta_evolve.RunExperienceUsage"><code>RunExperienceUsage</code></a></li>
+</ul>
+<h2 id="durability-inspection-and-errors">Durability, inspection, and errors</h2>
+<ul>
+<li><a class="autorefs autorefs-internal" title="ArtifactView
+
+
+  
+      dataclass
+  " href="#meta_evolve.ArtifactView"><code>ArtifactView</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.BudgetUnavailable"><code>BudgetUnavailable</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.CapabilityError"><code>CapabilityError</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.ExperienceAccessDenied"><code>ExperienceAccessDenied</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.ExperienceBudgetExhausted"><code>ExperienceBudgetExhausted</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.InvalidDecision"><code>InvalidDecision</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.NoSuccessfulEvaluation"><code>NoSuccessfulEvaluation</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.Registry"><code>Registry</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.Run"><code>Run</code></a></li>
+<li><a class="autorefs autorefs-internal" title="RunComparison
+
+
+  
+      dataclass
+  " href="#meta_evolve.RunComparison"><code>RunComparison</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.RunError"><code>RunError</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.RunNotFound"><code>RunNotFound</code></a></li>
+<li><a class="autorefs autorefs-internal" title="RunSummary
+
+
+  
+      dataclass
+  " href="#meta_evolve.RunSummary"><code>RunSummary</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.RunsNotComparable"><code>RunsNotComparable</code></a></li>
+<li><a class="autorefs autorefs-internal" title="Storage
+
+
+  
+      dataclass
+  " href="#meta_evolve.Storage"><code>Storage</code></a></li>
+<li><a class="autorefs autorefs-internal" title="TrialView
+
+
+  
+      dataclass
+  " href="#meta_evolve.TrialView"><code>TrialView</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.UnboundSearchProgram"><code>UnboundSearchProgram</code></a></li>
+<li><a class="autorefs autorefs-internal" title="Usage
+
+
+  
+      dataclass
+  " href="#meta_evolve.Usage"><code>Usage</code></a></li>
+<li><a class="autorefs autorefs-internal" title="resume(run_id, *, storage, registry)" href="#meta_evolve.resume"><code>resume</code></a></li>
+</ul>
+<h2 id="generated-entries">Generated entries</h2>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+
+    <div class="doc doc-contents first">
+
+        <p>Meta-Evolve: improve artifacts through proposed, evaluated, recorded trials.</p>
+<p>The root package keeps the simple callable path small: define a task, bound
+it with a budget, and state what to maximize or minimize. The full durable
+vocabulary for policy authors and kernel code lives in <code>meta_evolve.domain</code>,
+and canonical serialization lives in <code>meta_evolve.serialization</code>.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.ArtifactView" class="doc doc-heading">
+            <code>ArtifactView</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.AncestorsOnly" class="doc doc-heading">
+            <code>AncestorsOnly</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Push records from accessible ancestors in graph and commit order.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.BestOfN" class="doc doc-heading">
+            <code>BestOfN</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Independently expand the seed for at most <code>max_trials</code> attempts.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="meta_evolve.BestOfN.bind" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">bind</span><span class="p">(</span><span class="n">proposer</span><span class="p">,</span> <span class="n">budget</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Authorize one proposer and derive the unit trial allocation.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.BestSibling" class="doc doc-heading">
+            <code>BestSibling</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Push the best successful prior sibling under the primary objective.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.Budget" class="doc doc-heading">
+            <code>Budget</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Optional ceilings; <code>None</code> means that resource is unbounded.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.BudgetUnavailable" class="doc doc-heading">
+            <code>BudgetUnavailable</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="RunError (meta_evolve.errors.RunError)" href="#meta_evolve.RunError">RunError</a></code></p>
+
+
+
+        <p>The requested action cannot fit within its effective budget.</p>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.CapabilityError" class="doc doc-heading">
+            <code>CapabilityError</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="RunError (meta_evolve.errors.RunError)" href="#meta_evolve.RunError">RunError</a></code></p>
+
+
+
+        <p>A run's declared or requested execution profile is not honored.</p>
+<p>Raised for unverifiable component implementations (lambdas, closures,
+<code>functools.partial</code>, decorated wrappers, or callables with no
+resolvable module source), unregistered <code>(role, name, version)</code>
+lookups, and durable-local configuration that lacks a registry, durable
+storage, or a registered evaluator/proposer/policy. Also raised when
+storage is asked for an optional capability its components do not
+declare, such as enumerating runs through a non-<code>RunIndex</code> event store.</p>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.ContextPolicy" class="doc doc-heading">
+            <code>ContextPolicy</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="typing.Protocol">Protocol</span></code></p>
+
+
+
+        <p>Select the exact bounded context bundle pushed to one proposer call.</p>
+<p>Only records committed strictly before the candidate trial's logical step
+are eligible; context facts themselves are never eligible. The kernel
+rejects a bundle that selects anything else or exceeds the declared bounds.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.CommandEvaluator" class="doc doc-heading">
+            <code>CommandEvaluator</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Materialize a source tree and trust a fixed 0/1/other exit protocol.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.ExperienceAccess" class="doc doc-heading">
+            <code>ExperienceAccess</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="typing.Protocol">Protocol</span></code></p>
+
+
+
+        <p>A run-level declaration that normalizes to one durable access spec.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.ExperienceAccessDenied" class="doc doc-heading">
+            <code>ExperienceAccessDenied</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="LookupError">LookupError</span></code></p>
+
+
+
+        <p>An opaque denial that discloses no protected content or topology.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.ExperienceBudgetExhausted" class="doc doc-heading">
+            <code>ExperienceBudgetExhausted</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="RuntimeError">RuntimeError</span></code></p>
+
+
+
+        <p>A content-free signal that a grant's operation ceiling was exceeded.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.ExperienceReader" class="doc doc-heading">
+            <code>ExperienceReader</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="typing.Protocol">Protocol</span></code></p>
+
+
+
+        <p>The bounded read capability supplied only to successor proposers.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.EvaluationEnvironment" class="doc doc-heading">
+            <code>EvaluationEnvironment</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Versioned identity for the environment in which a grader runs.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.Greedy" class="doc doc-heading">
+            <code>Greedy</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Expand the best evaluated artifact for at most <code>max_trials</code> attempts.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="meta_evolve.Greedy.bind" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">bind</span><span class="p">(</span><span class="n">proposer</span><span class="p">,</span> <span class="n">budget</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Authorize one proposer and derive the unit trial allocation from the run budget.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.InvalidDecision" class="doc doc-heading">
+            <code>InvalidDecision</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="RunError (meta_evolve.errors.RunError)" href="#meta_evolve.RunError">RunError</a></code></p>
+
+
+
+        <p>A search decision is stale, malformed, or exceeds its authority.</p>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.Maximize" class="doc doc-heading">
+            <code>Maximize</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="meta_evolve.domain.task._Objective">_Objective</span></code></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.Minimize" class="doc doc-heading">
+            <code>Minimize</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="meta_evolve.domain.task._Objective">_Objective</span></code></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.NoSuccessfulEvaluation" class="doc doc-heading">
+            <code>NoSuccessfulEvaluation</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="RunError (meta_evolve.errors.RunError)" href="#meta_evolve.RunError">RunError</a></code></p>
+
+
+
+        <p>A result query has no successful evaluation to return.</p>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.NoMemory" class="doc doc-heading">
+            <code>NoMemory</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Explicit spelling of the default, normalized completely away by <code>run</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.Population" class="doc doc-heading">
+            <code>Population</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Retain the top <code>size</code> candidates and expand tournament winners.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="meta_evolve.Population.bind" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">bind</span><span class="p">(</span><span class="n">proposer</span><span class="p">,</span> <span class="n">budget</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Authorize one proposer and derive the unit trial allocation.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.ProcessSpec" class="doc doc-heading">
+            <code>ProcessSpec</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>A value-valid process request whose authority is decided by a provider.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.PatchProposer" class="doc doc-heading">
+            <code>PatchProposer</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Apply a deterministic patch command through a private workspace.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.PatchResult" class="doc doc-heading">
+            <code>PatchResult</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>A patch command or typed proposer failure with proposal observations.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.PullAccess" class="doc doc-heading">
+            <code>PullAccess</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.Registry" class="doc doc-heading">
+            <code>Registry</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>(role, name, version)-keyed components and policy factories.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="meta_evolve.Registry.register_context_policy" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">register_context_policy</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">factory</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">deterministic</span><span class="p">,</span> <span class="n">retry_safe</span><span class="p">,</span> <span class="n">dependencies</span><span class="o">=</span><span class="p">())</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Register a module-level factory that rebuilds a context policy.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="meta_evolve.Registry.resolve_context_policy" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">resolve_context_policy</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Rebuild a context policy and confirm its declaration round-trips.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="meta_evolve.Registry.register_artifact_type" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">register_artifact_type</span><span class="p">(</span><span class="n">codec</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Register one artifact codec keyed by (kind, representation).</p>
+<p>Built-in keys are non-overridable — every codec offered for one is
+rejected, the built-in object included: a new decode under an old key
+would change the meaning of every artifact already committed under it,
+so different behavior needs a new key.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="meta_evolve.Registry.resolve_policy" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">resolve_policy</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">budget</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Rebuild a bound program from <code>spec</code> and confirm it round-trips.</p>
+<p>Constructs the unbound preset from the registered factory and
+<code>spec.configuration</code>, binds it against <code>proposer</code>/<code>budget</code>,
+and asserts the rebuilt <code>SearchSpec</code> equals <code>spec</code> exactly —
+the same check M4.4's <code>resume</code> relies on (there, <code>budget</code> is
+the recorded <code>RunStarted.run_budget</code>).</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.Run" class="doc doc-heading">
+            <code>Run</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Read-only queries over one committed local run.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="meta_evolve.Run.trials" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">trials</span><span class="p">()</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Every committed attempt in commit order, seed trial first.</p>
+<p>The winner-shaped queries answer "what came out of this run"; this one
+answers "what happened in it", so it reports losers, failed proposals,
+and trials the budget never authorised for evaluation, and it is the
+one query that never raises <code>NoSuccessfulEvaluation</code>. Read
+<code>TrialView.state</code> to tell those apart.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.RunComparison" class="doc doc-heading">
+            <code>RunComparison</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>The exact-score result for two compatible run summaries.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.RunExperienceUsage" class="doc doc-heading">
+            <code>RunExperienceUsage</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.RunError" class="doc doc-heading">
+            <code>RunError</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="RuntimeError">RuntimeError</span></code></p>
+
+
+
+        <p>Base class for application-level run failures.</p>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.RunNotFound" class="doc doc-heading">
+            <code>RunNotFound</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="RunError (meta_evolve.errors.RunError)" href="#meta_evolve.RunError">RunError</a></code></p>
+
+
+
+        <p>No durable run exists under the requested id (an empty event stream).</p>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.RunSummary" class="doc doc-heading">
+            <code>RunSummary</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>An immutable, storage-independent view of one successful run.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.RunsNotComparable" class="doc doc-heading">
+            <code>RunsNotComparable</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="RunError (meta_evolve.errors.RunError)" href="#meta_evolve.RunError">RunError</a></code></p>
+
+
+
+        <p>Two runs disagree on a declaration their comparison is defined over.</p>
+<p><code>compare_runs</code> ranks two runs only when they answer the same question:
+the same task, objective, budgets, initial artifact, and authorized
+components. <code>declaration</code> names the one that differed, so a caller can
+branch on it without parsing the message.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.SkillSet" class="doc doc-heading">
+            <code>SkillSet</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="collections.abc.Mapping">Mapping</span>[<span title="str">str</span>, <span title="str">str</span>]</code></p>
+
+
+
+        <p>An immutable mapping from <code>skills/&lt;name&gt;.md</code> to exact UTF-8 text.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.Storage" class="doc doc-heading">
+            <code>Storage</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Paired artifact and event storage, plus one all-or-none <code>commit</code>.</p>
+<p><code>is_durable</code> is the explicit durability capability: later slices can
+gate on it (<code>if not storage.is_durable: raise CapabilityError(...)</code>)
+without inspecting concrete adapter types. <code>Storage.durable(...)</code> and a
+composed strategy that declares durable atomic commit set it <code>True</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="meta_evolve.Storage.durable" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">durable</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Wire durable storage into <code>path</code> (created if missing): one
+SQLite connection (events + artifact occurrence rows) shared with a
+content-addressed filesystem blob store under <code>path/artifacts</code>.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="meta_evolve.Storage.compose" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">compose</span><span class="p">(</span><span class="n">artifacts</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">commit_strategy</span><span class="p">,</span> <span class="n">close</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Compose independently implemented stores behind one atomic commit.</p>
+<p>The strategy declares whether its commit survives process restart;
+callers cannot separately forge <code>is_durable</code>.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="meta_evolve.Storage.commit" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">commit</span><span class="p">(</span><span class="n">run_id</span><span class="p">,</span> <span class="n">expected_version</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">occurrences</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Commit <code>events</code> and <code>occurrences</code> as one all-or-none unit.</p>
+<p><code>EventStreamConflict</code> on a stale <code>expected_version</code> propagates
+unchanged, and nothing is written. See <code>unit_of_work.py</code> for the
+per-backend guarantee (durable: one SQLite transaction; in-memory:
+a locked copy-on-write swap; hand-built pair: local-only fallback).</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="meta_evolve.Storage.runs" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">runs</span><span class="p">()</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Every run this storage holds events for, sorted by id.</p>
+<p>Identities, not <code>Run</code> objects: opening a run validates and replays
+its whole stream, and detail is already <code>Run.summary()</code>'s job. A
+listing exists so those queries stay reachable once the ids have
+scrolled out of a terminal, so it returns exactly what reopening one
+needs. The order is lexicographic by id and identical across
+backends; run ids are content-derived, so it is not chronological.</p>
+<p>Enumeration is an optional store capability (<code>ports.RunIndex</code>),
+declared by implementing it. A paired event store that does not is
+refused explicitly here — never reported as an empty store, which
+would be a silent capability downgrade.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.SourceTree" class="doc doc-heading">
+            <code>SourceTree</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="collections.abc.Mapping">Mapping</span>[<span title="str">str</span>, <span title="str">str</span>]</code></p>
+
+
+
+        <p>An immutable mapping from portable paths to exact UTF-8 text.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.Task" class="doc doc-heading">
+            <code>Task</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>The evaluator, objectives, budget, and accepted artifact declaration.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.Text" class="doc doc-heading">
+            <code>Text</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="str">str</span></code></p>
+
+
+
+        <p>An immutable text artifact value; a plain <code>str</code> in every other way.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.TrialView" class="doc doc-heading">
+            <code>TrialView</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.TextPatch" class="doc doc-heading">
+            <code>TextPatch</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Replace one complete file only when its expected text still matches.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.UnboundSearchProgram" class="doc doc-heading">
+            <code>UnboundSearchProgram</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="RunError (meta_evolve.errors.RunError)" href="#meta_evolve.RunError">RunError</a></code></p>
+
+
+
+        <p>A public search preset was used without run-level binding.</p>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.Usage" class="doc doc-heading">
+            <code>Usage</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="meta_evolve.resume" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">resume</span><span class="p">(</span><span class="n">run_id</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">storage</span><span class="p">,</span> <span class="n">registry</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Drive an interrupted durable run to its uninterrupted logical result.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="meta_evolve.run" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">run</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">task</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span> <span class="n">proposer</span><span class="p">,</span> <span class="n">search</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">experience</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">storage</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">budget</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">registry</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Run one evaluated improvement search and return its inspectable history.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>task</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Task
+
+
+  
+      dataclass
+   (meta_evolve.domain.Task)" href="#meta_evolve.Task">Task</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Evaluation contract, artifact type, objectives, and optional ceiling.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>seed</code>
+            </td>
+            <td>
+                  <code><span title="object">object</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Initial value accepted by the task's artifact codec.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>proposer</code>
+            </td>
+            <td>
+                  <code><span title="meta_evolve.application.run_support.ProposerLike">ProposerLike</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Callable, adapter, or registered proposer component.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>search</code>
+            </td>
+            <td>
+                  <code><span title="meta_evolve.domain.SearchProgram">SearchProgram</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Search policy; defaults to an unbounded :class:<code>Greedy</code> policy.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>context</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ContextPolicy (meta_evolve.policies.context.ContextPolicy)" href="#meta_evolve.ContextPolicy">ContextPolicy</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional policy-pushed experience selector.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>experience</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ExperienceAccess (meta_evolve.ports.experience.ExperienceAccess)" href="#meta_evolve.ExperienceAccess">ExperienceAccess</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional bounded agent-pulled experience access.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>storage</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Storage
+
+
+  
+      dataclass
+   (meta_evolve.application.results.Storage)" href="#meta_evolve.Storage">Storage</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Artifact and event storage; defaults to isolated memory storage.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>budget</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Budget
+
+
+  
+      dataclass
+   (meta_evolve.domain.Budget)" href="#meta_evolve.Budget">Budget</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Run budget, which may narrow but never widen the task budget.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>random_seed</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Integer seed for recorded deterministic search choices.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>mode</code>
+            </td>
+            <td>
+                  <code><span title="meta_evolve.application.run_support.ExecutionMode">ExecutionMode</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p><code>"local"</code> or <code>"durable-local"</code> execution.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;local&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>registry</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Registry (meta_evolve.registry.Registry)" href="#meta_evolve.Registry">Registry</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Extra artifact codecs and registered durable components.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Run (meta_evolve.application.results.Run)" href="#meta_evolve.Run">Run</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A :class:<code>Run</code> for best-result, trial, lineage, usage, and comparison queries.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>TypeError</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If a declared public input has the wrong type.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code>ValueError</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If declarations conflict or the task budget is widened.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code>CapabilityError</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If durable-local requirements cannot be satisfied.</p>
+<p>Invalid proposals and ordinary proposer or evaluator failures are recorded as
+typed trial outcomes; they are not converted to exceptions or low scores.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="meta_evolve.load_source_tree" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">load_source_tree</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Load a directory without following links or normalizing file content.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../references/" class="md-footer__link md-footer__link--prev" aria-label="Previous: References">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                References
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../experience-provenance/" class="md-footer__link md-footer__link--next" aria-label="Next: Experience provenance">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Experience provenance
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "navigation.footer", "navigation.path", "navigation.sections", "navigation.tracking"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
