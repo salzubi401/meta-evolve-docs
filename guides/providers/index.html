@@ -14,7 +14,7 @@
         <link rel="prev" href="../durability/">
       
       
-        <link rel="next" href="../cli/">
+        <link rel="next" href="../migration-user-owned-sdk/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>Providers - Meta-Evolve</title>
+        <title>SDK integration - Meta-Evolve</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#provider-adapters" class="md-skip">
+        <a href="#user-owned-sdk-integration" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Providers
+              SDK integration
             
           </span>
         </div>
@@ -716,7 +716,7 @@
   <span class="md-ellipsis">
     
   
-    Providers
+    SDK integration
   
 
     
@@ -734,7 +734,7 @@
   <span class="md-ellipsis">
     
   
-    Providers
+    SDK integration
   
 
     
@@ -760,10 +760,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#capabilities-and-limits" class="md-nav__link">
+  <a href="#start-with-the-ordinary-callable" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Capabilities and limits
+        Start with the ordinary callable
       
     </span>
   </a>
@@ -771,10 +771,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#source-proposals" class="md-nav__link">
+  <a href="#return-a-typed-result" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Source proposals
+        Return a typed result
       
     </span>
   </a>
@@ -782,10 +782,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#experience" class="md-nav__link">
+  <a href="#give-an-sdk-audited-pull-tools" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Experience
+        Give an SDK audited pull tools
       
     </span>
   </a>
@@ -793,10 +793,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#reproducibility" class="md-nav__link">
+  <a href="#authority-and-reproducibility" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Reproducibility
+        Authority and reproducibility
       
     </span>
   </a>
@@ -807,6 +807,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration-user-owned-sdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDK migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1668,6 +1696,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../design/user-owned-sdk-boundary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User-owned SDK boundary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../m8-design-capstone/" class="md-nav__link">
         
   
@@ -2370,10 +2426,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#capabilities-and-limits" class="md-nav__link">
+  <a href="#start-with-the-ordinary-callable" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Capabilities and limits
+        Start with the ordinary callable
       
     </span>
   </a>
@@ -2381,10 +2437,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#source-proposals" class="md-nav__link">
+  <a href="#return-a-typed-result" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Source proposals
+        Return a typed result
       
     </span>
   </a>
@@ -2392,10 +2448,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#experience" class="md-nav__link">
+  <a href="#give-an-sdk-audited-pull-tools" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Experience
+        Give an SDK audited pull tools
       
     </span>
   </a>
@@ -2403,10 +2459,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#reproducibility" class="md-nav__link">
+  <a href="#authority-and-reproducibility" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Reproducibility
+        Authority and reproducibility
       
     </span>
   </a>
@@ -2494,38 +2550,114 @@
   
 
 
-<h1 id="provider-adapters">Provider adapters</h1>
-<p><strong>Status: Shipped.</strong> Claude and Codex adapters are independent optional edges.
-Neither creates a provider framework in the kernel.</p>
-<p>Install only the provider extra you need:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </span>claude
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </span>codex
+<h1 id="user-owned-sdk-integration">User-owned SDK integration</h1>
+<p><strong>Status: Shipped.</strong> Any SDK integrates through the same callable boundary as
+deterministic Python. Meta-Evolve does not install, authenticate, configure, or
+wrap a model SDK.</p>
+<h2 id="start-with-the-ordinary-callable">Start with the ordinary callable</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">meta_evolve</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">meta</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">propose</span><span class="p">(</span><span class="n">parent</span><span class="p">:</span> <span class="n">meta</span><span class="o">.</span><span class="n">Text</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">meta</span><span class="o">.</span><span class="n">ProposerContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">meta</span><span class="o">.</span><span class="n">Text</span><span class="p">:</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">my_sdk</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="nb">input</span><span class="o">=</span><span class="n">parent</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="n">context</span><span class="o">=</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">rendered</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">context</span><span class="o">.</span><span class="n">bundle</span><span class="o">.</span><span class="n">items</span><span class="p">],</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">output_text</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">run</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">task</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Task</span><span class="p">(</span><span class="n">evaluator</span><span class="o">=</span><span class="k">lambda</span> <span class="n">text</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">value</span><span class="p">)),</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">seed</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="s2">&quot;draft&quot;</span><span class="p">),</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="n">proposer</span><span class="o">=</span><span class="n">propose</span><span class="p">,</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="p">)</span>
 </code></pre></div>
-<p>Each adapter translates the provider's native session, structured output,
-usage, terminal state, timeout, and workspace behavior into the common proposer
-contract. Both compose with ordinary <code>meta.run()</code>, search policies, evaluation,
-experience, storage, and result queries.</p>
-<h2 id="capabilities-and-limits">Capabilities and limits</h2>
-<p>Provider configuration is explicit: model identity, turn bounds, timeouts,
-working directory, allowed tools, experience access, and resource limits are
-declared at the adapter edge. Missing extras or credentials raise actionable
-capability errors before a paid call. Live execution never runs in CI.</p>
-<h2 id="source-proposals">Source proposals</h2>
-<p>SDK proposers work over a private repository workspace and must return a
-validated immutable successor or a typed failure. The independent evaluator
-then materializes and grades that successor in a fresh workspace. Provider
-self-reports never determine the score.</p>
-<h2 id="experience">Experience</h2>
-<p>Native pull support exposes the same bounded
-<a class="autorefs autorefs-internal" href="../../reference/api/#meta_evolve.ExperienceAccess"><code>ExperienceAccess</code></a> semantics through provider-
-specific tools. Tool names and transport payloads remain adapter details; the
-committed audit has provider-independent meaning.</p>
-<h2 id="reproducibility">Reproducibility</h2>
-<p>Recorded provider requests, normalized results, usage, failures, and artifacts
-support inspection and replay. Meta-Evolve does not claim that a later live call
-to an external model will return identical bytes.</p>
-<p>See the <a href="../../live-agent-track/">bounded live-agent track</a> only after the
-credential-free deterministic and source guides.</p>
+<p>The wrapper owns SDK authentication, session lifecycle, tools, permissions,
+structured decoding, retry policy, and provider-specific telemetry. Return the
+decoded artifact value directly when that is all the run needs.</p>
+<h2 id="return-a-typed-result">Return a typed result</h2>
+<p>Use <code>ProposalResult</code> when the wrapper has more to report:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">propose</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">my_sdk</span><span class="o">.</span><span class="n">generate_structured</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">parent</span><span class="p">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">ProposalResult</span><span class="p">(</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="n">candidate</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">artifact</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="n">usage</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Usage</span><span class="p">(</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>            <span class="n">tokens</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">input_tokens</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="n">output_tokens</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>            <span class="n">wall_seconds</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">elapsed_seconds</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="p">),</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">model</span><span class="p">},</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="n">evidence</span><span class="o">=</span><span class="p">(</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>            <span class="n">meta</span><span class="o">.</span><span class="n">EvidenceDraft</span><span class="p">(</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>                <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;sdk-response&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>                <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;cost&quot;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">cost</span><span class="p">,</span> <span class="s2">&quot;raw&quot;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">raw</span><span class="p">},</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>            <span class="p">),</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        <span class="p">),</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    <span class="p">)</span>
+</code></pre></div>
+<p>Only total tokens and elapsed time enter shared <code>Usage</code>. Cost, model identity,
+granular token categories, and raw provider telemetry belong in evidence or
+metadata. Trial and evaluation counts are coordinator-owned; reporting either
+produces typed <code>InvalidOutput</code>.</p>
+<p>Ordinary SDK exceptions become <code>ProposerFailure</code>. Framework failures about
+durable state, accounting, or run capability escape unchanged:
+<code>EventStreamConflict</code>, <code>DurableCorruption</code>, <code>InvalidSearchHistory</code>,
+<code>ExperienceStoreUnavailable</code>, <code>ExecutionAccountingUnknown</code>, and
+<code>CapabilityError</code>.</p>
+<h2 id="give-an-sdk-audited-pull-tools">Give an SDK audited pull tools</h2>
+<p>When an SDK supports custom tools, register a user-owned handler that delegates
+to <code>context.experience</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">used</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">search_experience</span><span class="p">(</span><span class="n">arguments</span><span class="p">):</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">experience</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="k">raise</span> <span class="n">meta</span><span class="o">.</span><span class="n">ExperienceAccessDenied</span><span class="p">(</span><span class="s2">&quot;pull access was not granted&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">observation</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">experience</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="o">**</span><span class="n">arguments</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">used</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">ref</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">observation</span><span class="o">.</span><span class="n">records</span><span class="p">)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="k">return</span> <span class="n">observation</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="n">response</span> <span class="o">=</span> <span class="n">my_sdk</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tools</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;search_experience&quot;</span><span class="p">:</span> <span class="n">search_experience</span><span class="p">})</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">ProposalResult</span><span class="p">(</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="n">candidate</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">artifact</span><span class="p">,</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">derived_from</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">used</span><span class="p">)),</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="p">)</span>
+</code></pre></div>
+<p>The exact observation API is defined by <code>ExperienceReader</code>. The callback may run
+in process, or a user-owned RPC service may forward each request to this scoped
+handler and return its result. The RPC service must not cache or broaden the
+reader capability. Meta-Evolve adds no generic tool server or agent process.</p>
+<p>Access denial, exhaustion, audit-store failure, and unknown accounting retain
+their normal semantics because the SDK tool calls the authoritative reader.
+SDKs without custom-tool support can receive pushed <code>context.bundle</code> data, but
+that is context injection rather than agent-directed pull.</p>
+<p>The credential-free <a href="https://github.com/salzubi401/meta-evolve/tree/main/examples/06_user_owned_sdk"><code>06_user_owned_sdk</code> example</a>
+contains a complete deterministic fake SDK and audited tool callback. A
+maintainer may put an opt-in real-client smoke script under
+<code>experiments/sdk_boundary_smoke/</code>; it is not a shipped provider integration and
+must add no package dependency.</p>
+<h2 id="authority-and-reproducibility">Authority and reproducibility</h2>
+<p>The wrapper may propose candidate content. It cannot choose the evaluator,
+change the run budget, grant itself experience, edit audit history, or promote a
+result. External evaluation and durable storage remain the sources of score,
+accounting, and lineage truth.</p>
+<p>Committed requests, evidence, usage, failures, and artifacts support inspection
+and replay. Meta-Evolve does not claim that a later external SDK call will
+regenerate byte-identical output.</p>
+<p>API details: <a class="autorefs autorefs-internal" title="ProposalResult
+
+
+  
+      dataclass
+  " href="../../reference/api/#meta_evolve.ProposalResult"><code>ProposalResult</code></a>,
+<a class="autorefs autorefs-internal" title="ProposerContext
+
+
+  
+      dataclass
+  " href="../../reference/api/#meta_evolve.ProposerContext"><code>ProposerContext</code></a>, and
+<a class="autorefs autorefs-internal" title="EvidenceDraft
+
+
+  
+      dataclass
+  " href="../../reference/api/#meta_evolve.EvidenceDraft"><code>EvidenceDraft</code></a>.</p>
 
 
 
@@ -2572,13 +2704,13 @@ credential-free deterministic and source guides.</p>
         
         
           
-          <a href="../cli/" class="md-footer__link md-footer__link--next" aria-label="Next: Command line">
+          <a href="../migration-user-owned-sdk/" class="md-footer__link md-footer__link--next" aria-label="Next: SDK migration">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Command line
+                SDK migration
               </div>
             </div>
             <div class="md-footer__button md-icon">

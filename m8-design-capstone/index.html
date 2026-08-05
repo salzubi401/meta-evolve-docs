@@ -11,7 +11,7 @@
       
       
       
-        <link rel="prev" href="../design/m8-harness-evolution/">
+        <link rel="prev" href="../design/user-owned-sdk-boundary/">
       
       
         <link rel="next" href="../milestones/">
@@ -705,7 +705,35 @@
   <span class="md-ellipsis">
     
   
-    Providers
+    SDK integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/migration-user-owned-sdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDK migration
   
 
     
@@ -1574,6 +1602,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/user-owned-sdk-boundary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User-owned SDK boundary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -2368,6 +2424,13 @@ blockers, authority boundary, and acceptance evidence now live in the
 <a href="../design/m8-harness-evolution/">M8 harness-evolution design brief</a>.</p>
 <p>The future example is reserved for <code>examples/20_harness_evolution/</code>; neither
 this route nor the design brief implements it.</p>
+<p>The execution decision is fixed by the
+<a href="../design/user-owned-sdk-boundary/">user-owned SDK boundary</a>: the flagship takes
+an injected callable, CI uses a deterministic fixture-backed SDK client, and an
+opt-in maintainer driver uses the same boundary for an authorized live run.
+That one sanitized capture must retain failures and regressions honestly.
+External evaluation, equal budgets, mutation validation, and promotion remain
+outside user SDK authority.</p>
 
 
 
@@ -2397,7 +2460,7 @@ this route nor the design brief implements it.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../design/m8-harness-evolution/" class="md-footer__link md-footer__link--prev" aria-label="Previous: M8 harness evolution">
+          <a href="../design/user-owned-sdk-boundary/" class="md-footer__link md-footer__link--prev" aria-label="Previous: User-owned SDK boundary">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2407,7 +2470,7 @@ this route nor the design brief implements it.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                M8 harness evolution
+                User-owned SDK boundary
               </div>
             </div>
           </a>

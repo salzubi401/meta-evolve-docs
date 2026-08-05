@@ -705,7 +705,35 @@
   <span class="md-ellipsis">
     
   
-    Providers
+    SDK integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/migration-user-owned-sdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDK migration
   
 
     
@@ -1457,10 +1485,32 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#meta_evolve.EvaluationResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EvaluationResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#meta_evolve.EvaluationEnvironment" class="md-nav__link">
     <span class="md-ellipsis">
       
         EvaluationEnvironment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.EvidenceDraft" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EvidenceDraft
       
     </span>
   </a>
@@ -1583,6 +1633,28 @@
     <span class="md-ellipsis">
       
         ProcessSpec
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ProposalResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ProposalResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ProposerContext" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ProposerContext
       
     </span>
   </a>
@@ -2322,6 +2394,34 @@
     
   
     M8 harness evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/user-owned-sdk-boundary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User-owned SDK boundary
   
 
     
@@ -3259,10 +3359,32 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#meta_evolve.EvaluationResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EvaluationResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#meta_evolve.EvaluationEnvironment" class="md-nav__link">
     <span class="md-ellipsis">
       
         EvaluationEnvironment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.EvidenceDraft" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EvidenceDraft
       
     </span>
   </a>
@@ -3385,6 +3507,28 @@
     <span class="md-ellipsis">
       
         ProcessSpec
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ProposalResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ProposalResult
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta_evolve.ProposerContext" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ProposerContext
       
     </span>
   </a>
@@ -3905,6 +4049,18 @@ or hiding them.</p>
       dataclass
   " href="#meta_evolve.SkillSet"><code>SkillSet</code></a></li>
 <li><a class="autorefs autorefs-internal" title="load_source_tree(path)" href="#meta_evolve.load_source_tree"><code>load_source_tree</code></a></li>
+<li><a class="autorefs autorefs-internal" title="ProposalResult
+
+
+  
+      dataclass
+  " href="#meta_evolve.ProposalResult"><code>ProposalResult</code></a></li>
+<li><a class="autorefs autorefs-internal" title="ProposerContext
+
+
+  
+      dataclass
+  " href="#meta_evolve.ProposerContext"><code>ProposerContext</code></a></li>
 </ul>
 <h2 id="evaluation-and-source-execution">Evaluation and source execution</h2>
 <ul>
@@ -3939,6 +4095,18 @@ or hiding them.</p>
   
       dataclass
   " href="#meta_evolve.TextPatch"><code>TextPatch</code></a></li>
+<li><a class="autorefs autorefs-internal" title="EvaluationResult
+
+
+  
+      dataclass
+  " href="#meta_evolve.EvaluationResult"><code>EvaluationResult</code></a></li>
+<li><a class="autorefs autorefs-internal" title="EvidenceDraft
+
+
+  
+      dataclass
+  " href="#meta_evolve.EvidenceDraft"><code>EvidenceDraft</code></a></li>
 </ul>
 <h2 id="experience">Experience</h2>
 <ul>
@@ -4695,6 +4863,56 @@ rejects a bundle that selects anything else or exceeds the declared bounds.</p>
 
 
 
+<h2 id="meta_evolve.EvaluationResult" class="doc doc-heading">
+            <code>EvaluationResult</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Normalized independent metrics or a typed evaluator failure.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
 <h2 id="meta_evolve.EvaluationEnvironment" class="doc doc-heading">
             <code>EvaluationEnvironment</code>
 
@@ -4711,6 +4929,56 @@ rejects a bundle that selects anything else or exceeds the declared bounds.</p>
 
 
         <p>Versioned identity for the environment in which a grader runs.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.EvidenceDraft" class="doc doc-heading">
+            <code>EvidenceDraft</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Evidence content before the coordinator assigns durable identity.</p>
 
 
 
@@ -5109,6 +5377,109 @@ rejects a bundle that selects anything else or exceeds the declared bounds.</p>
 
 
         <p>A value-valid process request whose authority is decided by a provider.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.ProposalResult" class="doc doc-heading">
+            <code>ProposalResult</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>A normalized candidate or typed proposer failure.</p>
+<p><code>candidate</code> is a value in the task's artifact type, not a durable
+payload: the registered codec is the one authority for that translation,
+and it runs where the task's kind and representation are known.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.ProposerContext" class="doc doc-heading">
+            <code>ProposerContext</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>The exact candidate-facing state authorized for one proposal.</p>
 
 
 

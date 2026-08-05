@@ -705,7 +705,35 @@
   <span class="md-ellipsis">
     
   
-    Providers
+    SDK integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/migration-user-owned-sdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDK migration
   
 
     
@@ -1916,6 +1944,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../design/user-owned-sdk-boundary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User-owned SDK boundary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../m8-design-capstone/" class="md-nav__link">
         
   
@@ -2999,8 +3055,8 @@ Milestone 7 is complete and Milestone 8 remains
 <a href="../design/m8-harness-evolution/">Design—not shipped</a>.</p>
 <p>Milestone 5 is complete: immutable source trees, exact patches, bounded local
 processes, and independent command evaluation compose through the same callable
-path. Milestones 6 and 7 add independent Claude/Codex proposers and the current
-cross-domain extension boundary without changing that story.</p>
+path. Milestone 7 completes the cross-domain extension boundary. User-owned SDK
+wrappers use that same callable path; no first-party provider adapter is shipped.</p>
 <h2 id="the-smallest-useful-mental-model">The smallest useful mental model</h2>
 <p>A run has five inputs:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Task       what better means and which evaluator decides
@@ -3030,7 +3086,7 @@ cross-domain extension boundary without changing that story.</p>
 <p>The returned <a class="autorefs autorefs-internal" href="../reference/api/#meta_evolve.Run"><code>Run</code></a> is both the result and the query surface
 for trials, lineage, evidence, usage, failures, summaries, and comparisons.</p>
 <h2 id="canonical-public-surface">Canonical public surface</h2>
-<p>The package root exports 45 shipped names. The
+<p>The package root exports 49 shipped names. The
 <a href="../reference/api/">curated reference</a> partitions them into everyday runs,
 evaluation/source execution, experience, and durability/inspection/errors.
 Root imports are the public surface; kernel records remain internal unless a
@@ -3041,7 +3097,7 @@ guide explicitly describes an extension protocol.</p>
 <li><a href="../guides/evaluation-and-budgets/">Evaluation and budgets</a> — objectives, evidence, usage, and typed failures.</li>
 <li><a href="../guides/experience/">Experience</a> — no memory, pushed context, audited pull, and derivation.</li>
 <li><a href="../guides/durability/">Durability</a> — storage, reopen, recovery, and resume.</li>
-<li><a href="../guides/providers/">Providers</a> — independent Claude and Codex adapters.</li>
+<li><a href="../guides/providers/">SDK integration</a> — user-owned callable wrappers and audited tools.</li>
 <li><a href="../guides/cli/">Command line</a> — run, list, inspect, resume, and compare.</li>
 <li><a href="../guides/extensions/">Extensions</a> — codecs, registries, component identity, and conformance.</li>
 </ul>

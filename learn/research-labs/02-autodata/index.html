@@ -705,7 +705,35 @@
   <span class="md-ellipsis">
     
   
-    Providers
+    SDK integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/migration-user-owned-sdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDK migration
   
 
     
@@ -1747,6 +1775,34 @@
     
   
     M8 harness evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design/user-owned-sdk-boundary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User-owned SDK boundary
   
 
     
@@ -2810,7 +2866,7 @@ session plus a rejection report and spends no solver calls.</p>
 unknown ID therefore cannot smuggle in external evidence; it becomes the
 deterministic <code>unknown_evidence_document</code> reason.</p>
 <p>Both <code>_solver()</code> calls use the same answer instructions, <code>ANSWER_SCHEMA</code>,
-Claude model, turns, timeout, and wall budget. Only the informed workspace has
+SDK wrapper declaration, limits, and wall budget. Only the informed workspace has
 evidence. <code>quality_checks()</code> then reads the generator item and both
 <code>SessionRecord</code>s. It never calls a model:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>schema valid?
@@ -2870,7 +2926,7 @@ evidence record, but the lineage edge connects recipe to recipe. The local
 acceptance gate, not the generator or rewriter, decides whether each episode
 meets the declared behavior.</p>
 <h2 id="the-seven-sessions">The seven sessions</h2>
-<p>One recipe evaluation uses three Claude sessions:</p>
+<p>One recipe evaluation uses three SDK sessions:</p>
 <ol>
 <li>generate a structured QA item from the frozen document bundle;</li>
 <li>ask the restricted solver with no documents;</li>
@@ -3007,10 +3063,10 @@ usage. That makes the causal story inspectable:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>seed recipe + seed rejection evidence ──► successor recipe
 </code></pre></div>
 <h2 id="minimal-runnable-mechanism">Minimal runnable mechanism</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClaudeSessionRunner</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs</span><span class="w"> </span><span class="kn">import</span> <span class="n">UserSdkSessionRunner</span>
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs.autodata</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ClaudeSessionRunner</span><span class="p">())</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">UserSdkSessionRunner</span><span class="p">(</span><span class="n">agent_factory</span><span class="o">=</span><span class="n">build_agent</span><span class="p">))</span>
 <a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
 <a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;seed recipe:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;seed_recipe&quot;</span><span class="p">])</span>
 <a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;successor recipe:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;successor_recipe&quot;</span><span class="p">))</span>
@@ -3025,8 +3081,7 @@ usage. That makes the causal story inspectable:</p>
 <a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>usage: &lt;aggregated provider usage&gt;
 </code></pre></div>
 <p>Run it with:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nv">META_EVOLVE_LIVE_CLAUDE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--extra<span class="w"> </span>claude<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span>python<span class="w"> </span>examples/18_sealqa_research_labs/run_all.py<span class="w"> </span>autodata
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nv">META_EVOLVE_LIVE_SDK</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>your_sealqa_driver.py<span class="w"> </span>autodata
 </code></pre></div>
 <h2 id="how-to-read-the-result">How to read the result</h2>
 <p>Compare the two acceptance reports rather than looking only at the final flag:</p>

@@ -705,7 +705,35 @@
   <span class="md-ellipsis">
     
   
-    Providers
+    SDK integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/migration-user-owned-sdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDK migration
   
 
     
@@ -1736,6 +1764,34 @@
     
   
     M8 harness evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design/user-owned-sdk-boundary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User-owned SDK boundary
   
 
     
@@ -2939,7 +2995,7 @@ session is spent.</p>
 <h2 id="equal-validation">Equal validation</h2>
 <p>Baseline and candidate are evaluated on the same unseen row with:</p>
 <ul>
-<li>the same pinned Claude model;</li>
+<li>the same declared user-owned SDK wrapper;</li>
 <li>the same answer schema and normalized exact grader;</li>
 <li>the same turn, timeout, and wall declarations;</li>
 <li>the same public document order;</li>
@@ -2976,10 +3032,10 @@ session is spent.</p>
 identify a better local artifact; neither the candidate nor this evaluator may
 deploy it.</p>
 <h2 id="minimal-runnable-mechanism">Minimal runnable mechanism</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClaudeSessionRunner</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs</span><span class="w"> </span><span class="kn">import</span> <span class="n">UserSdkSessionRunner</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs.meta_harness</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ClaudeSessionRunner</span><span class="p">())</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">UserSdkSessionRunner</span><span class="p">(</span><span class="n">agent_factory</span><span class="o">=</span><span class="n">build_agent</span><span class="p">))</span>
 <a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
 <a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;baseline:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;baseline&quot;</span><span class="p">])</span>
 <a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;candidate:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">artifacts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;candidate&quot;</span><span class="p">))</span>
@@ -2996,8 +3052,7 @@ deploy it.</p>
 <a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>usage: &lt;aggregated provider usage&gt;
 </code></pre></div>
 <p>Run it with:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nv">META_EVOLVE_LIVE_CLAUDE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--extra<span class="w"> </span>claude<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span>python<span class="w"> </span>examples/18_sealqa_research_labs/run_all.py<span class="w"> </span>meta_harness
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nv">META_EVOLVE_LIVE_SDK</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>your_sealqa_driver.py<span class="w"> </span>meta_harness
 </code></pre></div>
 <p>If mutation is invalid, only two sessions are needed: the diagnostic and
 mutator. The baseline/candidate validation pair is skipped because there is no

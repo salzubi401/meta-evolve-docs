@@ -705,7 +705,35 @@
   <span class="md-ellipsis">
     
   
-    Providers
+    SDK integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/migration-user-owned-sdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDK migration
   
 
     
@@ -1037,45 +1065,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-the-shared-components-actually-work" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How the shared components actually work
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="How the shared components actually work">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#one-cycle-phase-by-phase" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        One cycle, phase by phase
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-claude-and-why-haiku" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why Claude, and why Haiku
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#what-is-frozen-and-what-may-change" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1120,32 +1109,21 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-the-shared-components-actually-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the shared components actually work
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#how-to-run-the-curriculum" class="md-nav__link">
     <span class="md-ellipsis">
       
         How to run the curriculum
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#current-capture-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Current capture status
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#recommended-reading-order" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recommended reading order
       
     </span>
   </a>
@@ -1742,6 +1720,34 @@
     
   
     M8 harness evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/user-owned-sdk-boundary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User-owned SDK boundary
   
 
     
@@ -2486,45 +2492,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-the-shared-components-actually-work" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How the shared components actually work
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="How the shared components actually work">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#one-cycle-phase-by-phase" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        One cycle, phase by phase
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-claude-and-why-haiku" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why Claude, and why Haiku
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#what-is-frozen-and-what-may-change" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2569,32 +2536,21 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-the-shared-components-actually-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How the shared components actually work
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#how-to-run-the-curriculum" class="md-nav__link">
     <span class="md-ellipsis">
       
         How to run the curriculum
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#current-capture-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Current capture status
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#recommended-reading-order" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recommended reading order
       
     </span>
   </a>
@@ -2683,464 +2639,52 @@
 
 
 <h1 id="sealqa-research-labs">SealQA research labs</h1>
-<p><strong>Status: Experimental/live-only.</strong> The frozen substrate inspection below is
-captured, but every provider-backed research cycle remains live-only.</p>
-<p>This is a standalone guide to four small evaluated-improvement mechanisms. You
-do <strong>not</strong> need to open a notebook to understand the experiments. The notebooks
-are optional executable companions linked from each chapter.</p>
-<p>The labs ask one recurring question:</p>
-<blockquote>
-<p>How can an agent improve a prompt, data recipe, local harness, or reusable
-skill while evaluation, budgets, hidden answers, and promotion remain outside
-the candidate's control?</p>
-</blockquote>
-<p>They use eight frozen LongSeal examples because LongSeal combines a concrete
-question with one useful document hidden among conflicting or irrelevant
-documents. That makes failures easy to inspect: the agent may retrieve the
-wrong fact, trust stale evidence, combine incompatible documents, or format the
-right fact incorrectly.</p>
-<p>These are teaching implementations. They do not reproduce the cited papers,
-publish an official SealQA score, or establish that one method improves Claude.</p>
+<p><strong>Status: Experimental/live-only.</strong> These are small teaching mechanisms, not
+paper reproductions or an official SealQA evaluation. The complete curriculum contains at most 24 sessions.</p>
 <h2 id="where-the-notebooks-are">Where the notebooks are</h2>
-<p>You can read everything in these documentation chapters. If you want the live
-cells as well, use the optional notebook links:</p>
-<table>
-<thead>
-<tr>
-<th>Chapter</th>
-<th>Optional notebook</th>
-<th style="text-align: right;">Maximum Claude sessions</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="../learn/research-labs/01-feedback-descent/">Feedback Descent</a></td>
-<td><a href="../notebooks/18_sealqa_research_labs/01_feedback_descent/">Open notebook</a></td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr>
-<td><a href="../learn/research-labs/02-autodata/">AutoData</a></td>
-<td><a href="../notebooks/18_sealqa_research_labs/02_autodata/">Open notebook</a></td>
-<td style="text-align: right;">7</td>
-</tr>
-<tr>
-<td><a href="../learn/research-labs/03-meta-harness-precursor/">Meta-Harness precursor</a></td>
-<td><a href="../notebooks/18_sealqa_research_labs/03_meta_harness_precursor/">Open notebook</a></td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr>
-<td><a href="../learn/research-labs/04-evoskill/">EvoSkill</a></td>
-<td><a href="../notebooks/18_sealqa_research_labs/04_evoskill/">Open notebook</a></td>
-<td style="text-align: right;">8</td>
-</tr>
-<tr>
-<td><strong>Complete curriculum</strong></td>
-<td></td>
-<td style="text-align: right;"><strong>24</strong></td>
-</tr>
-</tbody>
-</table>
-<p>The complete curriculum uses at most 24 sessions.</p>
-<p>The canonical files live under
-<code>examples/18_sealqa_research_labs/</code>. The documentation site publishes
-byte-identical copies; the build never executes them.</p>
+<p>The four unexecuted notebooks live under
+<code>examples/18_sealqa_research_labs/</code> and are published byte-for-byte under
+<code>docs/notebooks/18_sealqa_research_labs/</code>. Standalone chapters explain Feedback
+Descent, AutoData, the pre-M8 harness precursor, and EvoSkill.</p>
 <h2 id="the-common-experimental-substrate">The common experimental substrate</h2>
-<p>All four labs share the same declarations:</p>
-<table>
-<thead>
-<tr>
-<th>Declaration</th>
-<th style="text-align: right;">Value</th>
-<th>Why it matters</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Provider</td>
-<td style="text-align: right;">Claude</td>
-<td>The shipped adapter has measured interruption support.</td>
-</tr>
-<tr>
-<td>Model</td>
-<td style="text-align: right;"><code>claude-haiku-4-5-20251001</code></td>
-<td>Every arm uses one pinned model identity.</td>
-</tr>
-<tr>
-<td><code>max_turns</code></td>
-<td style="text-align: right;">50</td>
-<td>Bounds an ordinary agent session.</td>
-</tr>
-<tr>
-<td><code>pull_max_turns</code></td>
-<td style="text-align: right;">50</td>
-<td>Gives pull-enabled sessions the same turn ceiling.</td>
-</tr>
-<tr>
-<td>Adapter timeout</td>
-<td style="text-align: right;">1,800 seconds</td>
-<td>Requests interruption after 30 minutes.</td>
-</tr>
-<tr>
-<td>Inner wall budget</td>
-<td style="text-align: right;">1,860 seconds</td>
-<td>Leaves one minute for adapter and coordinator cleanup.</td>
-</tr>
-<tr>
-<td>Live opt-in</td>
-<td style="text-align: right;"><code>META_EVOLVE_LIVE_CLAUDE=1</code></td>
-<td>Prevents CI or casual imports from spending money.</td>
-</tr>
-</tbody>
-</table>
-<p>You can verify the deterministic boundary without credentials or a provider call:</p>
-<!-- captured-output: script:examples/18_sealqa_research_labs/inspect_substrate.py -->
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/18_sealqa_research_labs/inspect_substrate.py
-</code></pre></div>
-<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sessions: {&#39;feedback_descent&#39;: 5, &#39;autodata&#39;: 7, &#39;meta_harness&#39;: 4, &#39;evoskill&#39;: 8}
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>total sessions: 24
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>inner bounds: turns=50 timeout=1800 wall=1860
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>solver fields: (&#39;id&#39;, &#39;question&#39;, &#39;documents&#39;, &#39;metadata&#39;)
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>hidden answer visible: False
-</code></pre></div></p>
-<p>Each Claude call is one ordinary inner <code>meta.run</code> over a <code>SourceTree</code> workspace:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>public workspace + instructions + JSON schema
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>                    │
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>                    ▼
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>             one Claude session
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>                    │
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>          ┌─────────┴─────────┐
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>          ▼                   ▼
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a> structured value       typed failure
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a> evidence + usage       no rankable metric
-</code></pre></div>
-<p>The outer lab is plain Python orchestration. It has no aggregate wall budget
-because all provider work is already bounded by the inner sessions; its local
-grading and validation are deterministic and tested.</p>
-<h2 id="how-the-shared-components-actually-work">How the shared components actually work</h2>
-<p>The labs are small because they reuse one session adapter and change only the
-outer dataflow. A <code>SessionRequest</code> contains five explicit inputs:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>label         durable human-readable role, such as feedback.editor
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>instructions  what this one agent session may do
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>schema        the exact JSON object it must return
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>workspace     candidate-visible SourceTree files
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>experience    optional bounded read grant over prior evidence
-</code></pre></div>
-<p><code>ClaudeSessionRunner.run(request)</code> converts that request into an ordinary
-Meta-Evolve run:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">meta</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">task</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Task</span><span class="p">(</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        <span class="n">evaluator</span><span class="o">=</span><span class="n">session_evaluator</span><span class="p">,</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        <span class="n">artifact</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">SourceTree</span><span class="p">,</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        <span class="n">objectives</span><span class="o">=</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="s2">&quot;completed&quot;</span><span class="p">),),</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        <span class="n">budget</span><span class="o">=</span><span class="n">INNER_BUDGET</span><span class="p">,</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="p">),</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="n">seed</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">workspace</span><span class="p">,</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="n">proposer</span><span class="o">=</span><span class="n">bounded_claude_agent</span><span class="p">,</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="n">search</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Greedy</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="n">experience</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">experience</span><span class="p">,</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="p">)</span>
-</code></pre></div>
-<p>Here the inner evaluator answers only “did this session complete and retain its
-declared structured output?” Algorithm-specific scoring happens afterward in
-evaluator-owned Python. This separation prevents the model from deciding
-whether its answer, generated item, prompt edit, harness edit, or skill is good.</p>
-<p>The returned <code>SessionRecord</code> contains exactly one of a structured <code>value</code> or a
-typed <code>failure</code>, plus provider evidence, usage, and pull counters. Independent
-schema validation runs even for injected test transports, so tests and live
-execution cannot disagree about what counts as valid output.</p>
-<h3 id="one-cycle-phase-by-phase">One cycle, phase by phase</h3>
-<p>Three different counters are easy to confuse in these labs:</p>
-<ul>
-<li>A <strong>phase</strong> is a step in the outer research algorithm, such as measuring a
-  seed, proposing a successor, or comparing two artifacts.</li>
-<li>A <strong>session</strong> is one Claude call. Each session is wrapped in its own inner
-  <code>meta.run</code>.</li>
-<li>A <strong>trial</strong> belongs to that inner run. <code>Greedy(max_trials=1)</code> means the
-  session gets one bounded proposal attempt; it does not turn the outer lab
-  into a repeated greedy search.</li>
-</ul>
-<p>The common path through one improvement cycle is:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>phase 0              phase 1                    phase 2
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>declare artifact ──► build SessionRequest ──► inner meta.run
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>and fixed controls    from allowed evidence     Greedy(max_trials=1)
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>                                                       │
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>                                                       ▼
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>phase 5              phase 4                    phase 3
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>retain LabResult ◄── measure successor ◄──── propose successor
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>and comparison        with fixed evaluator       from SessionRecord evidence
-</code></pre></div>
-<p>The two artifact layers have different jobs. The <strong>outer artifact</strong> is the
-research object being improved: a <code>meta.Text</code>, <code>SourceTree</code>, or <code>SkillSet</code>.
-Every provider call then receives an inner <strong>workspace artifact</strong>, always a
-<code>SourceTree</code>, containing only the files allowed for that role. For example, a
-Feedback Descent editor receives a <code>SourceTree</code> with <code>prompt.md</code> and
-<code>feedback.md</code>, then its structured output is lifted into the successor
-<code>meta.Text</code>.</p>
-<p>Step by step, the reusable components do this:</p>
-<ol>
-<li>Outer Python selects an immutable artifact and evaluator-owned controls.</li>
-<li>It projects only allowed observations into a <code>SessionRequest</code> workspace or
-   bounded <code>experience</code> grant.</li>
-<li><code>ClaudeSessionRunner</code> executes one inner <code>meta.run</code>; the inner evaluator
-   records completion, structured output, evidence, usage, or a typed failure.</li>
-<li>Outer evaluator code grades the record or applies a deterministic gate.</li>
-<li>If the algorithm calls for a change, another request converts that evidence
-   into a successor outer artifact.</li>
-<li>The fixed evaluator measures the successor, and <code>LabResult</code> retains
-   sessions, artifacts, measurements, lineage, and usage.</li>
-</ol>
-<p>The four labs instantiate that path differently:</p>
-<table>
-<thead>
-<tr>
-<th>Lab</th>
-<th>Initial observation</th>
-<th>Successor proposal</th>
-<th>External comparison</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Feedback Descent</td>
-<td>Answers from two seed prompts</td>
-<td>Edit the preferred prompt from textual feedback</td>
-<td>Exact-grade the edited prompt on the same development case</td>
-</tr>
-<tr>
-<td>AutoData</td>
-<td>Generator and solver behavior for the seed recipe</td>
-<td>Rewrite the recipe from the deterministic acceptance report</td>
-<td>Run the same generation-and-probe protocol on the successor</td>
-</tr>
-<tr>
-<td>Meta-Harness precursor</td>
-<td>Baseline diagnostic answer and trace</td>
-<td>Replace allowlisted files in the harness <code>SourceTree</code></td>
-<td>Evaluate parent and successor on the same unseen row</td>
-</tr>
-<tr>
-<td>EvoSkill</td>
-<td>Two externally graded induction records</td>
-<td>Analyze bounded experience, then build a <code>SkillSet</code></td>
-<td>Compare baseline and skill arms on two held-out rows</td>
-</tr>
-</tbody>
-</table>
-<p>This is one bounded improvement cycle per lab, not several optimizer
-iterations. A dependent typed failure stops the remaining phases when no valid
-successor or comparison can be constructed, and the runner never retries until
-an improvement appears.</p>
-<p>The outer lab then supplies the research algorithm by connecting these generic
-pieces:</p>
-<table>
-<thead>
-<tr>
-<th>Principle</th>
-<th>Concrete component</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>What may change?</td>
-<td><code>meta.Text</code>, <code>SourceTree</code>, or <code>SkillSet</code> artifact</td>
-</tr>
-<tr>
-<td>How is a change proposed?</td>
-<td>One schema-constrained session request</td>
-</tr>
-<tr>
-<td>What observations guide it?</td>
-<td>Explicit workspace files or bounded experience</td>
-</tr>
-<tr>
-<td>What counts as success?</td>
-<td>Evaluator-owned exact grade or deterministic gate</td>
-</tr>
-<tr>
-<td>Which work is retained?</td>
-<td><code>LabResult</code> sessions, artifacts, measurements, usage</td>
-</tr>
-<tr>
-<td>What stops runaway work?</td>
-<td>Session arithmetic plus turn, timeout, and wall bounds</td>
-</tr>
-</tbody>
-</table>
-<p>That is how a research idea becomes a small algorithm here: choose the mutable
-artifact, decide which recorded observation reaches the next proposer, keep
-measurement external, and spell out the comparison. The four chapters differ
-mainly in those connections—not in a new framework for each paper.</p>
-<h2 id="why-claude-and-why-haiku">Why Claude, and why Haiku</h2>
-<p>Two separate decisions sit behind the provider row above.</p>
-<p><strong>Claude rather than Codex.</strong> Every lab requires a finite adapter timeout so a
-stuck session becomes a typed failure instead of an unbounded bill. The shipped
-Claude adapter accepts <code>timeout_seconds</code> alongside a finite inner wall budget.
-The Codex adapter refuses this contract by design: it rejects finite wall
-budgets because native interruption does not verify descendant cleanup
-(<code>src/meta_evolve/adapters/codex_proposer.py</code>, measured in
-<code>experiments/06_sdk_capabilities/</code>). Separately, OpenAI has
-<a href="https://learn.chatgpt.com/docs/models#other-models">announced</a> that GPT-5.4
-and GPT-5.4 mini retire from ChatGPT-authenticated Codex on August 31, 2026,
-which would strand a committed capture pinned to those models.</p>
-<p><strong>Haiku rather than a larger Claude model.</strong> Every Claude model receives the
-same adapter guarantees, so this is purely a cost decision: the worst case is
-24 sessions of 30 minutes each. The pinned ID follows Anthropic's
-<a href="https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions">documented model-version scheme</a>.
-Overriding the model is allowed but enters evaluator identity, so results from
-an overridden run cannot be silently compared against a committed capture.</p>
+<p>All labs consume a structural <code>SessionRunner</code>. The repository supplies
+orchestration and deterministic injected-runner tests; users supply any live
+SDK wrapper. The wrapper owns authentication, structured decoding, tools,
+permissions, model configuration, and provider telemetry.</p>
 <h2 id="what-is-frozen-and-what-may-change">What is frozen and what may change</h2>
-<p>The fixture assigns exactly one role to each row:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;">Rows</th>
-<th>Evaluator-owned role</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;">1</td>
-<td>Feedback Descent development case</td>
-</tr>
-<tr>
-<td style="text-align: right;">2</td>
-<td>AutoData grounding case</td>
-</tr>
-<tr>
-<td style="text-align: right;">3</td>
-<td>Meta-Harness diagnostic case</td>
-</tr>
-<tr>
-<td style="text-align: right;">4</td>
-<td>Meta-Harness unseen validation case</td>
-</tr>
-<tr>
-<td style="text-align: right;">5–6</td>
-<td>EvoSkill induction cases</td>
-</tr>
-<tr>
-<td style="text-align: right;">7–8</td>
-<td>EvoSkill held-out cases</td>
-</tr>
-</tbody>
-</table>
-<p>The artifact being improved changes from lab to lab:</p>
-<table>
-<thead>
-<tr>
-<th>Lab</th>
-<th>Mutable artifact</th>
-<th>Fixed outside candidate authority</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Feedback Descent</td>
-<td><code>meta.Text</code> solver prompt</td>
-<td>Question, documents, answer, comparator, budget</td>
-</tr>
-<tr>
-<td>AutoData</td>
-<td><code>meta.Text</code> generation recipe</td>
-<td>Frozen evidence, quality checks, budget</td>
-</tr>
-<tr>
-<td>Meta-Harness precursor</td>
-<td><code>planner.md</code>, <code>context_policy.json</code> in a <code>SourceTree</code></td>
-<td>Validation row, permissions, budgets, history, promotion</td>
-</tr>
-<tr>
-<td>EvoSkill</td>
-<td>one Markdown document in <code>meta.SkillSet</code></td>
-<td>Held-out rows, base agent, grader, budget</td>
-</tr>
-</tbody>
-</table>
-<p>This is the core Meta-Evolve authority boundary: a candidate may propose a new
-artifact, but it cannot score itself, reveal hidden evaluation, enlarge its
-budget, rewrite history, or promote itself.</p>
+<p>The fixture questions, documents, evaluator-only answers, schemas, session
+arithmetic, and mutation allowlists are frozen. Candidate prompts, recipes,
+permitted harness files, and skills may change. The wrapper declaration and all
+behavior-affecting configuration must be recorded before a live run.</p>
 <h2 id="leakage-boundary">Leakage boundary</h2>
-<p>The committed fixture contains evaluator-only fields so local exact grading is
-possible. Solver and proposer views deliberately remove:</p>
-<ul>
-<li>the reference answer;</li>
-<li>source and gold URLs;</li>
-<li>upstream document IDs and gold-document labels;</li>
-<li>the row's teaching role or split assignment.</li>
-</ul>
-<p>Solvers receive stable local IDs such as <code>doc-01</code>, plus document title, date,
-and text. A gold document can therefore be present in the evidence without a
-flag that tells the solver which one it is.</p>
-<p>Feedback Descent's comparison session is an evaluator, so it may see the hidden
-reference answer. The prompt editor never sees it. AutoData's generated
-<code>reference_answer</code> is created by the generator for a synthetic item; it is not
-the hidden answer of the frozen SealQA row.</p>
+<p>Solver views contain only public document ids, titles, dates, and text. Gold
+answers, source URLs, split roles, evaluation rules, permissions, budgets, and
+promotion decisions remain outside candidate authority.</p>
 <h2 id="failure-and-scoring-semantics">Failure and scoring semantics</h2>
-<p>The labs use normalized exact-answer grading: Unicode is normalized, casing is
-folded, and repeated whitespace is collapsed. The remaining text must match
-exactly. This is intentionally simple and deterministic; it is not SealQA's
-official evaluation method.</p>
-<p>A valid answer produces a metric such as:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span><span class="s2">&quot;exact&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">}</span>  <span class="c1"># normalized exact match</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="p">{</span><span class="s2">&quot;exact&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>  <span class="c1"># valid answer, but wrong</span>
-</code></pre></div>
-<p>The following outcomes have <strong>no metric</strong> and cannot be ranked:</p>
-<ul>
-<li>malformed structured output;</li>
-<li>missing or unchanged proposal where an edit is required;</li>
-<li>timeout or turn exhaustion;</li>
-<li>provider or infrastructure failure;</li>
-<li>policy violation, such as editing a protected harness control.</li>
-</ul>
-<p>That distinction matters. “The model answered incorrectly” is evidence about
-the artifact; “the provider timed out” is not a low-quality answer.</p>
+<p>Malformed structured output, missing candidates, timeout, exhaustion, SDK or
+infrastructure failure, and protected-control edits are typed and unrankable.
+They are never converted into a low score. Deterministic graders alone produce
+rankable measurements.</p>
 <h2 id="evidence-lineage-and-identity">Evidence, lineage, and identity</h2>
-<p>Every session retains its label, structured value or typed failure, provider
-evidence, token/wall usage, and experience-use counters. Each lab also records
-the relationship between artifacts:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>seed artifact ── evidence-guided proposal ──► successor artifact
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>      │                                          │
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>      └──────── evaluator-owned score ───────────┘
-</code></pre></div>
-<p>Behavior-affecting declarations enter identity: model, instructions, structured
-schema, turn limits, adapter timeout, inner budget, workspace digest, evidence
-digest, pull bounds, fixture-row checksum, and grading mode. A comparison can
-therefore detect configuration drift instead of silently ranking different
-experiments.</p>
+<p>Each session retains its label, decoded value or typed failure, wrapper
+evidence, token and elapsed usage, and experience counters. Derived artifacts
+name their source evidence. A wrapper configuration change changes declared
+identity and prevents uncontrolled comparison.</p>
+<h2 id="how-the-shared-components-actually-work">How the shared components actually work</h2>
+<p><code>UserSdkSessionRunner</code> invokes a user-provided proposer inside an ordinary
+one-trial <code>meta.run()</code>. A successful wrapper returns <code>ProposalResult</code>, puts the
+schema-decoded value in <code>sdk.structured-output</code> evidence, and reports only
+shared token and elapsed usage. The lab validates that value again before using
+it.</p>
 <h2 id="how-to-run-the-curriculum">How to run the curriculum</h2>
-<p>From the repository root:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </span>claude<span class="w"> </span>--group<span class="w"> </span>dev
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1"># Authenticate Claude Code using its supported login flow.</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nv">META_EVOLVE_LIVE_CLAUDE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>--extra<span class="w"> </span>claude<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span>python<span class="w"> </span>examples/18_sealqa_research_labs/run_all.py<span class="w"> </span>all
-</code></pre></div>
-<p>Replace <code>all</code> with <code>feedback_descent</code>, <code>autodata</code>, <code>meta_harness</code>, or
-<code>evoskill</code> to run one chapter. The command makes paid provider requests. It
-does not retry until an improvement appears.</p>
-<h2 id="current-capture-status">Current capture status</h2>
-<p>No live output is claimed yet. The implementation and deterministic tests are
-complete, but no credentialed
-24-session output has been committed. The build environment did not have the
-explicit live opt-in. Consequently, these chapters explain what every result
-means without inventing an observed improvement.</p>
-<p>The first authorized capture should be run once and preserved honestly. A tie,
-regression, typed failure, unused experience record, or null result is part of
-the finding—not a reason to rerun until the story looks better.</p>
-<h2 id="recommended-reading-order">Recommended reading order</h2>
-<ol>
-<li><a href="../learn/research-labs/01-feedback-descent/">Feedback Descent</a>: improve a
-   prompt from structured textual feedback.</li>
-<li><a href="../learn/research-labs/02-autodata/">AutoData</a>: improve a synthetic-data
-   recipe using solver behavior and deterministic gates.</li>
-<li><a href="../learn/research-labs/03-meta-harness-precursor/">Meta-Harness precursor</a>:
-   widen the mutable artifact while enforcing an explicit authority boundary.</li>
-<li><a href="../learn/research-labs/04-evoskill/">EvoSkill</a>: convert recorded failures
-   into a reusable skill and evaluate only on held-out rows.</li>
-</ol>
-<p>The Meta-Harness chapter is a <strong>pre-M8 teaching precursor</strong>. M8 remains the sole
-owner of <code>HarnessArtifact</code>, <code>MutationSurface</code>, portable episode suites, replay,
-and promotion. Update or retire the lab when M8 ships; see the
-<a href="../m8-design-capstone/">M8 design capstone</a>.</p>
+<p>Create an opt-in driver outside the shipped examples. Implement
+<code>build_agent(request)</code>, identify its declaration, and pass it to
+<code>UserSdkSessionRunner</code>; then call <code>run_selected</code>. Review the maximum call count,
+SDK permissions, and spending limits before setting <code>META_EVOLVE_LIVE_SDK=1</code>.</p>
+<p>No official provider capture is pending. Users may perform one authorized run
+with their own wrapper. Any published capture must identify the wrapper
+declaration and preserve ties, failures, null results, and regressions honestly.
+The notebooks contain illustrative code and no fabricated live output.</p>
 
 
 

@@ -705,7 +705,35 @@
   <span class="md-ellipsis">
     
   
-    Providers
+    SDK integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/migration-user-owned-sdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDK migration
   
 
     
@@ -1557,6 +1585,34 @@
     
   
     M8 harness evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/user-owned-sdk-boundary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User-owned SDK boundary
   
 
     
@@ -4792,6 +4848,10 @@ Closed by <a href="https://github.com/salzubi401/meta-evolve/issues/23">#23</a>.
 </tr>
 </tbody>
 </table>
+<p>The roadmap issue #12 descriptions of M6 closure and the durable-local-engine
+checkpoint are historical: first-party SDK adapters were superseded before
+1.0 by the user-owned callable boundary. The underlying durability and local
+engine claims remain current.</p>
 <h2 id="github-tracking">GitHub tracking</h2>
 <p>The <a href="https://github.com/salzubi401/meta-evolve/issues/12">implementation roadmap issue</a> tracks the release checkpoints. Each milestone issue is an acceptance epic and can be decomposed into smaller implementation issues when work begins.</p>
 <table>
@@ -5191,6 +5251,11 @@ reconstruction.</p>
 implementation-coupled M6.1–M6.3 runtime framework and Claude walking skeleton
 were removed. Their replacement starts at the existing structural proposer
 boundary. All M6.0 Claude and Codex measurements and fixtures remain.</p>
+<p><strong>Superseded (August 5, 2026).</strong> The first-party adapters and package extras
+were removed before 1.0 in favor of user-owned SDK callables. This M6 record is
+preserved as historical evidence; its imports, examples, and conformance
+references are no longer shipped instructions. See the
+<a href="../guides/migration-user-owned-sdk/">migration guide</a>.</p>
 <h3 id="goal_6">Goal</h3>
 <p>Run Claude and Codex end to end as ordinary proposers without coordinator
 branches, provider-shaped kernel vocabulary, or a speculative shared runtime.</p>
@@ -5335,6 +5400,10 @@ hostile-code containment, remote sandboxes, production secret management,
 proposer composites, durable structural adapters, and large benchmark
 campaigns.</p>
 <h2 id="milestone-7-generality-proof-and-local-v1">Milestone 7: generality proof and local v1</h2>
+<p><strong>Historical annotation.</strong> M7's provider-conformance references describe the
+then-shipped M6 adapters. They were superseded by the user-owned callable
+boundary on August 5, 2026; M7's artifact-domain and local-kernel acceptance
+evidence remains current.</p>
 <p><strong>Status: complete (August 2, 2026;
 <a href="https://github.com/salzubi401/meta-evolve/issues/7">#7</a>, PRs
 <a href="https://github.com/salzubi401/meta-evolve/pull/94">#94</a>–<a href="https://github.com/salzubi401/meta-evolve/pull/97">#97</a>).</strong>
@@ -5508,6 +5577,12 @@ reserved as <code>examples/20_harness_evolution/</code>.</p>
 <p>Treat an executable agent harness as a typed composite artifact whose permitted components can be improved under external evaluation and promotion controls.</p>
 <h3 id="canonical-demonstration_6">Canonical demonstration</h3>
 <p>A worker harness performs held-out tasks. An outer agent investigates earlier harness source and traces, then modifies one or two declared surfaces—initially a planner prompt and context policy. External evaluation determines whether the successor is admitted.</p>
+<p>The outer agent is injected as a user-owned callable. CI uses a deterministic
+fixture-backed SDK client; an opt-in maintainer driver may call a real SDK
+through the same boundary. The first authorized live run is captured once,
+sanitized, and retained with ties, regressions, and failures intact. Evaluation,
+equal budgets, mutation authority, and promotion stay outside the wrapper. See
+the <a href="../design/user-owned-sdk-boundary/">boundary decision</a>.</p>
 <h3 id="deliverables_7">Deliverables</h3>
 <ul>
 <li><code>HarnessArtifact</code> manifest containing component references and declared interfaces.</li>

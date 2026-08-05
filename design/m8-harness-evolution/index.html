@@ -14,7 +14,7 @@
         <link rel="prev" href="../network-direction/">
       
       
-        <link rel="next" href="../../m8-design-capstone/">
+        <link rel="next" href="../user-owned-sdk-boundary/">
       
       
         
@@ -705,7 +705,35 @@
   <span class="md-ellipsis">
     
   
-    Providers
+    SDK integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/migration-user-owned-sdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDK migration
   
 
     
@@ -1729,6 +1757,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../user-owned-sdk-boundary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User-owned SDK boundary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../m8-design-capstone/" class="md-nav__link">
         
   
@@ -2626,6 +2682,13 @@ compare it with the unchanged harness; leave promotion external.</p>
 <p>The future demonstration is reserved for <code>examples/20_harness_evolution/</code>.
 No <code>HarnessArtifact</code>, <code>MutationSurface</code>, episode-suite, or filesystem-egress
 implementation belongs in a documentation PR.</p>
+<p>Its execution boundary is decision-complete: the example accepts a user-owned
+proposer callable, CI drives it with a deterministic fixture-backed SDK client,
+and an opt-in maintainer driver may invoke a real SDK through the same callable
+shape. See the <a href="../user-owned-sdk-boundary/">user-owned SDK boundary</a>. The first
+authorized live run is captured once and sanitized without dropping regressions,
+ties, or failures. Evaluation, equal budgets, mutation authority, and promotion
+remain outside the wrapper.</p>
 <h2 id="map-onto-current-seams">Map onto current seams</h2>
 <table>
 <thead>
@@ -2654,6 +2717,10 @@ implementation belongs in a documentation PR.</p>
 <tr>
 <td>External promotion</td>
 <td>A governance decision after search selection</td>
+</tr>
+<tr>
+<td>SDK execution</td>
+<td>A user-owned callable returning a candidate or <code>ProposalResult</code></td>
 </tr>
 </tbody>
 </table>
@@ -2744,13 +2811,13 @@ and promotion ownership explicit.</p>
         
         
           
-          <a href="../../m8-design-capstone/" class="md-footer__link md-footer__link--next" aria-label="Next: M8 compatibility route">
+          <a href="../user-owned-sdk-boundary/" class="md-footer__link md-footer__link--next" aria-label="Next: User-owned SDK boundary">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                M8 compatibility route
+                User-owned SDK boundary
               </div>
             </div>
             <div class="md-footer__button md-icon">

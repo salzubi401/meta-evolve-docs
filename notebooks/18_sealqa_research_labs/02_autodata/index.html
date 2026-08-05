@@ -705,7 +705,35 @@
   <span class="md-ellipsis">
     
   
-    Providers
+    SDK integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/migration-user-owned-sdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDK migration
   
 
     
@@ -1555,6 +1583,34 @@
     
   
     M8 harness evolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../design/user-owned-sdk-boundary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User-owned SDK boundary
   
 
     
@@ -2952,7 +3008,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </style>
 <!-- End of mermaid configuration --><div class="jupyter-wrapper">
 <div class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=be195981">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9f1e6586">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2965,7 +3021,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7db5b9a3">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=39064ae3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2976,7 +3032,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=086ed015">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5101c646">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -2987,18 +3043,18 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9912af7a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d2942ced">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="live-declaration">Live declaration<a class="anchor-link" href="#live-declaration">¶</a></h2><p>Provider: Claude. Pinned model: <code>claude-haiku-4-5-20251001</code>. Prerequisites: <code>uv sync --extra claude --group dev</code>, authenticate Claude Code, then explicitly set <code>META_EVOLVE_LIVE_CLAUDE=1</code>. Every inner session declares <code>MAX_TURNS = PULL_MAX_TURNS = 50</code>, <code>TIMEOUT_SECONDS = 1800</code>, and <code>INNER_BUDGET.wall_seconds = 1860</code>. These calls may incur cost.</p>
+<h2 id="live-declaration">Live declaration<a class="anchor-link" href="#live-declaration">¶</a></h2><p>Bring your own user-owned SDK wrapper and identify its behavior-affecting declaration. Set <code>META_EVOLVE_LIVE_SDK=1</code> only after authenticating it and reviewing its session, tool, permission, and spending limits. Every inner run declares <code>INNER_BUDGET.wall_seconds = 1860</code>; the wrapper must honor that bound or refuse preflight. These calls may incur cost.</p>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=8c138f4d">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=6e1cf10d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3024,12 +3080,11 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">lab</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">lab</span><span class="p">))</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClaudeSessionRunner</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs</span><span class="w"> </span><span class="kn">import</span> <span class="n">UserSdkSessionRunner</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs.config</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
 <span class="nb">print</span><span class="p">({</span>
-    <span class="s2">"provider"</span><span class="p">:</span> <span class="s2">"Claude"</span><span class="p">,</span> <span class="s2">"model"</span><span class="p">:</span> <span class="n">MODEL</span><span class="p">,</span> <span class="s2">"sessions"</span><span class="p">:</span> <span class="n">TOTAL_SESSIONS</span><span class="p">,</span>
-    <span class="s2">"turns"</span><span class="p">:</span> <span class="n">MAX_TURNS</span><span class="p">,</span> <span class="s2">"timeout_seconds"</span><span class="p">:</span> <span class="n">TIMEOUT_SECONDS</span><span class="p">,</span>
+    <span class="s2">"wrapper"</span><span class="p">:</span> <span class="n">WRAPPER_DECLARATION</span><span class="p">,</span> <span class="s2">"sessions"</span><span class="p">:</span> <span class="n">TOTAL_SESSIONS</span><span class="p">,</span>
     <span class="s2">"inner_wall_seconds"</span><span class="p">:</span> <span class="n">INNER_BUDGET</span><span class="o">.</span><span class="n">wall_seconds</span><span class="p">,</span>
     <span class="s2">"opt_in"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">LIVE_OPT_IN</span><span class="si">}</span><span class="s2">=1"</span><span class="p">,</span>
 <span class="p">})</span>
@@ -3042,12 +3097,11 @@ lab = root / "examples" / "18_sealqa_research_labs"
 if str(lab) not in sys.path:
     sys.path.insert(0, str(lab))
 
-from sealqa_labs import ClaudeSessionRunner
+from sealqa_labs import UserSdkSessionRunner
 from sealqa_labs.config import *
 
 print({
-    "provider": "Claude", "model": MODEL, "sessions": TOTAL_SESSIONS,
-    "turns": MAX_TURNS, "timeout_seconds": TIMEOUT_SECONDS,
+    "wrapper": WRAPPER_DECLARATION, "sessions": TOTAL_SESSIONS,
     "inner_wall_seconds": INNER_BUDGET.wall_seconds,
     "opt_in": f"{LIVE_OPT_IN}=1",
 })
@@ -3058,7 +3112,7 @@ print({
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=cfa9826e">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=e5a61b80">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3078,23 +3132,27 @@ print({
 </div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">LIVE_OPT_IN</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"1"</span><span class="p">:</span>
     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">"Live-only lab: set </span><span class="si">{</span><span class="n">LIVE_OPT_IN</span><span class="si">}</span><span class="s2">=1 after authenticating Claude Code."</span>
+        <span class="sa">f</span><span class="s2">"Live-only lab: set </span><span class="si">{</span><span class="n">LIVE_OPT_IN</span><span class="si">}</span><span class="s2">=1 after authenticating your SDK."</span>
     <span class="p">)</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">sealqa_labs.autodata</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span>
 
-<span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ClaudeSessionRunner</span><span class="p">())</span>
+<span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+    <span class="s2">"Define build_agent(request), then run(UserSdkSessionRunner(agent_factory=build_agent))."</span>
+<span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"sessions executed:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">sessions</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"usage:"</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">usage</span><span class="p">)</span>
 </pre></div>
 <div class="clipboard-copy-txt" id="cell-2">if os.getenv(LIVE_OPT_IN) != "1":
     raise RuntimeError(
-        f"Live-only lab: set {LIVE_OPT_IN}=1 after authenticating Claude Code."
+        f"Live-only lab: set {LIVE_OPT_IN}=1 after authenticating your SDK."
     )
 
 from sealqa_labs.autodata import run
 
-result = run(ClaudeSessionRunner())
+raise RuntimeError(
+    "Define build_agent(request), then run(UserSdkSessionRunner(agent_factory=build_agent))."
+)
 print("sessions executed:", len(result.sessions))
 print("usage:", result.usage)
 </div>
@@ -3104,7 +3162,7 @@ print("usage:", result.usage)
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=468cf1e6">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=30ec20b7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3115,7 +3173,7 @@ print("usage:", result.usage)
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=0b0d8654">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=129cfb49">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -3149,18 +3207,18 @@ print("measurements:", result.measurements)
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c7b925ab">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ad97ba2e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="live-observation">Live observation<a class="anchor-link" href="#live-observation">¶</a></h2><p>No credentialed output is committed yet because the required opt-in was absent. Preserve the first complete capture, including rejection or a successor that is no better. Do not rerun until a generated item happens to pass.</p>
+<h2 id="live-observation">Live observation<a class="anchor-link" href="#live-observation">¶</a></h2><p>No official provider capture is pending. A user may perform one authorized run with a declared wrapper. Preserve rejection or a successor that is no better; do not rerun until a generated item happens to pass.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d1cf490a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=df43d76d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
