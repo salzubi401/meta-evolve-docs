@@ -2551,9 +2551,10 @@
 
 
 <h1 id="user-owned-sdk-boundary">User-owned SDK boundary</h1>
-<p><strong>Status: Design—not shipped.</strong> This decision defines the execution boundary
-for M8 and records the hard-removal migration adopted before M8 implementation.
-It does not add an agent runtime, provider adapter, or M8 domain type.</p>
+<p><strong>Status: Design—not shipped.</strong> The M8 flagship execution below is design. The
+callable boundary itself and the hard-removal migration it gates are shipped;
+the <a href="../../guides/migration-user-owned-sdk/">migration guide</a> is their canonical
+record. This page adds no agent runtime, provider adapter, or M8 domain type.</p>
 <h2 id="decision">Decision</h2>
 <p>Meta-Evolve accepts an ordinary callable or an object with a structural
 <code>propose()</code> method. The user invokes and configures any model SDK inside that
@@ -2631,9 +2632,10 @@ changes. External evaluators run fresh held-out episodes under equal effective
 budgets. Candidate code cannot change evaluation, grants, hidden inputs,
 budgets, promotion rules, or mutation authority. <code>best()</code> selects a recorded
 result; promotion remains a separate governed action.</p>
-<p>PR 4's provider removal may merge only after this M8 boundary and the audited
-experience bridge are complete. No <code>HarnessArtifact</code>, <code>MutationSurface</code>, or
-episode-suite type is implemented by this decision.</p>
+<p>The provider removal was gated on this boundary and the audited experience
+bridge being complete, and shipped in the same change as both. No
+<code>HarnessArtifact</code>, <code>MutationSurface</code>, or episode-suite type is implemented by
+this decision.</p>
 <h2 id="removal-and-evidence-policy">Removal and evidence policy</h2>
 <p>The pre-1.0 migration is a hard removal: first-party Claude and Codex imports,
 extras, adapters, fixtures, and live tests receive no compatibility shim.
