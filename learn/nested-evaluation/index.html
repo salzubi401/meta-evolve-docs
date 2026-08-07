@@ -479,10 +479,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#problem" class="md-nav__link">
+  <a href="#the-scenario" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problem
+        The scenario
       
     </span>
   </a>
@@ -490,10 +490,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#input" class="md-nav__link">
+  <a href="#the-program" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Input
+        The program
       
     </span>
   </a>
@@ -501,32 +501,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#program" class="md-nav__link">
+  <a href="#what-just-happened" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Program
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-happened" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What happened
+        What just happened
       
     </span>
   </a>
@@ -1249,6 +1227,34 @@
     
   
     Shipped API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component contracts
   
 
     
@@ -2059,10 +2065,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#problem" class="md-nav__link">
+  <a href="#the-scenario" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problem
+        The scenario
       
     </span>
   </a>
@@ -2070,10 +2076,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#input" class="md-nav__link">
+  <a href="#the-program" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Input
+        The program
       
     </span>
   </a>
@@ -2081,32 +2087,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#program" class="md-nav__link">
+  <a href="#what-just-happened" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Program
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-happened" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What happened
+        What just happened
       
     </span>
   </a>
@@ -2207,15 +2191,27 @@
 
 <h1 id="nested-evaluation">Nested evaluation</h1>
 <p><strong>Status: Shipped.</strong></p>
-<h2 id="problem">Problem</h2>
-<p>A skill set or harness cannot be judged by inspecting its text alone. It must
-be installed into an inner agent, run across episodes, aggregated, and checked
-again on data the improvement loop never saw.</p>
-<h2 id="input">Input</h2>
-<p>The EvoSkill fixture begins with an empty <code>SkillSet</code>. Two held-out repository
-episodes require private house conventions. Each outer candidate is rendered
-into the instructions of an inner source-editing run.</p>
-<h2 id="program">Program</h2>
+<p>Some artifacts cannot be judged by looking at them. A library of skill
+documents is good exactly when an agent that has read it behaves better — so
+measuring one candidate means installing it into an agent, running that agent
+on real tasks, and aggregating what happened. In Meta-Evolve that inner work
+is not a special mode: the evaluator of an outer run simply executes complete
+inner runs. This chapter shows one such nested loop end to end and needs no
+prior chapter.</p>
+<h2 id="the-scenario">The scenario</h2>
+<p>The outer artifact is a <code>SkillSet</code> — an immutable mapping of file paths to
+skill documents — and the seed is empty. The measuring suite holds two
+repository episodes, each an ordinary inner task: edit a small repository so
+it satisfies a private house convention (a version-tag format in one episode,
+a verbosity rule in the other). The fixture calls the episodes "held-out" in
+the sense that matters here: their answers are private conventions that
+cannot be inferred from the repositories, only supplied by a skill document.</p>
+<p>One outer evaluation therefore means: render the candidate's skills into an
+inner agent's instructions, run one inner improvement run per episode, check
+each produced repository with that episode's local checker, and aggregate.
+The outer search never sees inside the episodes — only the aggregate comes
+back.</p>
+<h2 id="the-program">The program</h2>
 <!-- captured-output: script:examples/08_skill_evolution/story.py -->
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/08_skill_evolution/story.py
 </code></pre></div>
@@ -2226,31 +2222,40 @@ into the instructions of an inner source-editing run.</p>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>final solved: 1.0
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>final skills: [&#39;skills/verbosity.md&#39;, &#39;skills/versioning.md&#39;]
 </code></pre></div></p>
-<h2 id="output">Output</h2>
-<p>The empty seed solves neither episode, one skill solves half, and both solve
-the suite. This is an outer search over skill sets; every episode is an inner
-run over a <code>SourceTree</code>.</p>
-<h2 id="what-happened">What happened</h2>
+<h2 id="what-just-happened">What just happened</h2>
+<p>Line by line: the empty seed solves neither episode (<code>0.0</code>); adding one
+skill document solves half the suite (<code>0.5</code>); adding the second solves all
+of it (<code>1.0</code>), and the selected skill set holds both documents. The
+progression is a real gradient — each outer candidate measurably improved on
+its parent, which is what lets an outer search select honestly.</p>
+<p>The nesting has a strict shape:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>outer candidate SkillSet
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  → trusted evaluator renders skills
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  → inner run edits one episode repository
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  → episode checker measures the result
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  → trusted evaluator renders skills into agent instructions
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  → one inner run edits each episode&#39;s repository
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  → the episode&#39;s checker measures the produced repository
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  → trusted aggregation returns one outer evaluation
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  → outer search selects a skill-set parent
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  → outer search selects the next skill-set parent
 </code></pre></div>
-<p>Inner trial and evaluation counts remain owned by inner runs. Only reported
-tokens and elapsed time roll up to outer usage; the outer kernel records its
-own trial and evaluation. An incomplete episode makes the suite a typed
-failure, not a low aggregate.</p>
-<p>Development feedback may guide proposals, but a held-out split must remain
-unavailable during search. Comparison re-evaluates candidates under the same
-declared suite and budget. Selection still grants no promotion authority;
-promotion is an external governance decision.</p>
+<p>Accounting stays honest across the boundary. Each inner run owns its own
+trials and evaluations; those counts never inflate the outer run's. Only
+tokens and elapsed time reported by inner agents roll up into outer usage,
+and the outer kernel records exactly one trial and one evaluation per outer
+candidate. Failure stays honest too: an episode that cannot complete makes
+the whole suite evaluation a typed failure — an unfinished measurement is
+not a solved-score of zero.</p>
+<p>One discipline matters more as the pattern scales. Whatever feedback guides
+the proposer during search, a genuinely fresh held-out split must remain
+untouched until search is over — data that influenced any proposal can no
+longer validate the winner. And as everywhere in the library, selecting a
+winner grants nothing beyond the record: promotion is an external governance
+decision.</p>
 <h2 id="one-extension">One extension</h2>
-<p>Add a fresh held-out suite and require every episode to complete before
-aggregation. The <a href="../../build-patterns/evoskill/">EvoSkill Build Pattern</a> names
-the exact callables to replace. Continue to
-<a href="../durability-and-trust/">Durability and trust</a>.</p>
+<p>Add a second, fresh episode suite and re-evaluate only the seed and the
+selected winner under it, requiring every episode to complete before
+aggregation. The <a href="../../build-patterns/evoskill/">EvoSkill build pattern</a>
+names the exact callables to replace for a real system. Then continue to
+<a href="../durability-and-trust/">Durability and trust</a>, where runs survive being
+stopped.</p>
 
 
 

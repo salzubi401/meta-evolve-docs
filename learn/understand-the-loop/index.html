@@ -395,10 +395,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#problem" class="md-nav__link">
+  <a href="#the-scenario" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problem
+        The scenario
       
     </span>
   </a>
@@ -406,10 +406,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#input" class="md-nav__link">
+  <a href="#the-program" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Input
+        The program
       
     </span>
   </a>
@@ -417,32 +417,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#program" class="md-nav__link">
+  <a href="#what-just-happened" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Program
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-happened" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What happened
+        What just happened
       
     </span>
   </a>
@@ -1269,6 +1247,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../reference/components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component contracts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/experience-provenance/" class="md-nav__link">
         
   
@@ -2059,10 +2065,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#problem" class="md-nav__link">
+  <a href="#the-scenario" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problem
+        The scenario
       
     </span>
   </a>
@@ -2070,10 +2076,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#input" class="md-nav__link">
+  <a href="#the-program" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Input
+        The program
       
     </span>
   </a>
@@ -2081,32 +2087,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#program" class="md-nav__link">
+  <a href="#what-just-happened" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Program
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-happened" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What happened
+        What just happened
       
     </span>
   </a>
@@ -2207,18 +2191,24 @@
 
 <h1 id="understand-the-loop">Understand the loop</h1>
 <p><strong>Status: Shipped.</strong></p>
-<h2 id="problem">Problem</h2>
-<p>A final score is not enough to explain whether a run was valid. We need to
-identify who defined better, what changed, which work consumed budget, and what
-evidence supports the selected result.</p>
-<h2 id="input">Input</h2>
-<p>The checklist run supplies a <code>Task</code>, seed artifact, proposer, evaluator,
-<code>Greedy</code> search policy, and <code>Budget</code>. Its objective maximizes completed items.
-The evaluator and budget belong to the task/application boundary, not to the
-candidate.</p>
-<h2 id="program">Program</h2>
-<p>The inspection script imports the completed run and reads only public result
-queries:</p>
+<p>A finished run hands you more than a winner. It hands you a defensible
+record: who defined "better", what was attempted, what each attempt cost, and
+which measured steps produced the selected result. This chapter is about
+reading that record, and it stands alone — the little context it needs is
+restated below.</p>
+<h2 id="the-scenario">The scenario</h2>
+<p>The run under inspection is the checklist loop from
+<a href="../../start-here/">Start here</a>, in one breath: starting from an empty tuple,
+a proposer appended one item per step, a separate evaluator counted completed
+items, and a <code>Greedy</code> search policy kept each improvement, under a declared
+budget of four evaluations and three trials. The finished run is an ordinary
+Python value, <code>result</code>, and the program below does nothing but query it.</p>
+<p>Two words matter before the code. A <strong>trial</strong> is one bounded attempt to
+improve: propose a candidate, evaluate it, and record what happened —
+success or failure. An <strong>evaluation</strong> is the measurement inside it. The seed
+is evaluated without a trial (a baseline is measured, not proposed), which is
+why the two counts below differ by one.</p>
+<h2 id="the-program">The program</h2>
 <!-- captured-output: script:examples/00_checklist/inspect_result.py -->
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="sd">&quot;&quot;&quot;Read the completed checklist through the public result API.&quot;&quot;&quot;</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
@@ -2236,11 +2226,27 @@ queries:</p>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>task usage: Usage(evaluations=4, trials=3, tokens=0, wall_seconds=0.0)
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>winning lineage: [[], [&#39;outline&#39;], [&#39;outline&#39;, &#39;draft&#39;], [&#39;outline&#39;, &#39;draft&#39;, &#39;review&#39;]]
 </code></pre></div></p>
-<h2 id="output">Output</h2>
-<p><code>best()</code> returns the decoded artifact. <code>summary()</code> exposes the objective's
-selected score, exact usage, and winning lineage. <code>trials()</code> would include the
-seed evaluation and every attempted successor, including typed failures.</p>
-<h2 id="what-happened">What happened</h2>
+<h2 id="what-just-happened">What just happened</h2>
+<p>Four queries, four facts:</p>
+<ul>
+<li><code>best:</code> — <code>result.best()</code> is the winning artifact itself, decoded to its
+  plain Python value.</li>
+<li><code>primary score: 3</code> — <code>summary().primary_score</code> is the winner's measurement
+  under the task's first objective: three completed items.</li>
+<li><code>task usage:</code> — exact accounting. Four evaluations are the seed plus three
+  successors; three trials are the three proposals. <code>tokens=0</code> because no
+  provider was called; a real run accumulates reported provider usage here.</li>
+<li><code>winning lineage:</code> — the causal path to the winner, seed first. Not every
+  attempt — only the chain of kept improvements.</li>
+</ul>
+<p>Two queries did not appear but complete the surface. <code>result.trials()</code>
+returns every attempt including the unsuccessful ones: a proposal that
+returned garbage is recorded as a typed failure (<code>InvalidOutput</code>), a crashed
+measurement as an evaluator failure, and neither is ever disguised as a score
+of zero. And <code>result.best_trial().evidence</code> returns the <strong>evidence</strong> attached
+to the winning evaluation — material the evaluator recorded to justify its
+measurement, such as test output or graded replies.</p>
+<p>Here is the record's full vocabulary, in the order things happen:</p>
 <table>
 <thead>
 <tr>
@@ -2251,19 +2257,15 @@ seed evaluation and every attempted successor, including typed failures.</p>
 <tbody>
 <tr>
 <td><code>Task</code></td>
-<td>Declares artifact type, evaluator, objectives, and task budget</td>
+<td>Declares the artifact type, evaluator, objectives, and budget</td>
 </tr>
 <tr>
 <td>Objective</td>
-<td>Names a metric, direction, and optional satisfaction threshold</td>
-</tr>
-<tr>
-<td>Artifact</td>
-<td>Immutable candidate content with its own identity</td>
+<td>A named metric, a direction, and an optional "satisfied" threshold</td>
 </tr>
 <tr>
 <td>Proposal</td>
-<td>A requested successor and its derivation</td>
+<td>A requested successor candidate and its declared derivation</td>
 </tr>
 <tr>
 <td>Trial</td>
@@ -2271,22 +2273,28 @@ seed evaluation and every attempted successor, including typed failures.</p>
 </tr>
 <tr>
 <td>Evaluation</td>
-<td>Independent metrics, evidence, and usage</td>
+<td>One independent measurement, with its evidence and usage</td>
 </tr>
 <tr>
-<td>Result/<code>Run</code></td>
-<td>Query surface over recorded outcomes and lineage</td>
+<td><code>Run</code></td>
+<td>The queryable record of all of the above, plus lineage</td>
 </tr>
 </tbody>
 </table>
-<p>Candidate authority stops at proposed content. The coordinator owns budget
-accounting and durable facts; the evaluator owns measurement; governance owns
-external promotion. Evidence supports an evaluation, while experience is a
-separately authorized view of strictly prior records.</p>
+<p>Authority is why the record can be trusted. The coordinator running the loop
+owns budget accounting and the durable record; the evaluator owns
+measurement; the candidate owns nothing but its own proposed content; and
+promoting a winner into production is a separate, externally owned decision
+that no run makes for itself. <strong>Experience</strong> — a proposer reading records of
+prior attempts in order to propose better — exists, but is off by default
+and always explicitly authorized; the next chapter shows it working.</p>
 <h2 id="one-extension">One extension</h2>
-<p>Add <code>meta.EvidenceDraft</code> in an <code>EvaluationResult</code> and inspect it through
-<code>best_trial().evidence</code>. Next, <a href="../search-and-experience/">Search and experience</a>
-shows how a parent is chosen and how prior records can enter a proposal.</p>
+<p>Have your evaluator return an <code>EvaluationResult</code> carrying a
+<code>meta.EvidenceDraft</code>, rerun, and read it back through
+<code>result.best_trial().evidence</code>. Then continue to
+<a href="../search-and-experience/">Search and experience</a>, where swapping one line —
+the search policy — changes the outcome, and recorded experience stops a
+proposer from repeating its own mistakes.</p>
 
 
 

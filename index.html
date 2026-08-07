@@ -1221,6 +1221,34 @@
   
   
     <li class="md-nav__item">
+      <a href="reference/components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component contracts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="reference/experience-provenance/" class="md-nav__link">
         
   
@@ -2075,31 +2103,47 @@
 
 <h1 id="improve-artifacts-through-evaluated-evolution">Improve artifacts through evaluated evolution</h1>
 <p><strong>Status: Shipped.</strong></p>
-<p>Meta-Evolve is a declarative Python library for improving versioned artifacts
-through bounded proposals, independent evaluation, and replaceable search.</p>
+<p>Meta-Evolve is a declarative Python library for a specific kind of program:
+one that improves a versioned artifact — a prompt, a config, a repository, a
+skill library — through bounded proposals, independent evaluation, and
+replaceable search, with every measurement, cost, and decision recorded.</p>
 <h2 id="one-complete-loop">One complete loop</h2>
+<p>This is a real, runnable improvement loop: it grows an empty checklist until
+all three items are done, then prints the winner and its ancestry.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">meta_evolve</span><span class="w"> </span><span class="kn">import</span> <span class="n">Budget</span><span class="p">,</span> <span class="n">Greedy</span><span class="p">,</span> <span class="n">Maximize</span><span class="p">,</span> <span class="n">Task</span><span class="p">,</span> <span class="n">run</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">items</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;outline&quot;</span><span class="p">,</span> <span class="s2">&quot;draft&quot;</span><span class="p">,</span> <span class="s2">&quot;review&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">complete_one</span><span class="p">(</span><span class="n">completed</span><span class="p">,</span> <span class="n">_context</span><span class="p">):</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">completed</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">completed</span><span class="p">)])</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">count_completed</span><span class="p">(</span><span class="n">completed</span><span class="p">):</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">item</span> <span class="ow">in</span> <span class="n">completed</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">ITEMS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;outline&quot;</span><span class="p">,</span> <span class="s2">&quot;draft&quot;</span><span class="p">,</span> <span class="s2">&quot;review&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">complete_one</span><span class="p">(</span><span class="n">completed</span><span class="p">,</span> <span class="n">_context</span><span class="p">):</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">completed</span><span class="p">,</span> <span class="n">ITEMS</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">completed</span><span class="p">)])</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">task</span><span class="o">=</span><span class="n">Task</span><span class="p">(</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="n">evaluator</span><span class="o">=</span><span class="n">count_completed</span><span class="p">,</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        <span class="n">objectives</span><span class="o">=</span><span class="p">(</span><span class="n">Maximize</span><span class="p">(</span><span class="s2">&quot;completed&quot;</span><span class="p">,</span> <span class="n">satisfy</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)),),</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        <span class="n">budget</span><span class="o">=</span><span class="n">Budget</span><span class="p">(</span><span class="n">evaluations</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">trials</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="p">),</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="n">seed</span><span class="o">=</span><span class="p">(),</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="n">proposer</span><span class="o">=</span><span class="n">complete_one</span><span class="p">,</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="n">search</span><span class="o">=</span><span class="n">Greedy</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="p">)</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">best</span><span class="p">()</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="nb">print</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">artifact</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">lineage</span><span class="p">()])</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">count_completed</span><span class="p">(</span><span class="n">completed</span><span class="p">):</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">item</span> <span class="ow">in</span> <span class="n">completed</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ITEMS</span><span class="p">)</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="n">task</span> <span class="o">=</span> <span class="n">Task</span><span class="p">(</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="n">evaluator</span><span class="o">=</span><span class="n">count_completed</span><span class="p">,</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="n">objectives</span><span class="o">=</span><span class="p">(</span><span class="n">Maximize</span><span class="p">(</span><span class="s2">&quot;completed&quot;</span><span class="p">,</span> <span class="n">satisfy</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">ITEMS</span><span class="p">)),),</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="n">budget</span><span class="o">=</span><span class="n">Budget</span><span class="p">(</span><span class="n">evaluations</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">trials</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="p">)</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="n">result</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    <span class="n">task</span><span class="o">=</span><span class="n">task</span><span class="p">,</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    <span class="n">seed</span><span class="o">=</span><span class="p">(),</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>    <span class="n">proposer</span><span class="o">=</span><span class="n">complete_one</span><span class="p">,</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    <span class="n">search</span><span class="o">=</span><span class="n">Greedy</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="p">)</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>    <span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">best</span><span class="p">()</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>    <span class="nb">print</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="n">trial</span><span class="o">.</span><span class="n">artifact</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">trial</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">lineage</span><span class="p">()])</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>    <span class="n">main</span><span class="p">()</span>
 </code></pre></div>
 <!-- captured-output: script:examples/00_checklist/main.py -->
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/00_checklist/main.py
@@ -2107,47 +2151,57 @@ through bounded proposals, independent evaluation, and replaceable search.</p>
 <div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>[&#39;outline&#39;, &#39;draft&#39;, &#39;review&#39;]
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>[[], [&#39;outline&#39;], [&#39;outline&#39;, &#39;draft&#39;], [&#39;outline&#39;, &#39;draft&#39;, &#39;review&#39;]]
 </code></pre></div></p>
+<p>Six parts made that happen, and they are the whole library:</p>
 <table>
 <thead>
 <tr>
 <th>Part</th>
-<th>Role in the loop</th>
+<th>Question it answers</th>
+<th>In the loop above</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Artifact</td>
-<td>The immutable candidate being improved</td>
+<td>What can improve?</td>
+<td>An immutable checklist tuple</td>
 </tr>
 <tr>
 <td>Proposer</td>
-<td>Creates a successor from a selected parent</td>
+<td>How is a successor created?</td>
+<td><code>complete_one</code></td>
 </tr>
 <tr>
 <td>Evaluator</td>
-<td>Measures the successor independently</td>
+<td>What does better mean?</td>
+<td>Completed-item count</td>
 </tr>
 <tr>
 <td>Search</td>
-<td>Selects parents and decides when to stop</td>
+<td>Which parent is tried next?</td>
+<td><code>Greedy</code></td>
 </tr>
 <tr>
 <td>Budget</td>
-<td>Caps trials, evaluations, time, and provider usage</td>
+<td>How much work is allowed?</td>
+<td>3 trials, 4 evaluations</td>
 </tr>
 <tr>
 <td>Run</td>
-<td>Preserves results, evidence, failures, usage, and lineage</td>
+<td>What evidence and result remain?</td>
+<td><code>best()</code>, <code>lineage()</code>, <code>summary()</code></td>
 </tr>
 </tbody>
 </table>
-<p>The candidate controls only artifact content. Evaluation, budgets, audit
-history, and promotion stay outside its authority.</p>
+<p>The proposer controls only candidate content. Evaluation, budgets, the
+recorded history, and any promotion into production stay outside its
+authority — that separation is the design.</p>
 <p><a href="start-here/">Start the tutorial →</a></p>
-<p>The seven Learn chapters are deterministic and credential-free. Build Patterns
-then turn the same components into Feedback Descent, EvoSkill, Autoresearch,
-harness evolution, and policy evolution. The SealQA material is linked later
-as an optional <strong>Experimental/live-only</strong> extension.</p>
+<p>The seven Learn chapters are deterministic and credential-free, and each one
+stands alone. Build Patterns then turn the same components into complete
+systems: Feedback Descent, EvoSkill, Autoresearch, harness evolution, and
+policy evolution. The SealQA material is linked later as an optional
+<strong>Experimental/live-only</strong> extension.</p>
 <h2 id="read-offline">Read offline</h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>sync<span class="w"> </span>--locked<span class="w"> </span>--group<span class="w"> </span>docs
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>uv<span class="w"> </span>run<span class="w"> </span>--group<span class="w"> </span>docs<span class="w"> </span>mkdocs<span class="w"> </span>build<span class="w"> </span>--strict

@@ -650,10 +650,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#concrete-input-and-final-output" class="md-nav__link">
+  <a href="#the-story-in-one-run" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Concrete input and final output
+        The story in one run
       
     </span>
   </a>
@@ -1227,6 +1227,34 @@
     
   
     Shipped API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component contracts
   
 
     
@@ -2037,10 +2065,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#concrete-input-and-final-output" class="md-nav__link">
+  <a href="#the-story-in-one-run" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Concrete input and final output
+        The story in one run
       
     </span>
   </a>
@@ -2163,11 +2191,18 @@
 
 <h1 id="evoskill">EvoSkill</h1>
 <p><strong>Status: Shipped.</strong></p>
-<p>Evolve a versioned skill library by installing each candidate into an inner
-agent and measuring its behavior over bounded repository episodes.</p>
-<h2 id="concrete-input-and-final-output">Concrete input and final output</h2>
-<p>The seed is an empty <code>meta.SkillSet</code>. One episode needs a private version-tag
-convention and one needs a private verbosity convention.</p>
+<p>A skill library is a set of documents an agent reads before working. Its
+quality is behavioral: the library is good exactly when agents that read it
+succeed at tasks they otherwise fail. EvoSkill therefore evolves the library
+as an outer artifact whose evaluator installs each candidate into an inner
+agent and measures that agent's behavior over bounded repository episodes —
+nested evaluation, applied to skills.</p>
+<h2 id="the-story-in-one-run">The story in one run</h2>
+<p>The seed is an empty <code>meta.SkillSet</code>. The measuring suite holds two
+repository episodes, each requiring a private house convention no agent can
+infer from the repository alone: a version-tag format in one, a verbosity
+rule in the other. (The fixture labels them "held-out" in that sense — the
+answers live outside the episode repositories.)</p>
 <!-- captured-output: script:examples/08_skill_evolution/story.py -->
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/08_skill_evolution/story.py
 </code></pre></div>
@@ -2178,45 +2213,54 @@ convention and one needs a private verbosity convention.</p>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>final solved: 1.0
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>final skills: [&#39;skills/verbosity.md&#39;, &#39;skills/versioning.md&#39;]
 </code></pre></div></p>
+<p>Line by line: the empty seed solves neither episode (<code>0.0</code>). Adding one
+skill document solves the episode whose convention it states (<code>0.5</code>).
+Adding the second solves the full suite (<code>1.0</code>), and the selected artifact
+holds both documents. The progression is a genuine gradient — each candidate
+measurably beat its parent — which is what makes greedy outer selection
+honest rather than a tie disguised as evolution.</p>
 <h2 id="data-flow">Data flow</h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>outer SkillSet candidate
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  → trusted suite renders skills after base instructions
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  → caller-owned agent runs one inner SourceTree task per episode
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  → local episode checkers measure produced repositories
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  → suite aggregates all-or-nothing outer evaluation + evidence + usage
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  → local episode checkers measure the produced repositories
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  → suite aggregates an all-or-nothing outer evaluation + evidence + usage
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  → outer Greedy selects the next SkillSet parent
 </code></pre></div>
-<p>The candidate controls skill document content only. The suite owns episode
-seeds and checks; the outer task owns the objective and budget; governance owns
-held-out data and promotion. Inner trial/evaluation counts remain inner. Only
-tokens and elapsed time reported by inner agents roll up to outer usage.</p>
+<p>The candidate controls skill-document content and nothing else. The suite
+owns episode seeds and checks; the outer task owns the objective and budget;
+governance owns validation data and promotion. Inner trial and evaluation
+counts stay inner — only tokens and elapsed time reported by inner agents
+roll up to outer usage. An episode that cannot finish invalidates the whole
+candidate evaluation as a typed failure; it never counts as a solved score
+of zero.</p>
 <h2 id="components-as-they-enter-the-story">Components as they enter the story</h2>
 <ul>
 <li><code>meta.SkillSet</code> stores immutable path-to-document content.</li>
 <li><code>render_skills</code> defines how a candidate becomes agent instructions.</li>
-<li><code>episode_suite(build_agent, model=...)</code> runs episodes, preserves typed
-  failures, aggregates scores, and declares behavior-affecting configuration.</li>
-<li><code>add_skill</code> is the deterministic outer proposer.</li>
+<li><code>episode_suite(build_agent, model=...)</code> runs the episodes, preserves typed
+  failures, aggregates scores, and declares its behavior-affecting
+  configuration.</li>
+<li><code>add_skill</code> is the deterministic outer proposer the fixture uses.</li>
 <li><code>meta.Greedy</code> selects under a two-trial, three-evaluation outer budget.</li>
 </ul>
-<p>An unfinished episode invalidates the candidate evaluation; it does not count
-as a solved score of zero. The two-episode fixture produces a useful gradient
-<code>0.0 → 0.5 → 1.0</code>, not a tie disguised as evolution.</p>
 <h2 id="replace-these-callable-seams">Replace these callable seams</h2>
-<p>To build a real implementation:</p>
+<p>To turn the fixture into a real implementation:</p>
 <ol>
 <li>Replace <code>fixture_agent(instructions)</code> with your SDK-owned source-tree
-   proposer and report provider usage explicitly.</li>
+   proposer, reporting provider usage explicitly.</li>
 <li>Replace <code>EPISODES</code> and their local <code>check</code> callables with versioned
    development tasks whose answers are not inferable from the repository.</li>
-<li>Replace <code>SKILL_LIBRARY</code>/<code>add_skill</code> with a skill authoring proposer.</li>
-<li>Keep a fresh held-out suite unavailable to the proposer and development
-   feedback, compare under equal bounds, and promote externally.</li>
+<li>Replace <code>SKILL_LIBRARY</code> and <code>add_skill</code> with a real skill-authoring
+   proposer — typically a failure analyzer plus a skill inducer.</li>
+<li>Keep a fresh validation suite untouched by search and development
+   feedback, compare seed and winner under equal bounds, and promote
+   externally.</li>
 </ol>
-<p>The runnable implementation is in
+<p>The runnable implementation is
 <a href="https://github.com/salzubi401/meta-evolve/tree/main/examples/08_skill_evolution"><code>examples/08_skill_evolution</code></a>.
-The optional <a href="../../learn/research-labs/04-evoskill/">SealQA EvoSkill chapter</a> is
-an <strong>Experimental/live-only</strong> research extension.</p>
+The optional <a href="../../learn/research-labs/04-evoskill/">SealQA EvoSkill chapter</a>
+is an <strong>Experimental/live-only</strong> research extension.</p>
 
 
 

@@ -451,10 +451,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#problem" class="md-nav__link">
+  <a href="#the-scenario" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problem
+        The scenario
       
     </span>
   </a>
@@ -462,10 +462,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#input" class="md-nav__link">
+  <a href="#the-program" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Input
+        The program
       
     </span>
   </a>
@@ -473,32 +473,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#program" class="md-nav__link">
+  <a href="#what-just-happened" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Program
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-happened" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What happened
+        What just happened
       
     </span>
   </a>
@@ -1249,6 +1227,34 @@
     
   
     Shipped API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component contracts
   
 
     
@@ -2059,10 +2065,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#problem" class="md-nav__link">
+  <a href="#the-scenario" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problem
+        The scenario
       
     </span>
   </a>
@@ -2070,10 +2076,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#input" class="md-nav__link">
+  <a href="#the-program" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Input
+        The program
       
     </span>
   </a>
@@ -2081,32 +2087,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#program" class="md-nav__link">
+  <a href="#what-just-happened" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Program
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-happened" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What happened
+        What just happened
       
     </span>
   </a>
@@ -2207,15 +2191,33 @@
 
 <h1 id="evolve-real-systems">Evolve real systems</h1>
 <p><strong>Status: Shipped.</strong></p>
-<h2 id="problem">Problem</h2>
-<p>Real candidates are often repositories or skill libraries, not scalar values.
-They must remain immutable even though agents and tools expect mutable files,
-and failures must not be disguised as low scores.</p>
-<h2 id="input">Input</h2>
-<p>The source example starts with a broken <code>clamp</code> function. A repository proposer
-works in a private mutable workspace; the evaluator materializes the captured
-candidate separately and runs an external grader.</p>
-<h2 id="program">Program</h2>
+<p>So far the artifact was a tuple. Real candidates are repositories, prompt
+files, and skill libraries — and improving them raises three problems the
+checklist never had. Agents and tools expect mutable files, but the record
+needs immutable versions. The thing that grades a repository must not be
+something the repository can rewrite. And a malformed patch or a crashed
+grader must stay visibly different from a low score. This chapter shows how
+one small repository is improved under all three constraints, assuming
+nothing from earlier chapters.</p>
+<h2 id="the-scenario">The scenario</h2>
+<p>The candidate is a tiny repository whose <code>clamp.py</code> contains a broken
+<code>clamp</code> function — it returns the wrong bound. Three parts improve it:</p>
+<ul>
+<li><code>SourceTree</code> is the artifact type for repositories. Immutable source means
+  exactly that: a <code>SourceTree</code> stores exact immutable bytes under content
+  digests, and improving one produces a new tree, never an edit.</li>
+<li><code>PatchProposer</code> wraps a callable that wants to edit files. The callable
+  receives a private mutable workspace — a real directory it may freely
+  change. When it finishes, capture validates the patch against the
+  exact expected bytes of the parent (so a patch written against stale content is
+  rejected as invalid) and only then creates the immutable successor.</li>
+<li><code>CommandEvaluator</code> grades a candidate independently: it materializes the
+  captured successor into a separate directory and runs an external grader
+  process over it. The evaluator owns its command, environment, timeout, and
+  hidden checks — the candidate cannot rewrite its own grader.</li>
+</ul>
+<p>The run's budget is deliberately tiny: one trial, two evaluations.</p>
+<h2 id="the-program">The program</h2>
 <!-- captured-output: script:examples/05_python_function/learning_story.py -->
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/05_python_function/learning_story.py
 </code></pre></div>
@@ -2231,29 +2233,50 @@ candidate separately and runs an external grader.</p>
 <a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>invalid proposal: InvalidOutput
 <a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>evaluator failure: EvaluatorFailure
 </code></pre></div></p>
-<h2 id="output">Output</h2>
-<p>The poor seed is a valid evaluated candidate with score <code>0.0</code>. The corrected
-successor scores <code>1.0</code>, preserves parent lineage, and carries process evidence
-and wall-time usage. A malformed patch is <code>InvalidOutput</code>; a grader fault is
-<code>EvaluatorFailure</code>. Neither becomes a rankable zero.</p>
-<h2 id="what-happened">What happened</h2>
-<p>Immutable source is represented by <code>SourceTree</code>, which stores exact immutable
-bytes. A <code>PatchProposer</code> or user-owned SDK
-callable receives a fresh workspace, edits it, and returns structured candidate
-content. Capture validates exact expected bytes before creating an immutable successor.
-<code>CommandEvaluator</code> then grades it independently and owns its
-command, environment, timeout, and
-hidden checks, so the candidate cannot rewrite the grader.</p>
-<p><code>SkillSet</code> uses the same run boundary with a different codec. SDK integration
-is likewise just a callable at the edge: the application owns authentication,
-tools, sessions, and telemetry; Meta-Evolve owns validation, lineage, budgets,
-evidence, usage, and typed failures. External promotion remains a separate
-governance decision.</p>
+<h2 id="what-just-happened">What just happened</h2>
+<p>Line by line:</p>
+<ul>
+<li><code>poor candidate: (0.0, 'evaluated')</code> — the broken seed is a valid,
+  evaluated candidate with score <code>0.0</code>. Failing the tests is a measurement;
+  nothing went wrong with the machinery.</li>
+<li><code>selected result: (1.0, True)</code> — the repaired successor scores <code>1.0</code> and
+  is the run's selected best.</li>
+<li><code>evidence:</code> — the winning evaluation carries two pieces of recorded
+  evidence: the evaluation environment it declared and the grader's process
+  result. A score without evidence is just an assertion.</li>
+<li><code>usage:</code> — two evaluations (seed and successor), one trial, zero tokens,
+  and real wall-clock time recorded from the external process.</li>
+<li><code>lineage: ('659bfe4a', '08abe248')</code> — repositories are identified by
+  content digest, so lineage is a chain of digests: broken parent, repaired
+  child.</li>
+<li><code>parent unchanged: True</code> — after the whole run, the parent tree still
+  holds the broken source. The proposer edited a workspace copy; the
+  original version was never touched.</li>
+<li><code>winning source:</code> — the selected tree really contains the fixed function.</li>
+<li><code>invalid proposal: InvalidOutput</code> — a second run used a proposer whose
+  patch claimed parent bytes that do not exist. Capture rejected it as a
+  typed <code>InvalidOutput</code> failure.</li>
+<li><code>evaluator failure: EvaluatorFailure</code> — a third run used a grader that
+  exits abnormally. That is a typed <code>EvaluatorFailure</code>, attributable to the
+  evaluator, not to the candidate.</li>
+</ul>
+<p>The last two lines carry the chapter's core rule: a failure is typed and
+attributed, never converted into a rankable zero. A candidate that measures
+badly, a proposer that produced garbage, and a grader that crashed are three
+different facts, and the record keeps them distinct.</p>
+<p>The same boundary generalizes past this fixture. <code>SkillSet</code> — a library of
+skill documents — is just another artifact type behind the same run
+boundary. And an SDK-driven agent is just a callable at the proposer seam:
+the application owns authentication, tools, sessions, and telemetry, while
+Meta-Evolve owns validation, lineage, budgets, evidence, usage, and typed
+failures. Selection never grants release: promotion of a winner into
+production stays an external decision.</p>
 <h2 id="one-extension">One extension</h2>
-<p>Replace the deterministic repository proposer with the callable shape in
+<p>Replace the deterministic repair callable with the SDK callable shape from
 <a href="../../guides/providers/">SDK integration</a>, leaving the task and evaluator
-unchanged. Next, <a href="../nested-evaluation/">Nested evaluation</a> puts complete runs
-inside an evaluator without merging their authority or accounting.</p>
+unchanged — the loop cannot tell the difference. Then continue to
+<a href="../nested-evaluation/">Nested evaluation</a>, where the evaluator itself runs
+complete inner improvement loops.</p>
 
 
 

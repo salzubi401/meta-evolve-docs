@@ -423,10 +423,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#problem" class="md-nav__link">
+  <a href="#the-scenario" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problem
+        The scenario
       
     </span>
   </a>
@@ -434,10 +434,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#input" class="md-nav__link">
+  <a href="#the-program" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Input
+        The program
       
     </span>
   </a>
@@ -445,32 +445,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#program" class="md-nav__link">
+  <a href="#what-just-happened" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Program
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-happened" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What happened
+        What just happened
       
     </span>
   </a>
@@ -1249,6 +1227,34 @@
     
   
     Shipped API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component contracts
   
 
     
@@ -2059,10 +2065,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#problem" class="md-nav__link">
+  <a href="#the-scenario" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problem
+        The scenario
       
     </span>
   </a>
@@ -2070,10 +2076,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#input" class="md-nav__link">
+  <a href="#the-program" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Input
+        The program
       
     </span>
   </a>
@@ -2081,32 +2087,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#program" class="md-nav__link">
+  <a href="#what-just-happened" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Program
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-happened" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What happened
+        What just happened
       
     </span>
   </a>
@@ -2207,22 +2191,38 @@
 
 <h1 id="search-and-experience">Search and experience</h1>
 <p><strong>Status: Shipped.</strong></p>
-<h2 id="problem">Problem</h2>
-<p>Candidate generation and parent selection are different decisions. Prior work
-can help a proposer, but only if access is explicit, bounded, and auditable.</p>
-<h2 id="input">Input</h2>
-<p>One deterministic checklist proposer and evaluator are run under <code>Greedy</code> and
-<code>BestOfN</code>. A second fixture compares no memory, pushed context, audited pull,
-and declared derivation.</p>
-<h2 id="program">Program</h2>
+<p>This chapter answers two questions that sound similar and are not. Who
+decides which version to build on next? That is the <strong>search policy</strong>, and
+swapping it changes the outcome even when nothing else changes. And may a
+proposer look at what already happened in the run? Only through explicit,
+recorded channels — experience is off by default. The chapter stands alone;
+both scenarios it uses are restated here.</p>
+<h2 id="the-scenario">The scenario</h2>
+<p>Story one reuses the smallest loop in the library: a checklist grows from
+empty toward <code>outline</code>, <code>draft</code>, <code>review</code>; a proposer appends the next item;
+an evaluator counts completed items. We run that loop twice with the same
+proposer and the same evaluator, swapping only the search policy: <code>Greedy</code>
+builds each proposal on the best candidate so far, while <code>BestOfN</code> builds
+every proposal on the seed.</p>
+<p>Story two gives the proposer a trap to fall into. The artifact is a number;
+the evaluator rejects candidates <code>1</code>, <code>2</code>, and <code>3</code> outright — a typed
+evaluator failure, not a low score. A proposer that computes <code>parent + 1</code>
+walks into that trap three times in a row, unless it can see the recorded
+failures and leap past them to <code>10</code>.</p>
+<h2 id="the-program">The program</h2>
+<p>Story one — identical parts, different search policy:</p>
 <!-- captured-output: script:examples/00_checklist/search_story.py -->
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/00_checklist/search_story.py
 </code></pre></div>
-<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Greedy best: (&#39;outline&#39;, &#39;draft&#39;, &#39;review&#39;)
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>BestOfN best: (&#39;outline&#39;,)
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>same proposer: propose
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>same evaluator: evaluate
+<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>baseline: checklist=() completed=0
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>better: maximize completed
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Greedy best: (&#39;outline&#39;, &#39;draft&#39;, &#39;review&#39;)
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>BestOfN best: (&#39;outline&#39;,)
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>same proposer: propose
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>same evaluator: evaluate
 </code></pre></div></p>
+<p>Story two — one trap, four runs: no memory, pushed context, audited pull, and
+declared derivation:</p>
 <!-- captured-output: script:examples/03_experience_reuse/learning_story.py -->
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/03_experience_reuse/learning_story.py
 </code></pre></div>
@@ -2232,49 +2232,43 @@ and declared derivation.</p>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>audited pull: (10, 7, 20)
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>declared derivation: ((), (&#39;evaluation&#39;,), (&#39;evaluation&#39;, &#39;evaluation&#39;, &#39;trial&#39;, &#39;trial&#39;))
 </code></pre></div></p>
-<h2 id="output">Output</h2>
-<p><code>Greedy</code> grows a chain because it expands the incumbent. <code>BestOfN</code> makes three
-independent proposals from the seed. <code>Population</code> keeps a rank-ordered archive
-and selects parents by a recorded tournament, allowing useful branches to
-survive a temporary regression.</p>
-<p>The experience transcript shows that experience is off by default. Pushed
-context is selected before a proposal; audited pull lets the proposer query a
-bounded reader; <code>derived_from</code> records which observed facts influenced the
-candidate.</p>
-<h2 id="what-happened">What happened</h2>
-<p>Search controls selection, admission, and stopping—not candidate content or
-evaluation. A context policy can push a bounded bundle such as
-<code>AncestorsOnly</code>; <code>PullAccess</code> grants explicit search/open operations whose
-usage is recorded. Both channels expose only authorized, strictly prior facts.</p>
-<table>
-<thead>
-<tr>
-<th>Policy</th>
-<th>Parent behavior</th>
-<th>Useful when</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Greedy</code></td>
-<td>Expand the best incumbent</td>
-<td>Improvements compose step by step</td>
-</tr>
-<tr>
-<td><code>BestOfN</code></td>
-<td>Expand the seed independently</td>
-<td>Samples should not influence one another</td>
-</tr>
-<tr>
-<td><code>Population</code></td>
-<td>Retain and sample several parents</td>
-<td>Diversity matters</td>
-</tr>
-</tbody>
-</table>
+<h2 id="what-just-happened">What just happened</h2>
+<p>Story one, line by line. The <code>baseline</code> and <code>better</code> lines restate the task:
+start from <code>()</code>, maximize completed items. <code>Greedy best:</code> reached all three
+items because each kept improvement became the next parent. <code>BestOfN best:</code>
+stopped at one — all three proposals started from the seed, so the best any
+single proposal could do was append <code>outline</code>. The <code>same proposer</code> and
+<code>same evaluator</code> lines are the point: nothing changed but parent selection.
+A third shipped policy, <code>Population</code>, keeps a ranked archive of several
+parents so a useful branch can survive a temporary regression.</p>
+<p>Story two, line by line:</p>
+<ul>
+<li><code>repeated mistake:</code> — with no memory, the four recorded outcomes are the
+  seed's score <code>0</code> followed by three identical typed failures: the proposer
+  tried <code>1</code>, then <code>2</code>, then <code>3</code>.</li>
+<li><code>no experience: (0, 'off')</code> — experience is off by default, and the best
+  score stayed <code>0</code>.</li>
+<li><code>pushed context: (10, 3)</code> — a <strong>context policy</strong>, chosen by the
+  application, selected prior failed evaluations and handed them to the
+  proposer before each proposal — three records in total. After seeing two
+  distinct failures, the proposer leapt to <code>10</code>.</li>
+<li><code>audited pull: (10, 7, 20)</code> — instead of being handed records, the
+  proposer asked. An explicit <code>PullAccess</code> grant let it search and open
+  prior records itself, and every query is part of the record: seven audited
+  operations returning twenty records, and the same escape to <code>10</code>.</li>
+<li><code>declared derivation:</code> — each successor declared which observed records
+  influenced it (<code>derived_from</code>). The first proposal used nothing, the
+  second one failed evaluation, the third two evaluations plus two compared
+  trials.</li>
+</ul>
+<p>Both channels obey one rule: a proposer sees only authorized, strictly prior
+facts — and what it saw is itself recorded.</p>
 <h2 id="one-extension">One extension</h2>
-<p>Run two policies under equal declared budgets and call <code>run_a.compare(run_b)</code>.
-Then continue to <a href="../evolve-real-systems/">Evolve real systems</a>.</p>
+<p>Run the two policies of story one under equal declared budgets and call
+<code>run_a.compare(run_b)</code>: comparison is a recorded, first-class verdict, not a
+number you eyeball. Then continue to
+<a href="../evolve-real-systems/">Evolve real systems</a>, where the artifact stops
+being a tuple and becomes a repository.</p>
 
 
 

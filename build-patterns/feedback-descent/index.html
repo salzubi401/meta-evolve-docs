@@ -622,10 +622,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#concrete-input-and-final-output" class="md-nav__link">
+  <a href="#the-story-in-one-run" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Concrete input and final output
+        The story in one run
       
     </span>
   </a>
@@ -1227,6 +1227,34 @@
     
   
     Shipped API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component contracts
   
 
     
@@ -2037,10 +2065,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#concrete-input-and-final-output" class="md-nav__link">
+  <a href="#the-story-in-one-run" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Concrete input and final output
+        The story in one run
       
     </span>
   </a>
@@ -2163,12 +2191,17 @@
 
 <h1 id="textual-feedback-descent">Textual Feedback Descent</h1>
 <p><strong>Status: Shipped.</strong></p>
-<p>Use evaluated failures to rewrite a text artifact, then measure the rewrite
-with the same independently owned suite.</p>
-<h2 id="concrete-input-and-final-output">Concrete input and final output</h2>
-<p>The candidate is a <code>meta.Text</code> support-triage prompt. Four tickets have exact
-expected routes. The seed gives neither the response format nor the private
-house rules.</p>
+<p>Gradient descent improves parameters by following a gradient. Textual
+Feedback Descent improves a text artifact by following written feedback: run
+an evaluation suite, collect the failing cases and what went wrong, hand
+exactly that evidence to a rewriter, and measure the rewrite with the same
+suite. The pattern needs nothing beyond the ordinary loop — the "descent" is
+just a proposer that reads recorded evaluator evidence.</p>
+<h2 id="the-story-in-one-run">The story in one run</h2>
+<p>The candidate is a <code>meta.Text</code> artifact holding a support-triage system
+prompt. The evaluation suite is four tickets with exact expected routes. The
+seed prompt states neither the required reply format nor the private house
+routing rules, so it cannot pass anything.</p>
 <!-- captured-output: script:examples/16_prompt_optimization/story.py -->
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/16_prompt_optimization/story.py
 </code></pre></div>
@@ -2179,47 +2212,62 @@ house rules.</p>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>final pass rate: 1.0
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>final prompt: Route duplicate charges to BILLING. Route login failures and refunds caused by product defects to PLATFORM. Route questions about unavailable features to SALES. Reply exactly as ROUTE: TEAM.
 </code></pre></div></p>
-<p>The shipped fixture adds all missing rules in one rewrite, so its exact
-progression is <code>0.0 → 1.0</code>. The deeper fake-model test rewrites only from the
-current report and pins <code>0.0 → 0.5 → 1.0</code>: response format first, house policy
-second.</p>
+<p>Line by line: the <code>input</code> line is the seed prompt's first line — a generic
+instruction with no routing knowledge. <code>eval cases</code> names the four graded
+tickets. <code>progression: 0.0 -&gt; 1.0</code> is the lineage of pass rates: the seed
+failed every case, and one evidence-driven rewrite passed all four. The
+<code>final prompt</code> line is the winning artifact itself — every missing rule,
+stated, plus the exact reply format.</p>
+<p>The shipped fixture adds all missing rules in one rewrite, so its
+progression is <code>0.0 → 1.0</code>. The deeper fake-model test pins the more
+diagnostic <code>0.0 → 0.5 → 1.0</code>: rewriting only from the current failure report
+fixes the reply format first and the house policy second — evidence in,
+improvement out, one step at a time.</p>
 <h2 id="data-flow">Data flow</h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>parent Text
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  → evaluator runs cases and records scores + replies as evidence
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  → evaluator runs the cases, records scores + replies as evidence
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  → AncestorsOnly pushes the parent&#39;s recorded evidence
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  → proposer renders only failing cases into a rewrite workspace
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  → proposer renders only the failing cases into a rewrite workspace
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  → caller-owned agent rewrites prompt.md
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  → changed file becomes successor Text
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  → same evaluator measures it
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  → the changed file becomes the successor Text
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  → the same evaluator measures it
 </code></pre></div>
 <p>The rewriter never receives evaluator authority. It can propose <code>prompt.md</code>;
-it cannot change cases, expected replies, objectives, budgets, audit records,
-or promotion rules. A missing reply makes the suite a typed evaluator failure;
-an unchanged rewrite is a typed proposer failure. Neither is a low score.</p>
+it cannot change the cases, expected replies, objectives, budgets, audit
+records, or promotion rules. A missing reply makes the suite evaluation a
+typed evaluator failure; a rewrite that changed nothing is a typed proposer
+failure. Neither is ever scored as a low pass rate.</p>
 <h2 id="components-as-they-enter-the-story">Components as they enter the story</h2>
 <ul>
 <li><code>meta.Text</code> is the immutable prompt artifact.</li>
 <li><code>eval_suite(build_agent, model=...)</code> owns case execution, exact grading,
   evidence, usage roll-up, and a configuration-sensitive component identity.</li>
-<li><code>rewrite_prompt(...)</code> turns recorded failed-case evidence into one candidate.</li>
-<li><code>meta.AncestorsOnly</code> supplies bounded causal feedback without shared state.</li>
-<li><code>meta.Greedy</code> keeps an improving prompt under <code>PROMPT_BUDGET</code>.</li>
+<li><code>rewrite_prompt(...)</code> turns recorded failed-case evidence into one
+  candidate.</li>
+<li><code>meta.AncestorsOnly</code> supplies bounded causal feedback with no shared
+  mutable state.</li>
+<li><code>meta.Greedy</code> keeps whichever prompt measures better, under
+  <code>PROMPT_BUDGET</code>.</li>
 </ul>
-<p>Each candidate evaluation runs four bounded inner sessions. Each outer rewrite
-runs one more. The declared outer limit is therefore 14 wrapper sessions.</p>
+<p>Each candidate evaluation runs four bounded inner sessions (one per case);
+each rewrite runs one more. Under the declared budget of three evaluations
+and two trials, the worst case is exactly 14 wrapper sessions — the cost
+ceiling is arithmetic, not hope.</p>
 <h2 id="replace-these-callable-seams">Replace these callable seams</h2>
-<p>To build a real implementation:</p>
+<p>To turn the fixture into a real implementation:</p>
 <ol>
-<li>Replace <code>fixture_agent(instructions)</code> with a user-owned SDK factory returning
-   an ordinary source-tree proposer (or <code>ProposalResult</code> with usage/evidence).</li>
-<li>Replace <code>CASES</code> and exact local grading in <code>prompt_suite.py</code> with your
-   versioned development suite.</li>
+<li>Replace <code>fixture_agent(instructions)</code> with a user-owned SDK factory
+   returning an ordinary source-tree proposer (or a <code>ProposalResult</code> with
+   usage and evidence).</li>
+<li>Replace <code>CASES</code> and the exact local grading in <code>prompt_suite.py</code> with
+   your versioned development suite.</li>
 <li>Replace <code>SEED_PROMPT</code> and, if needed, <code>REWRITER_INSTRUCTIONS</code>.</li>
-<li>Add a genuinely unseen validation suite before any external promotion.</li>
+<li>Add a genuinely unseen validation suite before any external promotion —
+   cases that shaped rewrites can no longer validate the winner.</li>
 </ol>
-<p>Keep <code>evolve_prompt</code>, the artifact boundary, accounting, failure translation,
-lineage, and promotion separation unless the task actually needs a different
-policy. The complete runnable implementation is in
+<p>Keep <code>evolve_prompt</code>, the artifact boundary, accounting, failure
+translation, lineage, and promotion separation unless your task actually
+needs a different policy. The complete runnable implementation is
 <a href="https://github.com/salzubi401/meta-evolve/tree/main/examples/16_prompt_optimization"><code>examples/16_prompt_optimization</code></a>.</p>
 <p>For a live, research-oriented variant, continue to the optional
 <a href="../../learn/research-labs/01-feedback-descent/">SealQA Feedback Descent chapter</a>,

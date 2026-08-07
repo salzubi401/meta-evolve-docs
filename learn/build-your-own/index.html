@@ -535,10 +535,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#problem" class="md-nav__link">
+  <a href="#the-scenario" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problem
+        The scenario
       
     </span>
   </a>
@@ -546,10 +546,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#input" class="md-nav__link">
+  <a href="#the-program" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Input
+        The program
       
     </span>
   </a>
@@ -557,32 +557,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#program" class="md-nav__link">
+  <a href="#what-just-happened" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Program
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-happened" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What happened
+        What just happened
       
     </span>
   </a>
@@ -1249,6 +1227,34 @@
     
   
     Shipped API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component contracts
   
 
     
@@ -2059,10 +2065,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#problem" class="md-nav__link">
+  <a href="#the-scenario" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problem
+        The scenario
       
     </span>
   </a>
@@ -2070,10 +2076,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#input" class="md-nav__link">
+  <a href="#the-program" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Input
+        The program
       
     </span>
   </a>
@@ -2081,32 +2087,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#program" class="md-nav__link">
+  <a href="#what-just-happened" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Program
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-happened" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What happened
+        What just happened
       
     </span>
   </a>
@@ -2207,15 +2191,20 @@
 
 <h1 id="build-your-own">Build your own</h1>
 <p><strong>Status: Shipped.</strong></p>
-<h2 id="problem">Problem</h2>
-<p>A real implementation should require replacing domain callables, not copying a
-coordinator or reverse-engineering a notebook.</p>
-<h2 id="input">Input</h2>
-<p>Textual Feedback Descent starts with a support-triage system prompt and four
-exact cases. The deterministic wrapper stands in for a caller-owned SDK while
-the ordinary <code>Text</code>, task, evaluator, search, context, and budget paths remain
-real.</p>
-<h2 id="program">Program</h2>
+<p>Every chapter so far ran the same loop over a different artifact: search
+selects a parent, a proposer creates a candidate, an independent evaluator
+measures it, the run records everything under a declared budget. Building
+your own system is not about copying a coordinator — it is about deciding
+which of those seams you replace and which responsibilities you must leave
+where they are. This closing chapter is the recipe.</p>
+<h2 id="the-scenario">The scenario</h2>
+<p>The worked example is a real one: improve a support-triage system prompt.
+Four tickets have exact expected routes; the seed prompt knows neither the
+required reply format nor the private routing rules, so it scores <code>0.0</code>. A
+deterministic stand-in plays the SDK agent's part so the story runs offline,
+but every seam it exercises — artifact, task, evaluator, search, context,
+budget — is the real shipped path you would keep in production.</p>
+<h2 id="the-program">The program</h2>
 <!-- captured-output: script:examples/16_prompt_optimization/story.py -->
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/16_prompt_optimization/story.py
 </code></pre></div>
@@ -2226,12 +2215,15 @@ real.</p>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>final pass rate: 1.0
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>final prompt: Route duplicate charges to BILLING. Route login failures and refunds caused by product defects to PLATFORM. Route questions about unavailable features to SALES. Reply exactly as ROUTE: TEAM.
 </code></pre></div></p>
-<h2 id="output">Output</h2>
-<p>The fixture run improves from <code>0.0</code> to <code>1.0</code>. The deeper deterministic fake in
-<code>test_prompt_optimization_example.py</code> retains the more diagnostic
-<code>0.0 → 0.5 → 1.0</code> progression: format feedback fixes two cases before house
-rules fix the other two.</p>
-<h2 id="what-happened">What happened</h2>
+<h2 id="what-just-happened">What just happened</h2>
+<p>The seed prompt failed every case (<code>0.0</code>); the evaluator recorded the failed
+cases as evidence; a rewriter proposer turned that evidence into a new
+prompt; the same suite measured the rewrite at <code>1.0</code>. The full pattern —
+including the more diagnostic <code>0.0 → 0.5 → 1.0</code> progression where format is
+fixed before policy — is the
+<a href="../../build-patterns/feedback-descent/">Textual Feedback Descent</a> chapter.</p>
+<p>To build your own system, work through the seams in this order, replacing
+the left column and deliberately not absorbing the right one:</p>
 <table>
 <thead>
 <tr>
@@ -2249,7 +2241,7 @@ rules fix the other two.</p>
 <td>Evaluation and promotion</td>
 </tr>
 <tr>
-<td>Evaluator callable/suite</td>
+<td>Evaluator callable or suite</td>
 <td>Candidate claims and mutable workspaces</td>
 </tr>
 <tr>
@@ -2261,20 +2253,26 @@ rules fix the other two.</p>
 <td>Authorization and causal ordering</td>
 </tr>
 <tr>
-<td>Storage/registry adapter</td>
+<td>Storage and registry adapter</td>
 <td>Domain identity and replay semantics</td>
 </tr>
 </tbody>
 </table>
-<p>Start from the smallest artifact-specific seam, keep the evaluator independent,
-declare exact budgets, and return evidence and usage with typed failures. Only
-add a protocol when a second current implementation needs the seam.</p>
+<p>The habits that keep a real system honest are the ones every chapter
+demonstrated: start from the smallest artifact-specific seam; write the
+evaluator before the proposer and keep it independent; declare exact
+budgets; return evidence and usage with typed failures rather than silent
+zeros; and add a protocol only when a second concrete implementation needs
+the seam.</p>
 <h2 id="one-extension">One extension</h2>
-<p>Choose a complete pattern: <a href="../../build-patterns/feedback-descent/">Textual Feedback Descent</a>,
-<a href="../../build-patterns/evoskill/">EvoSkill</a>,
-<a href="../autoresearch/">Autoresearch</a>,
-<a href="../../guides/harness-evolution/">harness evolution</a>, or
-<a href="../../guides/policy-evolution/">policy evolution</a>.</p>
+<p>Pick the complete pattern nearest your problem and build from it:
+<a href="../../build-patterns/feedback-descent/">Textual Feedback Descent</a> for
+prompt-shaped artifacts, <a href="../../build-patterns/evoskill/">EvoSkill</a> for skill
+libraries measured through inner episodes,
+<a href="../autoresearch/">Autoresearch</a> for research recipes with held-out checks,
+<a href="../../guides/harness-evolution/">harness evolution</a> for typed agent
+parameters, or <a href="../../guides/policy-evolution/">policy evolution</a> for search
+policy itself as the artifact.</p>
 
 
 

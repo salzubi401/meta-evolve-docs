@@ -367,10 +367,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#problem" class="md-nav__link">
+  <a href="#the-scenario" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problem
+        The scenario
       
     </span>
   </a>
@@ -378,10 +378,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#input" class="md-nav__link">
+  <a href="#the-program" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Input
+        The program
       
     </span>
   </a>
@@ -389,32 +389,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#program" class="md-nav__link">
+  <a href="#what-just-happened" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Program
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-happened" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What happened
+        What just happened
       
     </span>
   </a>
@@ -426,17 +404,6 @@
     <span class="md-ellipsis">
       
         One extension
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#learning-path" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Learning path
       
     </span>
   </a>
@@ -1280,6 +1247,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../reference/components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component contracts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../reference/experience-provenance/" class="md-nav__link">
         
   
@@ -2070,10 +2065,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#problem" class="md-nav__link">
+  <a href="#the-scenario" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problem
+        The scenario
       
     </span>
   </a>
@@ -2081,10 +2076,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#input" class="md-nav__link">
+  <a href="#the-program" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Input
+        The program
       
     </span>
   </a>
@@ -2092,32 +2087,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#program" class="md-nav__link">
+  <a href="#what-just-happened" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Program
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-happened" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What happened
+        What just happened
       
     </span>
   </a>
@@ -2129,17 +2102,6 @@
     <span class="md-ellipsis">
       
         One extension
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#learning-path" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Learning path
       
     </span>
   </a>
@@ -2229,46 +2191,47 @@
 
 <h1 id="start-here">Start here</h1>
 <p><strong>Status: Shipped.</strong></p>
-<h2 id="problem">Problem</h2>
-<p>Improve an empty checklist until it contains <code>outline</code>, <code>draft</code>, and <code>review</code>.
-The candidate is the checklist; it is not allowed to score itself or enlarge
-its budget.</p>
-<h2 id="input">Input</h2>
-<table>
-<thead>
-<tr>
-<th>Part</th>
-<th>Input</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Artifact</td>
-<td>The immutable tuple <code>()</code></td>
-</tr>
-<tr>
-<td>Proposer</td>
-<td>Append the next named item</td>
-</tr>
-<tr>
-<td>Evaluator</td>
-<td>Count completed items</td>
-</tr>
-<tr>
-<td>Search policy</td>
-<td>Keep the best candidate with <code>Greedy</code></td>
-</tr>
-<tr>
-<td>Budget</td>
-<td>Three proposals and four evaluations</td>
-</tr>
-<tr>
-<td>Authority owner</td>
-<td>The application running <code>meta.run()</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="program">Program</h2>
+<p>Most programs compute an answer and stop. An improvement loop is a different
+kind of program: it keeps a current best version of something, repeatedly
+proposes a changed version, measures whether the change actually helped, and
+keeps the winner. Meta-Evolve is a Python library for writing exactly that
+kind of program, with every measurement, cost, and decision recorded so you
+can trust — and audit — the result.</p>
+<p>This chapter runs one complete improvement loop on the smallest artifact that
+can possibly work: a to-do checklist. It assumes nothing about this library.
+The whole Learn path is standalone, deterministic, and needs
+no notebook or live provider.</p>
+<h2 id="the-scenario">The scenario</h2>
+<p>We hold a checklist that starts empty, and we consider it finished when it
+contains <code>outline</code>, <code>draft</code>, and <code>review</code>. Improving it with a loop instead of
+just writing the answer forces four decisions, and each decision is one
+pluggable part of Meta-Evolve:</p>
+<ul>
+<li><strong>The artifact</strong> is the thing being improved — here, a plain tuple of
+  strings. Artifacts are immutable: the loop never edits one in place, it
+  creates a new candidate version alongside it, so history is never
+  rewritten.</li>
+<li><strong>The proposer</strong> creates the next candidate from a chosen parent. Ours
+  appends the next unfinished item. In a real system, this is where an LLM
+  would sit.</li>
+<li><strong>The evaluator</strong> measures a candidate and answers "how good is it?" Ours
+  counts completed items. It is deliberately separate from the proposer: the
+  part that writes candidates never gets to score them.</li>
+<li><strong>The search policy</strong> decides which earlier version to build on next and
+  when to stop. We use <code>Greedy</code>: always build on the best version seen so
+  far.</li>
+</ul>
+<p>Two more parts keep the loop honest. A <strong>budget</strong> caps how much work the run
+may do — ours allows three proposals ("trials") and four measurements
+("evaluations"), and nothing inside the run can raise it. And the <strong>run
+record</strong> captures everything that happened, so afterwards you can ask not
+just what won, but why.</p>
+<p>One word you will meet on every page: <strong>authority</strong>. The application that
+calls <code>meta.run()</code> is the authority owner. A candidate — even a clever,
+LLM-written one — only ever proposes its own content. It cannot score itself,
+enlarge the budget, rewrite the record, or promote itself into production.</p>
+<h2 id="the-program">The program</h2>
+<p>This is the complete runnable file, with no hidden setup:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">meta_evolve</span><span class="w"> </span><span class="kn">import</span> <span class="n">Budget</span><span class="p">,</span> <span class="n">Greedy</span><span class="p">,</span> <span class="n">Maximize</span><span class="p">,</span> <span class="n">Task</span><span class="p">,</span> <span class="n">run</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
@@ -2304,40 +2267,44 @@ its budget.</p>
 <a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>    <span class="n">main</span><span class="p">()</span>
 </code></pre></div>
-<h2 id="output">Output</h2>
 <!-- captured-output: script:examples/00_checklist/main.py -->
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/00_checklist/main.py
 </code></pre></div>
 <div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>[&#39;outline&#39;, &#39;draft&#39;, &#39;review&#39;]
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>[[], [&#39;outline&#39;], [&#39;outline&#39;, &#39;draft&#39;], [&#39;outline&#39;, &#39;draft&#39;, &#39;review&#39;]]
 </code></pre></div></p>
-<h2 id="what-happened">What happened</h2>
-<p>The seed was evaluated first at <code>0</code>. <code>Greedy</code> selected it as the first parent;
-the proposer appended <code>outline</code>; the independent evaluator returned <code>1</code>; and
-the search retained that improvement. The same cycle produced <code>draft</code>, then
-<code>review</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Task owns evaluator and objective
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  → Search selects a parent
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  → Proposer creates candidate content
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  → Evaluator returns measurement and evidence
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  → Run records the trial, usage, failure or score, and lineage
+<h2 id="what-just-happened">What just happened</h2>
+<p>Play the run back one step at a time:</p>
+<ol>
+<li>The seed <code>()</code> is evaluated first and scores <code>0</code>. Even the starting point
+   gets measured — a claim of improvement needs a measured baseline.</li>
+<li><code>Greedy</code> selects the best version so far — the seed — as the parent. The
+   proposer appends <code>outline</code>; the evaluator scores the candidate <code>1</code>; the
+   run records the trial and keeps the improvement.</li>
+<li>The same cycle appends <code>draft</code> (score <code>2</code>), then <code>review</code> (score <code>3</code>,
+   which satisfies the objective, so the run stops on merit).</li>
+</ol>
+<p>That is the whole rhythm of the library, and it never changes shape:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>search selects a parent → proposer creates a candidate
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  → evaluator measures it → the run records everything
 </code></pre></div>
-<p>The result is the <code>Run</code>: <code>best()</code> returns the selected artifact, <code>lineage()</code>
-returns the causal path, and <code>summary()</code> reports exact usage. A real evaluator
-can attach evidence; experience is off by default and enters later only through
-an explicit context or audited reader.</p>
-<p>The budget arithmetic is exact: one seed evaluation plus three successor
-evaluations is four evaluations; the three successors are three trials. The
-candidate, proposer, and search policy cannot change those limits or promote a
-result outside the run.</p>
+<p>Now decode the two printed lines. The first, <code>['outline', 'draft', 'review']</code>,
+is <code>result.best()</code> — the winning artifact. The second is <code>result.lineage()</code> —
+the winner's ancestry, from the empty seed through each kept improvement. The
+budget arithmetic is exact and visible in <code>result.summary()</code>: one seed
+evaluation plus three successor evaluations is four evaluations; three
+proposals is three trials. Larger runs add detail — provider usage, evidence,
+typed failures — but never lose this auditability.</p>
 <h2 id="one-extension">One extension</h2>
-<p>Change only <code>search=meta.Greedy(...)</code> to <code>meta.BestOfN(max_trials=3)</code>. Every
-proposal then starts from the seed, so the same proposer can complete only one
-item. The next chapter explains why that different outcome is useful evidence,
-not a coordinator special case.</p>
-<h2 id="learning-path">Learning path</h2>
-<p>Continue to <a href="../learn/understand-the-loop/">Understand the loop</a>. The complete
-path is standalone, deterministic, and requires no notebook or live provider.</p>
+<p>Change one line — <code>search=meta.Greedy(...)</code> to <code>meta.BestOfN(max_trials=3)</code> —
+and rerun. The result gets <em>worse</em>: every proposal now starts from the seed
+independently, so the best candidate completes only one item. Same proposer,
+same evaluator, different search policy, different outcome. That swap, and
+what it says about separating candidate generation from parent selection, is
+where <a href="../learn/search-and-experience/">Search and experience</a> picks up.</p>
+<p>First, though, <a href="../learn/understand-the-loop/">Understand the loop</a> shows how
+to interrogate the run you just executed — <code>best()</code>, <code>trials()</code>, <code>lineage()</code>,
+<code>summary()</code> — and what a typed failure or a usage report looks like.</p>
 
 
 
