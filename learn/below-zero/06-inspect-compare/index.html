@@ -3307,9 +3307,14 @@ losers, and typed failures. <code>lineage()</code> is the causal path to the win
 when a run is failed or unrankable. <code>compare()</code> ranks compatible declarations
 and keeps search as the visible difference.</p>
 <!-- captured-output: script:examples/learn/below_zero/main.py -->
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Run</label><label for="__tabbed_1_2">Result</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/learn/below_zero/main.py
 </code></pre></div>
-<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Greedy best: 9/9
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Greedy best: 9/9
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>BestOfN best: 7/9
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>lineage(): (4, 7, 9)
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>inspect(): rankable
@@ -3317,6 +3322,9 @@ and keeps search as the visible difference.</p>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>failure: (&#39;trial_failed&#39;, &#39;InvalidOutput&#39;)
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>failed inspect(): rankable
 </code></pre></div>
+</div>
+</div>
+</div>
 <p>An invalid proposal records <code>InvalidOutput</code> with no artifact. It is not a
 low score. The successfully evaluated seed keeps the run rankable.</p>
 <h2 id="change-and-predict">Change and predict<a class="headerlink" href="#change-and-predict" title="Permanent link">&para;</a></h2>

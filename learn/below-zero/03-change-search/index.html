@@ -3302,15 +3302,23 @@
 <code>BestOfN</code> always expands the seed — HumanEval's <code>pass@k</code> in this vocabulary —
 and keeps resampling that same first patch.</p>
 <!-- captured-output: script:examples/learn/below_zero/stages/03_search.py -->
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Run</label><label for="__tabbed_1_2">Result</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/learn/below_zero/stages/03_search.py
 </code></pre></div>
-<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Greedy best: 9/9
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Greedy best: 9/9
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>BestOfN best: 7/9
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Greedy lineage: (4, 7, 9)
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>BestOfN lineage: (4, 7)
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>same proposer: climb
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>same evaluator: evaluate
 </code></pre></div>
+</div>
+</div>
+</div>
 <p>Generation and evaluation did not change. Lineage did. Use <code>Population</code> when
 several ranked branches matter. Use <code>@meta.search</code> only when none of these
 presets is the decision.</p>

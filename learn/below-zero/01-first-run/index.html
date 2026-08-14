@@ -3301,11 +3301,19 @@ a fraction, not a pass/fail cliff.</p>
 <p>The proposer applies one tempting patch: treat any negative number as a
 failure. One successor attempt is not enough to finish the job.</p>
 <!-- captured-output: script:examples/learn/below_zero/stages/01_improve.py -->
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Run</label><label for="__tabbed_1_2">Result</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/learn/below_zero/stages/01_improve.py
 </code></pre></div>
-<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>7/9
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>7/9
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>[&#39;4/9&#39;, &#39;7/9&#39;]
 </code></pre></div>
+</div>
+</div>
+</div>
 <p>The seed is <code>4/9</code>. The tempting patch is <code>7/9</code>. The run worked, and the best
 result is still wrong. <code>trials=1</code> is a bound, not a declaration of success.</p>
 <h2 id="change-and-predict">Change and predict<a class="headerlink" href="#change-and-predict" title="Permanent link">&para;</a></h2>

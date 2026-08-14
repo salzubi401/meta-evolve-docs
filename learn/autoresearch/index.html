@@ -3542,9 +3542,14 @@ evidence of recursive self-improvement.</p>
 <h2 id="the-result-first">The result first<a class="headerlink" href="#the-result-first" title="Permanent link">&para;</a></h2>
 <p>Run this from the repository root:</p>
 <!-- captured-output: script:examples/research/autoresearch/main.py -->
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Run</label><label for="__tabbed_1_2">Result</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/research/autoresearch/main.py
 </code></pre></div>
-<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>autoresearch teaching run: outer=(evaluations=3,trials=2) inner=(evaluations=5,trials=4)
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>autoresearch teaching run: outer=(evaluations=3,trials=2) inner=(evaluations=5,trials=4)
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>recipe=(1,) public={&#39;public-large&#39;: 0.14285714285714285, &#39;public-small&#39;: 0.3333333333333333} private_quality=0.180556
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>recipe=(1, 2) public={&#39;public-large&#39;: 0.2, &#39;public-small&#39;: 1.0} private_quality=0.321429
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>recipe=(1, 2, 4) public={&#39;public-large&#39;: 0.3333333333333333, &#39;public-small&#39;: 0.5} private_quality=0.600000
@@ -3553,6 +3558,9 @@ evidence of recursive self-improvement.</p>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>held_out_selected={&#39;held-out-small&#39;: 0.5, &#39;held-out-large&#39;: 0.14285714285714285}
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>promotion=none
 </code></pre></div>
+</div>
+</div>
+</div>
 <p>The selected recipe does better in this constructed example. That shows the
 wiring works; it is not a scientific result.</p>
 <p>Each trial retains only its <code>autoresearch-public-report</code> record as

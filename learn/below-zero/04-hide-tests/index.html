@@ -3311,13 +3311,21 @@ problem.</p>
 tree. A subprocess <code>CommandEvaluator</code> is the source-repair track, not this
 page.</p>
 <!-- captured-output: script:examples/learn/below_zero/stages/04_hidden.py -->
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Run</label><label for="__tabbed_1_2">Result</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/learn/below_zero/stages/04_hidden.py
 </code></pre></div>
-<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>seed score: 4/9
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>seed score: 4/9
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>public failures: 3
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>hidden in evidence: False
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>hardcoded: 7/9 public 0
 </code></pre></div>
+</div>
+</div>
+</div>
 <p>A solution that special-cases the public list can look clean in evidence and
 still lose on hidden cases. The candidate does not own the metric.</p>
 <h2 id="change-and-predict">Change and predict<a class="headerlink" href="#change-and-predict" title="Permanent link">&para;</a></h2>

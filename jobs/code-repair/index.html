@@ -3580,14 +3580,22 @@ saved after that iteration, not an API for individual agent edits.</p>
 </code></pre></div>
 <h2 id="run-it">Run it<a class="headerlink" href="#run-it" title="Permanent link">&para;</a></h2>
 <!-- captured-output: script:examples/agents/code_repair/main.py -->
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/agents/code_repair/main.py
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Run</label><label for="__tabbed_1_2">Result</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/agents/code_repair/main.py
 </code></pre></div>
-<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>passed=True
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>passed=True
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>files=(&#39;REPAIR.md&#39;, &#39;intervals.py&#39;)
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>bytecode=False
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>feedback=Used 7 pushed records.
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>evaluations=2
-</code></pre></div></p>
+</code></pre></div>
+</div>
+</div>
+</div>
 <h2 id="read-the-workspace-result">Read the workspace result<a class="headerlink" href="#read-the-workspace-result" title="Permanent link">&para;</a></h2>
 <p><code>passed=True</code> means the selected successor received <code>score=1.0</code>. The captured
 file list proves that one iteration changed the whole project: <code>intervals.py</code>

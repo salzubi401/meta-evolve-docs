@@ -3452,9 +3452,14 @@ the diagnostic example cannot contaminate the successful result.</p>
 </code></pre></div>
 <h2 id="run-it">Run it<a class="headerlink" href="#run-it" title="Permanent link">&para;</a></h2>
 <!-- captured-output: script:examples/learn/support_response/results.py -->
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/learn/support_response/results.py
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Run</label><label for="__tabbed_1_2">Result</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/learn/support_response/results.py
 </code></pre></div>
-<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>best=I understand the duplicate $49 charge on order #4021 is frustrating. I&#39;ll request a $49 refund within one business day.
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>best=I understand the duplicate $49 charge on order #4021 is frustrating. I&#39;ll request a $49 refund within one business day.
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>best_trial=1:1.00
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>lineage=[0, 1]
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>trials=[&#39;evaluated&#39;, &#39;evaluated&#39;, &#39;evaluated&#39;]
@@ -3463,7 +3468,10 @@ the diagnostic example cannot contaminate the successful result.</p>
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>compare_tied=True
 <a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>compare_refusal=changed evaluator
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>all_failure_diagnosis=[&#39;EvaluatorFailure&#39;, &#39;EvaluatorFailure&#39;]
-</code></pre></div></p>
+</code></pre></div>
+</div>
+</div>
+</div>
 <h2 id="choose-the-query-for-the-question">Choose the query for the question<a class="headerlink" href="#choose-the-query-for-the-question" title="Permanent link">&para;</a></h2>
 <p>All seven queries read already committed facts. None reruns the proposer or
 evaluator.</p>

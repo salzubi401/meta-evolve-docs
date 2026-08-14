@@ -3310,12 +3310,20 @@ repeats that patch. That repeated mistake is the reason to add memory.</p>
 records before each proposal. The proposer reads public failure messages from
 that bundle. It never imports <code>evaluate.py</code>.</p>
 <!-- captured-output: script:examples/learn/below_zero/stages/05_failures.py -->
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Run</label><label for="__tabbed_1_2">Result</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/learn/below_zero/stages/05_failures.py
 </code></pre></div>
-<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>no context: 7/9
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>no context: 7/9
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>pushed failures: 9/9
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>same proposer: from_failures
 </code></pre></div>
+</div>
+</div>
+</div>
 <p>The never-below case <code>[1, -1]</code> only appears after the tempting patch. Pushed
 evidence lets the next proposal skip it. Pull access and declared derivation
 belong on the Program the loop track.</p>
