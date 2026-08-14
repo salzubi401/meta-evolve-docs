@@ -438,6 +438,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#choose-one-installation-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose one installation path
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-gets-installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What gets installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-failures-are-not-evaluation-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation failures are not evaluation results
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3177,6 +3210,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#choose-one-installation-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose one installation path
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-gets-installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What gets installed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-failures-are-not-evaluation-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation failures are not evaluation results
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3262,16 +3328,31 @@
 <h2 id="outcome">Outcome<a class="headerlink" href="#outcome" title="Permanent link">&para;</a></h2>
 <p>You will install Meta-Evolve, verify the import, and know which execution mode
 you are using. The default path is local, in-memory, and dependency-free.</p>
+<h2 id="choose-one-installation-path">Choose one installation path<a class="headerlink" href="#choose-one-installation-path" title="Permanent link">&para;</a></h2>
+<p>For an application that already uses <code>uv</code>, add the released package to that
+application and verify that Python can import it:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>add<span class="w"> </span>meta-evolve
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import meta_evolve; print(meta_evolve.__version__)&quot;</span>
 </code></pre></div>
-<p>From a source checkout, install the locked development environment instead:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>sync
+<p>The second command should print a version and exit successfully. <code>uv add</code>
+changes the application's dependency declaration; it does not create or run an
+evolution.</p>
+<p>For a Meta-Evolve source checkout, reproduce the repository's locked
+development environment instead:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>sync<span class="w"> </span>--locked<span class="w"> </span>--dev
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-q
 </code></pre></div>
+<p>The test count may change as the project grows, but the command should finish
+without failures. You do not need the optional browser or a model-provider SDK
+for the first evolution.</p>
+<h2 id="what-gets-installed">What gets installed<a class="headerlink" href="#what-gets-installed" title="Permanent link">&para;</a></h2>
 <p>No model provider is required. A proposer and evaluator can be ordinary Python
 callables. Durable storage, a user-owned SDK, and subprocess grading are opt-in
 edges introduced later.</p>
+<p>The default <code>improve()</code> call runs synchronously in the current Python process
+and stores its history in memory. Closing the process discards that in-memory
+history; persistence is a separate choice covered later.</p>
+<h2 id="installation-failures-are-not-evaluation-results">Installation failures are not evaluation results<a class="headerlink" href="#installation-failures-are-not-evaluation-results" title="Permanent link">&para;</a></h2>
 <p>If import fails, fix the environment before starting an experiment; an import
 or installation error is not a poor candidate score. If a later run records a
 typed failure, inspect the returned run instead of treating it as zero.</p>

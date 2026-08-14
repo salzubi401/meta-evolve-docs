@@ -3195,7 +3195,9 @@
 <p>The thing being improved must not decide whether it succeeded. An evaluator
 belongs to the experiment owner and observes only the candidate plus its own
 authorized environment. A coding agent may edit the project, but the external
-grader and hidden tests remain outside that project.</p>
+grader and its test definitions remain outside that project. If grader output
+is pushed back to the agent, that output is development feedback; an actually
+held-out result remains unavailable until selection.</p>
 <p>This boundary prevents self-reported success, protects held-out information,
 and keeps a proposer swap from silently changing the measuring instrument.
 Evaluation can still fail: a broken grader is an <code>EvaluatorFailure</code>, not a low

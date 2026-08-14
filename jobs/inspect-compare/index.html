@@ -647,6 +647,61 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#complete-comparison-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete comparison program
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-the-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read the comparison
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#know-what-must-stay-fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Know what must stay fixed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-one-declaration-and-predict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change one declaration and predict
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3177,6 +3232,61 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#complete-comparison-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete comparison program
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-the-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read the comparison
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#know-what-must-stay-fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Know what must stay fixed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-one-declaration-and-predict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change one declaration and predict
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3260,93 +3370,120 @@
 
 <h1 id="inspect-and-compare">Inspect and compare<a class="headerlink" href="#inspect-and-compare" title="Permanent link">&para;</a></h1>
 <h2 id="outcome">Outcome<a class="headerlink" href="#outcome" title="Permanent link">&para;</a></h2>
-<p>You will inspect winners, paths, failures, usage, and a controlled comparison
-without confusing selection with deployment.</p>
-<p>The complete script reuses the support experiment, adds one compatible run,
-and isolates its failure demonstrations:</p>
-<p>"""Tour every public result-query job with the support-response run."""</p>
-<p>from <strong>future</strong> import annotations</p>
-<p>import meta_evolve as meta
-from meta_evolve.domain import EvaluatorFailure
-from meta_evolve.errors import RunsNotComparable</p>
-<p>from rubric import SEED, grade_response, propose_response, support_task, run_support</p>
-<p>def all_failures() -&gt; meta.Run:
-    def broken_grader(_candidate):
-        return EvaluatorFailure(message="judge service unavailable")</p>
-<div class="highlight"><pre><span></span><code>return meta.improve(
-    seed=SEED,
-    proposer=lambda parent: parent,
-    evaluator=broken_grader,
-    trials=1,
-)
+<p>You will compare two controlled support-response runs and see an evaluator
+change refused before it can produce a misleading conclusion.</p>
+<p><code>compare()</code> does not decide whether two arbitrary scores are scientifically
+comparable. It first checks the recorded declarations that must match, then
+returns a comparison over the two successful summaries. This example changes
+only the recorded random seed, producing deterministic strategy A and B runs.</p>
+<h2 id="complete-comparison-program">Complete comparison program<a class="headerlink" href="#complete-comparison-program" title="Permanent link">&para;</a></h2>
+<p>The scorer, initial response, proposer declaration, objectives, and budget stay
+fixed:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="sd">&quot;&quot;&quot;Compare two compatible support runs and reject a changed evaluator.&quot;&quot;&quot;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">meta_evolve</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">meta</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">meta_evolve.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunsNotComparable</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rubric</span><span class="w"> </span><span class="kn">import</span> <span class="n">SEED</span><span class="p">,</span> <span class="n">grade_response</span><span class="p">,</span> <span class="n">propose_response</span><span class="p">,</span> <span class="n">run_support</span><span class="p">,</span> <span class="n">support_task</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">changed_evaluator_run</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">meta</span><span class="o">.</span><span class="n">Run</span><span class="p">:</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">changed_grader</span><span class="p">(</span><span class="n">candidate</span><span class="p">):</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="k">return</span> <span class="n">grade_response</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="n">task</span> <span class="o">=</span> <span class="n">support_task</span><span class="p">()</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        <span class="n">meta</span><span class="o">.</span><span class="n">Experiment</span><span class="p">(</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>            <span class="n">task</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Task</span><span class="p">(</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>                <span class="n">evaluator</span><span class="o">=</span><span class="n">changed_grader</span><span class="p">,</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>                <span class="n">objectives</span><span class="o">=</span><span class="n">task</span><span class="o">.</span><span class="n">objectives</span><span class="p">,</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>                <span class="n">budget</span><span class="o">=</span><span class="n">task</span><span class="o">.</span><span class="n">budget</span><span class="p">,</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>            <span class="p">),</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>            <span class="n">seed</span><span class="o">=</span><span class="n">SEED</span><span class="p">,</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>            <span class="n">proposer</span><span class="o">=</span><span class="n">propose_response</span><span class="p">,</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>            <span class="n">search</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Greedy</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>        <span class="p">)</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>    <span class="p">)</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>    <span class="n">strategy_a</span> <span class="o">=</span> <span class="n">run_support</span><span class="p">(</span><span class="n">random_seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>    <span class="n">strategy_b</span> <span class="o">=</span> <span class="n">run_support</span><span class="p">(</span><span class="n">random_seed</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>    <span class="n">comparison</span> <span class="o">=</span> <span class="n">strategy_a</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">strategy_b</span><span class="p">)</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;compatible_result=</span><span class="si">{</span><span class="s1">&#39;tie&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">comparison</span><span class="o">.</span><span class="n">tied</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;winner&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;same_random_seed=</span><span class="si">{</span><span class="n">comparison</span><span class="o">.</span><span class="n">same_random_seed</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>        <span class="n">strategy_a</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">changed_evaluator_run</span><span class="p">())</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>    <span class="k">except</span> <span class="n">RunsNotComparable</span><span class="p">:</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;changed_evaluator=refused&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>    <span class="n">main</span><span class="p">()</span>
 </code></pre></div>
-<p>def incompatible_run() -&gt; meta.Run:
-    def changed_grader(candidate):
-        return grade_response(candidate)</p>
-<div class="highlight"><pre><span></span><code>task = support_task()
-changed_task = meta.Task(
-    evaluator=changed_grader,
-    objectives=task.objectives,
-    budget=task.budget,
-)
-return meta.run(
-    meta.Experiment(
-        task=changed_task,
-        seed=SEED,
-        proposer=propose_response,
-        search=meta.Greedy(max_trials=2),
-    )
-)
-</code></pre></div>
-<p>def main() -&gt; None:
-    result = run_support(random_seed=0)
-    second = run_support(random_seed=1)
-    winner = result.best()
-    trial = result.best_trial()
-    print(f"best={winner.value}")
-    print(f"best_trial={trial.logical_step}:{trial.metrics['overall']:.2f}")
-    print(f"lineage={[item.logical_step for item in result.lineage(winner)]}")
-    print(f"trials={[item.state for item in result.trials()]}")
-    print(f"summary={result.summary().primary_score:.2f}")
-    overview = result.inspect().overview
-    print(f"inspect={overview.lifecycle}/{overview.rankability}")
-    print(f"compare_tied={result.compare(second).tied}")
-    try:
-        result.compare(incompatible_run())
-    except RunsNotComparable:
-        print("compare_refusal=changed evaluator")</p>
-<div class="highlight"><pre><span></span><code>failed = all_failures()
-try:
-    failed.best()
-except meta.NoSuccessfulEvaluation:
-    failures = [type(item.failure).__name__ for item in failed.inspect().trials]
-    print(f&quot;all_failure_diagnosis={failures}&quot;)
-</code></pre></div>
-<p>if <strong>name</strong> == "<strong>main</strong>":
-    main()</p>
+<h2 id="run-it">Run it<a class="headerlink" href="#run-it" title="Permanent link">&para;</a></h2>
 <p>Run it from the repository root:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/learn/support_response/results.py
+<!-- captured-output: script:examples/learn/support_response/compare.py -->
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/learn/support_response/compare.py
 </code></pre></div>
-<p>The expected report begins with the chosen response and ends with two distinct
-diagnoses:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>best=I understand the duplicate $49 charge on order #4021 is frustrating. I&#39;ll request a $49 refund within one business day.
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>...
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>compare_refusal=changed evaluator
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>all_failure_diagnosis=[&#39;EvaluatorFailure&#39;, &#39;EvaluatorFailure&#39;]
-</code></pre></div>
-<p>The returned run has seven public query jobs: <code>best</code>, <code>best_trial</code>, <code>lineage</code>,
-<code>trials</code>, <code>summary</code>, <code>inspect</code>, and <code>compare</code>. <code>inspect()</code> is the safe starting
-point for incomplete or entirely unrankable runs because it does not assume a
-winner. <code>summary()</code> reports exact usage and whether local component identities
-were only names.</p>
+<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>compatible_result=tie
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>same_random_seed=False
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>changed_evaluator=refused
+</code></pre></div></p>
+<h2 id="read-the-comparison">Read the comparison<a class="headerlink" href="#read-the-comparison" title="Permanent link">&para;</a></h2>
+<p><code>compatible_result=tie</code> means both runs achieved the same primary <code>overall</code>
+score. It does not mean their histories are byte-identical. The next line makes
+the intended difference explicit: the random seeds differ, and the comparison
+record reports that fact.</p>
+<p>The final line is a different situation. <code>changed_evaluator_run()</code> wraps the
+same apparent grading behavior in a different evaluator declaration.
+Meta-Evolve refuses the comparison because changing the measuring instrument
+invalidates the controlled score comparison; it does not guess that two
+callables are “close enough.”</p>
+<h2 id="know-what-must-stay-fixed">Know what must stay fixed<a class="headerlink" href="#know-what-must-stay-fixed" title="Permanent link">&para;</a></h2>
 <p>A comparison is one experiment: change one intended variable and keep the
 task, evaluator, proposer declaration, initial artifact, primary objective,
 and effective budget compatible. Meta-Evolve refuses incompatible comparisons;
 it cannot detect hidden differences inside two name-only closures.</p>
-<p>Poor work keeps a metric and remains rankable. Invalid output, proposer faults,
-grader faults, timeouts, resource exhaustion, policy violations, and
-infrastructure failures remain typed and unrankable. A selected result is still
-only a recorded candidate; promotion or deployment belongs to the caller.</p>
+<table>
+<thead>
+<tr>
+<th>Must match</th>
+<th>May differ and is reported</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Evaluator and primary objective</td>
+<td>Search declaration</td>
+</tr>
+<tr>
+<td>Task and effective budget</td>
+<td>Random seed</td>
+</tr>
+<tr>
+<td>Artifact kind and initial content</td>
+<td>Context policy</td>
+</tr>
+<tr>
+<td>Proposer identity</td>
+<td>Experience declaration</td>
+</tr>
+</tbody>
+</table>
+<p>Runs with typed failures can still be inspected individually. A comparison
+needs a successful evaluation on both sides; <code>NoSuccessfulEvaluation</code> means
+there is no score to compare, while <code>RunsNotComparable</code> means the declarations
+do not describe a controlled comparison.</p>
+<p>For winner, lineage, usage, and unrankable-run diagnosis, use
+<a href="../../get-started/run-returns/">What a run returns</a>; a selected result is still
+only a recorded candidate, not a deployment.</p>
+<h2 id="change-one-declaration-and-predict">Change one declaration and predict<a class="headerlink" href="#change-one-declaration-and-predict" title="Permanent link">&para;</a></h2>
+<p>Run both arms with <code>random_seed=0</code>. Comparison remains allowed, and
+<code>same_random_seed</code> becomes <code>True</code>. Change the evaluator instead and comparison
+is refused before a winner or tie is reported.</p>
 <p>Next, <a href="../swap-one-part/">swap one part</a> deliberately.</p>
 
 

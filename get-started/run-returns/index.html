@@ -494,6 +494,61 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#complete-results-tour" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete results tour
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choose-the-query-for-the-question" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose the query for the question
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnose-a-run-without-a-winner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnose a run without a winner
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-one-query-and-predict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change one query and predict
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3177,6 +3232,61 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#complete-results-tour" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete results tour
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choose-the-query-for-the-question" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose the query for the question
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnose-a-run-without-a-winner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnose a run without a winner
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-one-query-and-predict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change one query and predict
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3264,88 +3374,162 @@
 where nothing was rankable. A <code>Run</code> is a read-only handle over committed facts;
 the queries do not rerun the proposer or evaluator.</p>
 <p>The support example below performs one experiment declaration twice for a fair
-comparison, then creates an isolated failure variant solely to show diagnosis.</p>
-<p>"""Tour every public result-query job with the support-response run."""</p>
-<p>from <strong>future</strong> import annotations</p>
-<p>import meta_evolve as meta
-from meta_evolve.domain import EvaluatorFailure
-from meta_evolve.errors import RunsNotComparable</p>
-<p>from rubric import SEED, grade_response, propose_response, support_task, run_support</p>
-<p>def all_failures() -&gt; meta.Run:
-    def broken_grader(_candidate):
-        return EvaluatorFailure(message="judge service unavailable")</p>
-<div class="highlight"><pre><span></span><code>return meta.improve(
-    seed=SEED,
-    proposer=lambda parent: parent,
-    evaluator=broken_grader,
-    trials=1,
-)
+comparison, then creates an isolated failure variant solely to show diagnosis.
+The successful run and the failure-only run are separate histories; creating
+the diagnostic example cannot contaminate the successful result.</p>
+<h2 id="complete-results-tour">Complete results tour<a class="headerlink" href="#complete-results-tour" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="sd">&quot;&quot;&quot;Tour every public result-query job with the support-response run.&quot;&quot;&quot;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">meta_evolve</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">meta</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">meta_evolve.domain</span><span class="w"> </span><span class="kn">import</span> <span class="n">EvaluatorFailure</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">meta_evolve.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunsNotComparable</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kn">from</span><span class="w"> </span><span class="nn">rubric</span><span class="w"> </span><span class="kn">import</span> <span class="n">SEED</span><span class="p">,</span> <span class="n">grade_response</span><span class="p">,</span> <span class="n">propose_response</span><span class="p">,</span> <span class="n">support_task</span><span class="p">,</span> <span class="n">run_support</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">all_failures</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">meta</span><span class="o">.</span><span class="n">Run</span><span class="p">:</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">broken_grader</span><span class="p">(</span><span class="n">_candidate</span><span class="p">):</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        <span class="k">return</span> <span class="n">EvaluatorFailure</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;judge service unavailable&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">improve</span><span class="p">(</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        <span class="n">seed</span><span class="o">=</span><span class="n">SEED</span><span class="p">,</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        <span class="n">proposer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">parent</span><span class="p">:</span> <span class="n">parent</span><span class="p">,</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        <span class="n">evaluator</span><span class="o">=</span><span class="n">broken_grader</span><span class="p">,</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        <span class="n">trials</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    <span class="p">)</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="k">def</span><span class="w"> </span><span class="nf">incompatible_run</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">meta</span><span class="o">.</span><span class="n">Run</span><span class="p">:</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">changed_grader</span><span class="p">(</span><span class="n">candidate</span><span class="p">):</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>        <span class="k">return</span> <span class="n">grade_response</span><span class="p">(</span><span class="n">candidate</span><span class="p">)</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>    <span class="n">task</span> <span class="o">=</span> <span class="n">support_task</span><span class="p">()</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>    <span class="n">changed_task</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">Task</span><span class="p">(</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>        <span class="n">evaluator</span><span class="o">=</span><span class="n">changed_grader</span><span class="p">,</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>        <span class="n">objectives</span><span class="o">=</span><span class="n">task</span><span class="o">.</span><span class="n">objectives</span><span class="p">,</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>        <span class="n">budget</span><span class="o">=</span><span class="n">task</span><span class="o">.</span><span class="n">budget</span><span class="p">,</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>    <span class="p">)</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>        <span class="n">meta</span><span class="o">.</span><span class="n">Experiment</span><span class="p">(</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>            <span class="n">task</span><span class="o">=</span><span class="n">changed_task</span><span class="p">,</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>            <span class="n">seed</span><span class="o">=</span><span class="n">SEED</span><span class="p">,</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>            <span class="n">proposer</span><span class="o">=</span><span class="n">propose_response</span><span class="p">,</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>            <span class="n">search</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Greedy</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>        <span class="p">)</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>    <span class="p">)</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">run_support</span><span class="p">(</span><span class="n">random_seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>    <span class="n">second</span> <span class="o">=</span> <span class="n">run_support</span><span class="p">(</span><span class="n">random_seed</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>    <span class="n">winner</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">best</span><span class="p">()</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>    <span class="n">trial</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">best_trial</span><span class="p">()</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;best=</span><span class="si">{</span><span class="n">winner</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;best_trial=</span><span class="si">{</span><span class="n">trial</span><span class="o">.</span><span class="n">logical_step</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">trial</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;overall&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;lineage=</span><span class="si">{</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">logical_step</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">result</span><span class="o">.</span><span class="n">lineage</span><span class="p">(</span><span class="n">winner</span><span class="p">)]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;trials=</span><span class="si">{</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">state</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">result</span><span class="o">.</span><span class="n">trials</span><span class="p">()]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;summary=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">primary_score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>    <span class="n">overview</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">inspect</span><span class="p">()</span><span class="o">.</span><span class="n">overview</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;inspect=</span><span class="si">{</span><span class="n">overview</span><span class="o">.</span><span class="n">lifecycle</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">overview</span><span class="o">.</span><span class="n">rankability</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;compare_tied=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">second</span><span class="p">)</span><span class="o">.</span><span class="n">tied</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a>        <span class="n">result</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">incompatible_run</span><span class="p">())</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>    <span class="k">except</span> <span class="n">RunsNotComparable</span><span class="p">:</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;compare_refusal=changed evaluator&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a>
+<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a>    <span class="n">failed</span> <span class="o">=</span> <span class="n">all_failures</span><span class="p">()</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a>        <span class="n">failed</span><span class="o">.</span><span class="n">best</span><span class="p">()</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a>    <span class="k">except</span> <span class="n">meta</span><span class="o">.</span><span class="n">NoSuccessfulEvaluation</span><span class="p">:</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a>        <span class="n">failures</span> <span class="o">=</span> <span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">failure</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">failed</span><span class="o">.</span><span class="n">inspect</span><span class="p">()</span><span class="o">.</span><span class="n">trials</span><span class="p">]</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;all_failure_diagnosis=</span><span class="si">{</span><span class="n">failures</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a>
+<a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a>
+<a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a>    <span class="n">main</span><span class="p">()</span>
 </code></pre></div>
-<p>def incompatible_run() -&gt; meta.Run:
-    def changed_grader(candidate):
-        return grade_response(candidate)</p>
-<div class="highlight"><pre><span></span><code>task = support_task()
-changed_task = meta.Task(
-    evaluator=changed_grader,
-    objectives=task.objectives,
-    budget=task.budget,
-)
-return meta.run(
-    meta.Experiment(
-        task=changed_task,
-        seed=SEED,
-        proposer=propose_response,
-        search=meta.Greedy(max_trials=2),
-    )
-)
-</code></pre></div>
-<p>def main() -&gt; None:
-    result = run_support(random_seed=0)
-    second = run_support(random_seed=1)
-    winner = result.best()
-    trial = result.best_trial()
-    print(f"best={winner.value}")
-    print(f"best_trial={trial.logical_step}:{trial.metrics['overall']:.2f}")
-    print(f"lineage={[item.logical_step for item in result.lineage(winner)]}")
-    print(f"trials={[item.state for item in result.trials()]}")
-    print(f"summary={result.summary().primary_score:.2f}")
-    overview = result.inspect().overview
-    print(f"inspect={overview.lifecycle}/{overview.rankability}")
-    print(f"compare_tied={result.compare(second).tied}")
-    try:
-        result.compare(incompatible_run())
-    except RunsNotComparable:
-        print("compare_refusal=changed evaluator")</p>
-<div class="highlight"><pre><span></span><code>failed = all_failures()
-try:
-    failed.best()
-except meta.NoSuccessfulEvaluation:
-    failures = [type(item.failure).__name__ for item in failed.inspect().trials]
-    print(f&quot;all_failure_diagnosis={failures}&quot;)
-</code></pre></div>
-<p>if <strong>name</strong> == "<strong>main</strong>":
-    main()</p>
+<h2 id="run-it">Run it<a class="headerlink" href="#run-it" title="Permanent link">&para;</a></h2>
 <!-- captured-output: script:examples/learn/support_response/results.py -->
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/learn/support_response/results.py
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/learn/support_response/results.py
 </code></pre></div>
-<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>best=I understand the duplicate $49 charge on order #4021 is frustrating. I&#39;ll request a $49 refund within one business day.
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>best_trial=1:1.00
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>lineage=[0, 1]
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>trials=[&#39;evaluated&#39;, &#39;evaluated&#39;, &#39;evaluated&#39;]
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>summary=1.00
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>inspect=complete/rankable
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>compare_tied=True
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>compare_refusal=changed evaluator
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>all_failure_diagnosis=[&#39;EvaluatorFailure&#39;, &#39;EvaluatorFailure&#39;]
+<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>best=I understand the duplicate $49 charge on order #4021 is frustrating. I&#39;ll request a $49 refund within one business day.
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>best_trial=1:1.00
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>lineage=[0, 1]
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>trials=[&#39;evaluated&#39;, &#39;evaluated&#39;, &#39;evaluated&#39;]
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>summary=1.00
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>inspect=complete/rankable
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>compare_tied=True
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>compare_refusal=changed evaluator
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>all_failure_diagnosis=[&#39;EvaluatorFailure&#39;, &#39;EvaluatorFailure&#39;]
 </code></pre></div></p>
-<p>Use <code>best()</code> for the selected artifact, <code>best_trial()</code> for its metrics and
-evidence, <code>lineage()</code> for its causal path, <code>trials()</code> for every attempt,
-<code>summary()</code> for a portable run summary, <code>inspect()</code> for winner-independent
-diagnosis, and <code>compare()</code> for compatible runs. An objective name passed to
-<code>best("timeline")</code> or <code>best_trial("timeline")</code> queries that declared metric.</p>
+<h2 id="choose-the-query-for-the-question">Choose the query for the question<a class="headerlink" href="#choose-the-query-for-the-question" title="Permanent link">&para;</a></h2>
+<p>All seven queries read already committed facts. None reruns the proposer or
+evaluator.</p>
+<table>
+<thead>
+<tr>
+<th>Query</th>
+<th>Question it answers</th>
+<th style="text-align: right;">Requires a rankable result?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>best()</code></td>
+<td>Which artifact won on the primary objective?</td>
+<td style="text-align: right;">Yes</td>
+</tr>
+<tr>
+<td><code>best_trial()</code></td>
+<td>What metrics and evidence belong to that winner?</td>
+<td style="text-align: right;">Yes</td>
+</tr>
+<tr>
+<td><code>lineage()</code></td>
+<td>Which causal path produced an artifact?</td>
+<td style="text-align: right;">Only when no target is supplied</td>
+</tr>
+<tr>
+<td><code>trials()</code></td>
+<td>What happened on every seed evaluation and proposal attempt?</td>
+<td style="text-align: right;">No</td>
+</tr>
+<tr>
+<td><code>summary()</code></td>
+<td>What portable score, usage, and identity summary describes the run?</td>
+<td style="text-align: right;">Yes</td>
+</tr>
+<tr>
+<td><code>inspect()</code></td>
+<td>What was declared, attempted, spent, and failed?</td>
+<td style="text-align: right;">No</td>
+</tr>
+<tr>
+<td><code>compare()</code></td>
+<td>How do two compatible run summaries differ?</td>
+<td style="text-align: right;">Yes, on both sides</td>
+</tr>
+</tbody>
+</table>
+<p>The output shows the winner at logical step <code>1</code>, whose lineage is the seed at
+step <code>0</code> followed by that successor. Three <code>evaluated</code> states mean the seed and
+two proposal trials all produced measurements. <code>complete/rankable</code> says the run
+stopped normally and has at least one usable metric.</p>
+<p>An objective name passed to <code>best("timeline")</code> or
+<code>best_trial("timeline")</code> queries that declared metric instead of the primary
+<code>overall</code> metric. It does not change how the run originally ranked candidates.</p>
+<h2 id="diagnose-a-run-without-a-winner">Diagnose a run without a winner<a class="headerlink" href="#diagnose-a-run-without-a-winner" title="Permanent link">&para;</a></h2>
 <p><code>best()</code>, <code>best_trial()</code>, <code>lineage()</code> without a target, and <code>summary()</code> raise
 <code>NoSuccessfulEvaluation</code> when no evaluation has metrics. <code>trials()</code> and
-<code>inspect()</code> still work and preserve each typed failure.</p>
+<code>inspect()</code> still work and preserve each typed failure. That is why the example
+catches <code>NoSuccessfulEvaluation</code> and then prints two <code>EvaluatorFailure</code>
+records: the evaluator failed for both the seed and the attempted successor.</p>
+<h2 id="change-one-query-and-predict">Change one query and predict<a class="headerlink" href="#change-one-query-and-predict" title="Permanent link">&para;</a></h2>
+<p>Print <code>result.best_trial("timeline").metrics["timeline"]</code> in <code>main()</code>. The
+value is <code>1.0</code>: the query selects on the declared timeline metric, while the
+stored trials and the original primary-objective winner remain unchanged.</p>
 <p>Next, <a href="../../jobs/grading/">grade with checks and rubrics</a>.</p>
 
 

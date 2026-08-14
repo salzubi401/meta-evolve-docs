@@ -591,6 +591,72 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#complete-rubric-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete rubric experiment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-the-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read the result
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combine-signals-without-changing-their-meaning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combine signals without changing their meaning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replace-only-the-judging-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Replace only the judging implementation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-one-response-and-predict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change one response and predict
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3177,6 +3243,72 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#complete-rubric-experiment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete rubric experiment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-the-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read the result
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combine-signals-without-changing-their-meaning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combine signals without changing their meaning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replace-only-the-judging-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Replace only the judging implementation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-one-response-and-predict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change one response and predict
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3266,111 +3398,149 @@ content gates, infrastructure failures, and held-out evaluation distinct.</p>
 rankable <code>overall = 0</code>. It then records <code>empathy</code>, <code>action</code>, <code>timeline</code>, and
 <code>concise</code> criteria. A non-text response is different: it is <code>InvalidOutput</code>
 with no score. An exception in the grader becomes an evaluator failure.</p>
-<p>"""A richer, still deterministic evaluator for the support-response job."""</p>
-<p>from <strong>future</strong> import annotations</p>
-<p>import meta_evolve as meta
-from meta_evolve.domain import InvalidOutput</p>
-<p>SEED = (
-    "I'm sorry about the duplicate $49 charge for order #4021. "
-    "I'm looking into it."
-)
-RESPONSES = (
-    "I'm sorry about the duplicate $49 charge for order #4021. "
-    "I'll submit a $49 refund today; it should appear in 5–7 business days.",
-    "I understand the duplicate $49 charge on order #4021 is frustrating. "
-    "I'll request a $49 refund within one business day.",
-)</p>
-<p>def _false_completion(reply: str) -&gt; bool:
-    lowered = reply.lower()
-    return any(
-        phrase in lowered
-        for phrase in ("already refunded", "refund is complete", "refund was issued")
-    )</p>
-<p>def grade_response(reply: object) -&gt; meta.EvaluationResult:
-    """Apply content gates, then record four inspectable rubric criteria."""</p>
-<div class="highlight"><pre><span></span><code>if not isinstance(reply, str):
-    return meta.EvaluationResult(
-        failure=InvalidOutput(message=&quot;support response must be text&quot;)
-    )
-
-lowered = reply.lower()
-grounded = &quot;#4021&quot; in reply and &quot;$49&quot; in reply and not _false_completion(reply)
-criteria = {
-    &quot;empathy&quot;: float(&quot;sorry&quot; in lowered or &quot;understand&quot; in lowered),
-    &quot;action&quot;: float(&quot;refund&quot; in lowered and any(
-        word in lowered for word in (&quot;submit&quot;, &quot;request&quot;, &quot;will refund&quot;)
-    )),
-    &quot;timeline&quot;: float(any(word in lowered for word in (&quot;today&quot;, &quot;day&quot;, &quot;week&quot;))),
-    &quot;concise&quot;: float(len(reply.split()) &lt;= 35),
-}
-overall = sum(criteria.values()) / len(criteria) if grounded else 0.0
-return meta.EvaluationResult(
-    metrics={&quot;overall&quot;: overall, &quot;grounded&quot;: float(grounded), **criteria},
-    evidence=(
-        meta.EvidenceDraft(
-            kind=&quot;rubric/v1&quot;,
-            data={&quot;content_gate&quot;: grounded, &quot;criteria&quot;: criteria},
-        ),
-    ),
-)
+<p>The example keeps all judgment inside an ordinary evaluator callable. There is
+no separate rubric API: the task declares metric names, and the evaluator
+returns an <code>EvaluationResult</code> containing measurements and evidence.</p>
+<h2 id="complete-rubric-experiment">Complete rubric experiment<a class="headerlink" href="#complete-rubric-experiment" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="sd">&quot;&quot;&quot;A richer, still deterministic evaluator for the support-response job.&quot;&quot;&quot;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">meta_evolve</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">meta</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">meta_evolve.domain</span><span class="w"> </span><span class="kn">import</span> <span class="n">InvalidOutput</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">SEED</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="s2">&quot;I&#39;m sorry about the duplicate $49 charge for order #4021. &quot;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="s2">&quot;I&#39;m looking into it.&quot;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">)</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">RESPONSES</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="s2">&quot;I&#39;m sorry about the duplicate $49 charge for order #4021. &quot;</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="s2">&quot;I&#39;ll submit a $49 refund today; it should appear in 5–7 business days.&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="s2">&quot;I understand the duplicate $49 charge on order #4021 is frustrating. &quot;</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="s2">&quot;I&#39;ll request a $49 refund within one business day.&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="p">)</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="k">def</span><span class="w"> </span><span class="nf">_false_completion</span><span class="p">(</span><span class="n">reply</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    <span class="n">lowered</span> <span class="o">=</span> <span class="n">reply</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>    <span class="k">return</span> <span class="nb">any</span><span class="p">(</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>        <span class="n">phrase</span> <span class="ow">in</span> <span class="n">lowered</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>        <span class="k">for</span> <span class="n">phrase</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;already refunded&quot;</span><span class="p">,</span> <span class="s2">&quot;refund is complete&quot;</span><span class="p">,</span> <span class="s2">&quot;refund was issued&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>    <span class="p">)</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="k">def</span><span class="w"> </span><span class="nf">grade_response</span><span class="p">(</span><span class="n">reply</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">meta</span><span class="o">.</span><span class="n">EvaluationResult</span><span class="p">:</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Apply content gates, then record four inspectable rubric criteria.&quot;&quot;&quot;</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">reply</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>        <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">EvaluationResult</span><span class="p">(</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>            <span class="n">failure</span><span class="o">=</span><span class="n">InvalidOutput</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;support response must be text&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>        <span class="p">)</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>    <span class="n">lowered</span> <span class="o">=</span> <span class="n">reply</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>    <span class="n">grounded</span> <span class="o">=</span> <span class="s2">&quot;#4021&quot;</span> <span class="ow">in</span> <span class="n">reply</span> <span class="ow">and</span> <span class="s2">&quot;$49&quot;</span> <span class="ow">in</span> <span class="n">reply</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_false_completion</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>    <span class="n">criteria</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>        <span class="s2">&quot;empathy&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;sorry&quot;</span> <span class="ow">in</span> <span class="n">lowered</span> <span class="ow">or</span> <span class="s2">&quot;understand&quot;</span> <span class="ow">in</span> <span class="n">lowered</span><span class="p">),</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>        <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;refund&quot;</span> <span class="ow">in</span> <span class="n">lowered</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>            <span class="n">word</span> <span class="ow">in</span> <span class="n">lowered</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;submit&quot;</span><span class="p">,</span> <span class="s2">&quot;request&quot;</span><span class="p">,</span> <span class="s2">&quot;will refund&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>        <span class="p">)),</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>        <span class="s2">&quot;timeline&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="nb">any</span><span class="p">(</span><span class="n">word</span> <span class="ow">in</span> <span class="n">lowered</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;today&quot;</span><span class="p">,</span> <span class="s2">&quot;day&quot;</span><span class="p">,</span> <span class="s2">&quot;week&quot;</span><span class="p">))),</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>        <span class="s2">&quot;concise&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">reply</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&lt;=</span> <span class="mi">35</span><span class="p">),</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>    <span class="p">}</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>    <span class="n">overall</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">criteria</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">criteria</span><span class="p">)</span> <span class="k">if</span> <span class="n">grounded</span> <span class="k">else</span> <span class="mf">0.0</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">EvaluationResult</span><span class="p">(</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>        <span class="n">metrics</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;overall&quot;</span><span class="p">:</span> <span class="n">overall</span><span class="p">,</span> <span class="s2">&quot;grounded&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">grounded</span><span class="p">),</span> <span class="o">**</span><span class="n">criteria</span><span class="p">},</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>        <span class="n">evidence</span><span class="o">=</span><span class="p">(</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>            <span class="n">meta</span><span class="o">.</span><span class="n">EvidenceDraft</span><span class="p">(</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>                <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;rubric/v1&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>                <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;content_gate&quot;</span><span class="p">:</span> <span class="n">grounded</span><span class="p">,</span> <span class="s2">&quot;criteria&quot;</span><span class="p">:</span> <span class="n">criteria</span><span class="p">},</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>            <span class="p">),</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>        <span class="p">),</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>    <span class="p">)</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>
+<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a>
+<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a><span class="k">def</span><span class="w"> </span><span class="nf">propose_response</span><span class="p">(</span><span class="n">_parent</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">meta</span><span class="o">.</span><span class="n">ProposerContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Choose reproducibly; a different random seed exercises strategy B.&quot;&quot;&quot;</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a>
+<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a>    <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">RESPONSES</span><span class="p">)</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>
+<a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a>
+<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a><span class="k">def</span><span class="w"> </span><span class="nf">support_task</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">meta</span><span class="o">.</span><span class="n">Task</span><span class="p">:</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a>    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">Task</span><span class="p">(</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a>        <span class="n">evaluator</span><span class="o">=</span><span class="n">grade_response</span><span class="p">,</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a>        <span class="n">objectives</span><span class="o">=</span><span class="p">(</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a>            <span class="n">meta</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="s2">&quot;overall&quot;</span><span class="p">),</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a>            <span class="n">meta</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="s2">&quot;grounded&quot;</span><span class="p">),</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a>            <span class="n">meta</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="s2">&quot;empathy&quot;</span><span class="p">),</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a>            <span class="n">meta</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="s2">&quot;action&quot;</span><span class="p">),</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73" href="#__codelineno-0-73"></a>            <span class="n">meta</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="s2">&quot;timeline&quot;</span><span class="p">),</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74" href="#__codelineno-0-74"></a>            <span class="n">meta</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="s2">&quot;concise&quot;</span><span class="p">),</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75" href="#__codelineno-0-75"></a>        <span class="p">),</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76" href="#__codelineno-0-76"></a>        <span class="n">budget</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Budget</span><span class="p">(</span><span class="n">evaluations</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">trials</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77" href="#__codelineno-0-77"></a>    <span class="p">)</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78" href="#__codelineno-0-78"></a>
+<a id="__codelineno-0-79" name="__codelineno-0-79" href="#__codelineno-0-79"></a>
+<a id="__codelineno-0-80" name="__codelineno-0-80" href="#__codelineno-0-80"></a><span class="k">def</span><span class="w"> </span><span class="nf">run_support</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">meta</span><span class="o">.</span><span class="n">Run</span><span class="p">:</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81" href="#__codelineno-0-81"></a>    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82" href="#__codelineno-0-82"></a>        <span class="n">meta</span><span class="o">.</span><span class="n">Experiment</span><span class="p">(</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83" href="#__codelineno-0-83"></a>            <span class="n">task</span><span class="o">=</span><span class="n">support_task</span><span class="p">(),</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84" href="#__codelineno-0-84"></a>            <span class="n">seed</span><span class="o">=</span><span class="n">SEED</span><span class="p">,</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85" href="#__codelineno-0-85"></a>            <span class="n">proposer</span><span class="o">=</span><span class="n">propose_response</span><span class="p">,</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86" href="#__codelineno-0-86"></a>            <span class="n">search</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Greedy</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87" href="#__codelineno-0-87"></a>            <span class="n">random_seed</span><span class="o">=</span><span class="n">random_seed</span><span class="p">,</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88" href="#__codelineno-0-88"></a>        <span class="p">)</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89" href="#__codelineno-0-89"></a>    <span class="p">)</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90" href="#__codelineno-0-90"></a>
+<a id="__codelineno-0-91" name="__codelineno-0-91" href="#__codelineno-0-91"></a>
+<a id="__codelineno-0-92" name="__codelineno-0-92" href="#__codelineno-0-92"></a><span class="k">def</span><span class="w"> </span><span class="nf">held_out</span><span class="p">(</span><span class="n">candidate</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93" href="#__codelineno-0-93"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A separate final check that never steers the development run.&quot;&quot;&quot;</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94" href="#__codelineno-0-94"></a>
+<a id="__codelineno-0-95" name="__codelineno-0-95" href="#__codelineno-0-95"></a>    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;5–7 business days&quot;</span> <span class="ow">in</span> <span class="n">candidate</span> <span class="ow">and</span> <span class="s2">&quot;today&quot;</span> <span class="ow">in</span> <span class="n">candidate</span><span class="p">)</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96" href="#__codelineno-0-96"></a>
+<a id="__codelineno-0-97" name="__codelineno-0-97" href="#__codelineno-0-97"></a>
+<a id="__codelineno-0-98" name="__codelineno-0-98" href="#__codelineno-0-98"></a><span class="k">def</span><span class="w"> </span><span class="nf">run_held_out</span><span class="p">(</span><span class="n">candidate</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">meta</span><span class="o">.</span><span class="n">Run</span><span class="p">:</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99" href="#__codelineno-0-99"></a>    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">improve</span><span class="p">(</span>
+<a id="__codelineno-0-100" name="__codelineno-0-100" href="#__codelineno-0-100"></a>        <span class="n">seed</span><span class="o">=</span><span class="n">candidate</span><span class="p">,</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101" href="#__codelineno-0-101"></a>        <span class="n">proposer</span><span class="o">=</span><span class="k">lambda</span> <span class="n">parent</span><span class="p">:</span> <span class="n">parent</span><span class="p">,</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102" href="#__codelineno-0-102"></a>        <span class="n">evaluator</span><span class="o">=</span><span class="n">held_out</span><span class="p">,</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103" href="#__codelineno-0-103"></a>        <span class="n">trials</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104" href="#__codelineno-0-104"></a>    <span class="p">)</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105" href="#__codelineno-0-105"></a>
+<a id="__codelineno-0-106" name="__codelineno-0-106" href="#__codelineno-0-106"></a>
+<a id="__codelineno-0-107" name="__codelineno-0-107" href="#__codelineno-0-107"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108" href="#__codelineno-0-108"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">run_support</span><span class="p">()</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109" href="#__codelineno-0-109"></a>    <span class="n">trial</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">best_trial</span><span class="p">()</span>
+<a id="__codelineno-0-110" name="__codelineno-0-110" href="#__codelineno-0-110"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;seed_overall=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">trials</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;overall&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-111" name="__codelineno-0-111" href="#__codelineno-0-111"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;overall=</span><span class="si">{</span><span class="n">trial</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;overall&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-112" name="__codelineno-0-112" href="#__codelineno-0-112"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;criteria=</span><span class="si">{</span><span class="nb">dict</span><span class="p">(</span><span class="n">trial</span><span class="o">.</span><span class="n">metrics</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-113" name="__codelineno-0-113" href="#__codelineno-0-113"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;evidence=</span><span class="si">{</span><span class="n">trial</span><span class="o">.</span><span class="n">evidence</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">kind</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-114" name="__codelineno-0-114" href="#__codelineno-0-114"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;held_out=</span><span class="si">{</span><span class="n">run_held_out</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">best</span><span class="p">()</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">best_trial</span><span class="p">()</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-115" name="__codelineno-0-115" href="#__codelineno-0-115"></a>
+<a id="__codelineno-0-116" name="__codelineno-0-116" href="#__codelineno-0-116"></a>
+<a id="__codelineno-0-117" name="__codelineno-0-117" href="#__codelineno-0-117"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-118" name="__codelineno-0-118" href="#__codelineno-0-118"></a>    <span class="n">main</span><span class="p">()</span>
 </code></pre></div>
-<p>def propose_response(_parent: str, context: meta.ProposerContext) -&gt; str:
-    """Choose reproducibly; a different random seed exercises strategy B."""</p>
-<div class="highlight"><pre><span></span><code>return context.rng.choice(RESPONSES)
-</code></pre></div>
-<p>def support_task() -&gt; meta.Task:
-    return meta.Task(
-        evaluator=grade_response,
-        objectives=(
-            meta.Maximize("overall"),
-            meta.Maximize("grounded"),
-            meta.Maximize("empathy"),
-            meta.Maximize("action"),
-            meta.Maximize("timeline"),
-            meta.Maximize("concise"),
-        ),
-        budget=meta.Budget(evaluations=3, trials=2),
-    )</p>
-<p>def run_support(*, random_seed: int = 0) -&gt; meta.Run:
-    return meta.run(
-        meta.Experiment(
-            task=support_task(),
-            seed=SEED,
-            proposer=propose_response,
-            search=meta.Greedy(max_trials=2),
-            random_seed=random_seed,
-        )
-    )</p>
-<p>def held_out(candidate: str) -&gt; float:
-    """A separate final check that never steers the development run."""</p>
-<div class="highlight"><pre><span></span><code>return float(&quot;5–7 business days&quot; in candidate and &quot;today&quot; in candidate)
-</code></pre></div>
-<p>def run_held_out(candidate: str) -&gt; meta.Run:
-    return meta.improve(
-        seed=candidate,
-        proposer=lambda parent: parent,
-        evaluator=held_out,
-        trials=0,
-    )</p>
-<p>def main() -&gt; None:
-    result = run_support()
-    trial = result.best_trial()
-    print(f"seed_overall={result.trials()[0].metrics['overall']:.2f}")
-    print(f"overall={trial.metrics['overall']:.2f}")
-    print(f"criteria={dict(trial.metrics)}")
-    print(f"evidence={trial.evidence[0].kind}")
-    print(f"held_out={run_held_out(result.best().value).best_trial().metrics['score']:.0f}")</p>
-<p>if <strong>name</strong> == "<strong>main</strong>":
-    main()</p>
+<h2 id="run-it">Run it<a class="headerlink" href="#run-it" title="Permanent link">&para;</a></h2>
 <!-- captured-output: script:examples/learn/support_response/rubric.py -->
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/learn/support_response/rubric.py
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/learn/support_response/rubric.py
 </code></pre></div>
-<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>seed_overall=0.50
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>overall=1.00
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>criteria={&#39;action&#39;: 1.0, &#39;concise&#39;: 1.0, &#39;empathy&#39;: 1.0, &#39;grounded&#39;: 1.0, &#39;overall&#39;: 1.0, &#39;timeline&#39;: 1.0}
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>evidence=rubric/v1
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>held_out=1
+<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>seed_overall=0.50
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>overall=1.00
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>criteria={&#39;action&#39;: 1.0, &#39;concise&#39;: 1.0, &#39;empathy&#39;: 1.0, &#39;grounded&#39;: 1.0, &#39;overall&#39;: 1.0, &#39;timeline&#39;: 1.0}
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>evidence=rubric/v1
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>held_out=1
 </code></pre></div></p>
+<h2 id="read-the-result">Read the result<a class="headerlink" href="#read-the-result" title="Permanent link">&para;</a></h2>
+<p>The seed's <code>overall=0.50</code> is intentional. It is grounded in the correct order
+and amount and is concise and empathetic, but it lacks a refund action and a
+timeline. The winning successor receives <code>1.00</code> on every declared criterion.
+The <code>rubric/v1</code> evidence preserves the content-gate decision and criterion
+measurements that produced the score.</p>
+<p><code>held_out=1</code> comes from a new run after selection. It does not retroactively
+steer the development search. In a real application, that second evaluator can
+own data that neither the proposer nor development evaluator may inspect.</p>
+<h2 id="combine-signals-without-changing-their-meaning">Combine signals without changing their meaning<a class="headerlink" href="#combine-signals-without-changing-their-meaning" title="Permanent link">&para;</a></h2>
 <p>This is one development experiment plus a separate held-out run. It shows the
 three honest ways to mix signals:</p>
 <ul>
@@ -3383,14 +3553,56 @@ three honest ways to mix signals:</p>
 Later objectives are not a lexicographic tie-breaker; query them explicitly.
 The seed scores a fractional <code>0.5</code>, proving the rubric is a gradient rather than
 only pass/fail.</p>
+<table>
+<thead>
+<tr>
+<th>Evaluator outcome</th>
+<th style="text-align: right;">Ranked?</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>overall=0</code> after a wrong order, amount, or completion claim</td>
+<td style="text-align: right;">Yes</td>
+<td>Valid text failed a hard content gate</td>
+</tr>
+<tr>
+<td>Fractional <code>overall</code> with criterion metrics</td>
+<td style="text-align: right;">Yes</td>
+<td>Valid text has partial rubric quality</td>
+</tr>
+<tr>
+<td><code>InvalidOutput</code></td>
+<td style="text-align: right;">No</td>
+<td>The value is not a response the evaluator can judge</td>
+</tr>
+<tr>
+<td><code>EvaluatorFailure</code></td>
+<td style="text-align: right;">No</td>
+<td>The grading process did not produce a trustworthy result</td>
+</tr>
+</tbody>
+</table>
+<p>This distinction protects search from treating “the grader crashed” as “the
+candidate was bad.” It also keeps hard gates useful: a grounded but weak reply
+can expose a gradient, while an unsafe reply remains rankable at zero.</p>
+<h2 id="replace-only-the-judging-implementation">Replace only the judging implementation<a class="headerlink" href="#replace-only-the-judging-implementation" title="Permanent link">&para;</a></h2>
 <p>An illustrative live judge can occupy the same callable seam; its exact output
 is provider-dependent and is not a runnable example command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">live_judge</span><span class="p">(</span><span class="n">reply</span><span class="p">):</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">raw</span> <span class="o">=</span> <span class="n">your_sdk</span><span class="o">.</span><span class="n">grade</span><span class="p">(</span><span class="n">reply</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;empathy&quot;</span><span class="p">,</span> <span class="s2">&quot;action&quot;</span><span class="p">,</span> <span class="s2">&quot;timeline&quot;</span><span class="p">,</span> <span class="s2">&quot;concise&quot;</span><span class="p">))</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="k">return</span> <span class="n">parse_and_validate_evaluation_result</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">live_judge</span><span class="p">(</span><span class="n">reply</span><span class="p">):</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">raw</span> <span class="o">=</span> <span class="n">your_sdk</span><span class="o">.</span><span class="n">grade</span><span class="p">(</span><span class="n">reply</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;empathy&quot;</span><span class="p">,</span> <span class="s2">&quot;action&quot;</span><span class="p">,</span> <span class="s2">&quot;timeline&quot;</span><span class="p">,</span> <span class="s2">&quot;concise&quot;</span><span class="p">))</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="k">return</span> <span class="n">parse_and_validate_evaluation_result</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><span class="filename">Illustrative shape — live run, nothing captured</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>&lt;validated metrics and rubric/v1 evidence from your provider&gt;
+<div class="highlight"><span class="filename">Illustrative shape — live run, nothing captured</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&lt;validated metrics and rubric/v1 evidence from your provider&gt;
 </code></pre></div>
+<p>The wrapper must validate the provider response before constructing
+<code>EvaluationResult</code>. Malformed judge output is <code>InvalidOutput</code>; an SDK or service
+exception is <code>EvaluatorFailure</code>. Neither should be converted into a zero.</p>
+<h2 id="change-one-response-and-predict">Change one response and predict<a class="headerlink" href="#change-one-response-and-predict" title="Permanent link">&para;</a></h2>
+<p>Pass <code>"I'll submit a $49 refund for order #9999 today."</code> to
+<code>grade_response()</code>. It is well-formed text, so it remains rankable, but the
+content gate sets <code>grounded=0</code> and <code>overall=0</code>. No typed failure is created.</p>
 <p>Next, <a href="../code-repair/">repair code with an agent</a>.</p>
 
 

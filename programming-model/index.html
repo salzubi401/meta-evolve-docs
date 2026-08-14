@@ -1436,10 +1436,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-smallest-useful-mental-model" class="md-nav__link">
+  <a href="#public-execution-model" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The smallest useful mental model
+        Public execution model
       
     </span>
   </a>
@@ -3459,10 +3459,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-smallest-useful-mental-model" class="md-nav__link">
+  <a href="#public-execution-model" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The smallest useful mental model
+        Public execution model
       
     </span>
   </a>
@@ -3824,76 +3824,34 @@
 <h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
 <p><strong>Status: Shipped.</strong> This is the canonical contract for the public API available
 from the current package. The <a href="../reference/api/">generated API reference</a> owns
-signatures and parameter details; the guides below own task-oriented usage.
-Milestone 9 is shipped. The deterministic M8.1–M8.5 implementation is in the
-package; final M8 closure remains <strong>Experimental/live-only</strong>. The first
-authorized official-SDK capture is retained, but it failed schema validation
-before returning a native mutation, so it did not satisfy M8.6.</p>
-<p>M10.1's immutable <a class="autorefs autorefs-internal" title="Experiment
+signatures and parameter details; the guides own task-oriented usage. The
+concise <a href="../going-further/project-status/">project-status page</a> separates shipped,
+experimental, and design-only work and links the milestone records.</p>
+<h2 id="public-execution-model">Public execution model<a class="headerlink" href="#public-execution-model" title="Permanent link">&para;</a></h2>
+<p><a class="autorefs autorefs-internal" title="improve(*, seed, proposer, evaluator, trials=20, storage=None, random_seed=0)" href="../reference/api/#meta_evolve.improve"><code>improve()</code></a> is the small author path: it accepts a seed,
+proposer, evaluator, and trial bound and returns a <a class="autorefs autorefs-internal" href="../reference/api/#meta_evolve.Run"><code>Run</code></a>. The
+tested support-response program and first-result explanation live in
+<a href="../get-started/first-evolution/">Your first evolution</a>, their authoritative
+teaching home.</p>
+<p>The expanded declaration separates a <a class="autorefs autorefs-internal" title="Task
 
 
   
       dataclass
-  " href="../reference/api/#meta_evolve.Experiment"><code>Experiment</code></a> declaration and
-M10.2's minimal <a class="autorefs autorefs-internal" title="improve(*, seed, proposer, evaluator, trials=20, storage=None, random_seed=0)" href="../reference/api/#meta_evolve.improve"><code>improve()</code></a> callable are <strong>Shipped</strong>.
-M10.3's bounded <a class="autorefs autorefs-internal" title="search(*, max_trials, **configuration)" href="../reference/api/#meta_evolve.search"><code>@search</code></a> author façade and M10.4's
-winner-independent <a class="autorefs autorefs-internal" title="inspect()" href="../reference/api/#meta_evolve.Run.inspect"><code>Run.inspect()</code></a> aggregate are
-also <strong>Shipped</strong>. M10.5's read-only durable storage and exact stream versions
-are <strong>Shipped</strong>. M10.6's paced and resumable
-<code>Session</code> execution is <strong>Shipped</strong> under <code>meta_evolve.application.runtime</code>. M10.7's optional
-browser and M10.8's artifact presentation, diffs, and canonical attachments are
-<strong>Shipped</strong>. The parent M10 milestone is complete as of August 14, 2026.
-M10.9's breaking 0.1.0 author-surface simplification is also <strong>Shipped</strong>.</p>
-<p>Milestone 5 is complete: immutable source trees, exact patches, bounded local
-processes, and independent command evaluation compose through the same callable
-path. Milestone 7 completes the cross-domain extension boundary. User-owned SDK
-wrappers use that same callable path; no first-party provider adapter is shipped.</p>
-<h2 id="the-smallest-useful-mental-model">The smallest useful mental model<a class="headerlink" href="#the-smallest-useful-mental-model" title="Permanent link">&para;</a></h2>
-<p>The smallest complete run names four inputs and a bound:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">meta_evolve</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">meta</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">items</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;outline&quot;</span><span class="p">,</span> <span class="s2">&quot;draft&quot;</span><span class="p">,</span> <span class="s2">&quot;review&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">complete_one</span><span class="p">(</span><span class="n">completed</span><span class="p">):</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">completed</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">completed</span><span class="p">)])</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">result</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">improve</span><span class="p">(</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">seed</span><span class="o">=</span><span class="p">(),</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">proposer</span><span class="o">=</span><span class="n">complete_one</span><span class="p">,</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">evaluator</span><span class="o">=</span><span class="nb">len</span><span class="p">,</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">trials</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="p">)</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">best</span><span class="p">()</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-</code></pre></div>
-<p><code>improve()</code> is exactly declaration sugar for the expanded path:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">task</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">Task</span><span class="p">(</span><span class="n">evaluator</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">experiment</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">Experiment</span><span class="p">(</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">task</span><span class="o">=</span><span class="n">task</span><span class="p">,</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">seed</span><span class="o">=</span><span class="p">(),</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">proposer</span><span class="o">=</span><span class="n">complete_one</span><span class="p">,</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">search</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Greedy</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">)</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">result</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">experiment</span><span class="p">)</span>
-</code></pre></div>
-<p>Use the expansion when you need custom artifacts, objectives, satisfaction
-thresholds, task budgets, search, context, experience, execution mode, or a
-registry. It adds one declaration level:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Task       what better means, including its independent evaluator
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Seed       the initial immutable artifact
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Proposer   how a successor is suggested
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>Search     which parent receives the next unit of work
-</code></pre></div>
+  " href="../reference/api/#meta_evolve.Task"><code>Task</code></a>—what better
+means and what work is allowed—from an <a class="autorefs autorefs-internal" title="Experiment
+
+
+  
+      dataclass
+  " href="../reference/api/#meta_evolve.Experiment"><code>Experiment</code></a>—
+the seed, proposer, search policy, context, experience, and random seed. The
+precise lowering from <code>improve()</code> to <code>Task</code>, <code>Experiment</code>, and <code>run()</code> is owned
+by <a href="../understand/evaluated-evolution/">Evaluated evolution</a>.</p>
 <p>For 1.x compatibility, the source-compatible declaration-keyword spelling
-lowers through the same <code>Experiment</code>; new author material uses the typed form:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">result</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">task</span><span class="o">=</span><span class="n">task</span><span class="p">,</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">seed</span><span class="o">=</span><span class="p">(),</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">proposer</span><span class="o">=</span><span class="n">complete_one</span><span class="p">,</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">search</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Greedy</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">)</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">best</span><span class="p">()</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+lowers through the same <code>Experiment</code>; new author material uses the typed form.
+The compatibility call remains:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">meta</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task</span><span class="o">=...</span><span class="p">,</span> <span class="n">seed</span><span class="o">=...</span><span class="p">,</span> <span class="n">proposer</span><span class="o">=...</span><span class="p">,</span> <span class="n">search</span><span class="o">=...</span><span class="p">)</span>
 </code></pre></div>
 <p><a class="autorefs autorefs-internal" title="Experiment
 
@@ -3984,9 +3942,9 @@ Each now routes to its single current owner.</p>
 <p>The shipped presets are documented in <a href="../how-to/choose-search/">Choose search</a>.</p>
 <p>For bounded single-parent refinement, an author may declare the parent choice
 without receiving kernel state or constructing trials:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nd">@meta</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">incumbent_refinement</span><span class="p">(</span><span class="n">search</span><span class="p">):</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="k">return</span> <span class="n">search</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">search</span><span class="o">.</span><span class="n">incumbent</span> <span class="ow">or</span> <span class="n">search</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nd">@meta</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">incumbent_refinement</span><span class="p">(</span><span class="n">search</span><span class="p">):</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="k">return</span> <span class="n">search</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">search</span><span class="o">.</span><span class="n">incumbent</span> <span class="ow">or</span> <span class="n">search</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
 </code></pre></div>
 <p>The callback sees only opaque seed and optional incumbent occurrence handles,
 immutable declared configuration, <code>expand()</code>, and <code>stop()</code>. The adapter owns

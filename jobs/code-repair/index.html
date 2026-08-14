@@ -619,6 +619,94 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#start-at-the-agent-seam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Start at the agent seam
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-offline-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete offline program
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-the-workspace-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read the workspace result
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpret-command-exits-correctly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpret command exits correctly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-the-capture-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understand the capture boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-a-smaller-proposer-for-a-small-edit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use a smaller proposer for a small edit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#swap-in-a-live-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Swap in a live SDK
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3177,6 +3265,94 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#start-at-the-agent-seam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Start at the agent seam
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-offline-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete offline program
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-the-workspace-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read the workspace result
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpret-command-exits-correctly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpret command exits correctly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-the-capture-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understand the capture boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-a-smaller-proposer-for-a-small-edit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use a smaller proposer for a small edit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#swap-in-a-live-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Swap in a live SDK
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3262,6 +3438,11 @@
 <h2 id="outcome">Outcome<a class="headerlink" href="#outcome" title="Permanent link">&para;</a></h2>
 <p>You will let a coding agent edit a private working directory while an external
 grader—not the candidate or agent—decides whether the captured project passes.</p>
+<p>The project contains a buggy interval-merging function and an obsolete file.
+The evaluator-owned tests live outside the candidate snapshot. The shipped
+“agent” is deterministic so the example runs offline, but it uses the same
+working-directory callback a live SDK wrapper would use.</p>
+<h2 id="start-at-the-agent-seam">Start at the agent seam<a class="headerlink" href="#start-at-the-agent-seam" title="Permanent link">&para;</a></h2>
 <p>The callback is the integration seam:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">edit</span><span class="p">(</span><span class="n">cwd</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="o">...</span>  <span class="c1"># edit, add, and remove any number of files</span>
@@ -3271,112 +3452,217 @@ grader—not the candidate or agent—decides whether the captured project passe
 <p>One iteration has a strict boundary: parent snapshot → private workspace → many
 edits → one captured successor. <code>SourceTree</code> is the immutable UTF-8 snapshot
 saved after that iteration, not an API for individual agent edits.</p>
-<p>"""Repair a Python project through one private-workspace agent iteration."""</p>
-<p>from <strong>future</strong> import annotations</p>
-<p>import sys
-from collections.abc import Callable
-from pathlib import Path</p>
-<p>import meta_evolve as meta
-from meta_evolve.adapters import WorkspaceProposer
-from meta_evolve.policies import AncestorsOnly
-from meta_evolve.ports import Proposer</p>
-<p>HERE = Path(<strong>file</strong>).parent
-CANDIDATE = HERE / "candidate"
-GRADER = HERE / "grader.py"
-RUNNER = HERE / "run_grader.py"
-MAX_TRIALS = 2
-AGENT_TIMEOUT_SECONDS = 30.0
-INSTRUCTIONS = (
-    "Repair the interval project. The public failure evidence says touching "
-    "inclusive intervals are not merged. You may edit, add, or remove files."
-)</p>
-<p>def edit(cwd: Path, context: meta.ProposerContext) -&gt; None:
-    """Deterministic stand-in for an SDK agent that owns a working directory."""</p>
-<div class="highlight"><pre><span></span><code>source = (cwd / &quot;intervals.py&quot;).read_text(encoding=&quot;utf-8&quot;)
-(cwd / &quot;intervals.py&quot;).write_text(
-    source.replace(&quot;start &lt; merged[-1][1]&quot;, &quot;start &lt;= merged[-1][1]&quot;),
-    encoding=&quot;utf-8&quot;,
-)
-(cwd / &quot;obsolete.py&quot;).unlink()
-(cwd / &quot;REPAIR.md&quot;).write_text(
-    f&quot;Used {len(context.bundle.records)} pushed records.\n&quot;, encoding=&quot;utf-8&quot;
-)
-cache = cwd / &quot;__pycache__&quot;
-cache.mkdir()
-(cache / &quot;intervals.pyc&quot;).write_bytes(b&quot;temporary bytecode&quot;)
-(cwd / &quot;loose.pyc&quot;).write_bytes(b&quot;temporary bytecode&quot;)
+<table>
+<thead>
+<tr>
+<th>Owner</th>
+<th>Can control</th>
+<th>Cannot control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agent callback</td>
+<td>Files inside its private working directory</td>
+<td>Grader, tests, budget, selection, deployment</td>
+</tr>
+<tr>
+<td><code>WorkspaceProposer</code></td>
+<td>Materialize the parent and capture one successor</td>
+<td>Decide whether the successor passes</td>
+</tr>
+<tr>
+<td><code>CommandEvaluator</code></td>
+<td>Run the external grader and record its result</td>
+<td>Edit the candidate workspace</td>
+</tr>
+<tr>
+<td>Experiment</td>
+<td>Task, budget, search, feedback policy</td>
+<td>Candidate file contents</td>
+</tr>
+</tbody>
+</table>
+<h2 id="complete-offline-program">Complete offline program<a class="headerlink" href="#complete-offline-program" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="sd">&quot;&quot;&quot;Repair a Python project through one private-workspace agent iteration.&quot;&quot;&quot;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="kn">import</span><span class="w"> </span><span class="nn">meta_evolve</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">meta</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="kn">from</span><span class="w"> </span><span class="nn">meta_evolve.adapters</span><span class="w"> </span><span class="kn">import</span> <span class="n">WorkspaceProposer</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="kn">from</span><span class="w"> </span><span class="nn">meta_evolve.policies</span><span class="w"> </span><span class="kn">import</span> <span class="n">AncestorsOnly</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="kn">from</span><span class="w"> </span><span class="nn">meta_evolve.ports</span><span class="w"> </span><span class="kn">import</span> <span class="n">Proposer</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="n">HERE</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="n">CANDIDATE</span> <span class="o">=</span> <span class="n">HERE</span> <span class="o">/</span> <span class="s2">&quot;candidate&quot;</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="n">GRADER</span> <span class="o">=</span> <span class="n">HERE</span> <span class="o">/</span> <span class="s2">&quot;grader.py&quot;</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="n">RUNNER</span> <span class="o">=</span> <span class="n">HERE</span> <span class="o">/</span> <span class="s2">&quot;run_grader.py&quot;</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="n">MAX_TRIALS</span> <span class="o">=</span> <span class="mi">2</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="n">AGENT_TIMEOUT_SECONDS</span> <span class="o">=</span> <span class="mf">30.0</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="n">INSTRUCTIONS</span> <span class="o">=</span> <span class="p">(</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    <span class="s2">&quot;Repair the interval project. The public failure evidence says touching &quot;</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    <span class="s2">&quot;inclusive intervals are not merged. You may edit, add, or remove files.&quot;</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="p">)</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="k">def</span><span class="w"> </span><span class="nf">edit</span><span class="p">(</span><span class="n">cwd</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">meta</span><span class="o">.</span><span class="n">ProposerContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Deterministic stand-in for an SDK agent that owns a working directory.&quot;&quot;&quot;</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>    <span class="n">source</span> <span class="o">=</span> <span class="p">(</span><span class="n">cwd</span> <span class="o">/</span> <span class="s2">&quot;intervals.py&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>    <span class="p">(</span><span class="n">cwd</span> <span class="o">/</span> <span class="s2">&quot;intervals.py&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>        <span class="n">source</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;start &lt; merged[-1][1]&quot;</span><span class="p">,</span> <span class="s2">&quot;start &lt;= merged[-1][1]&quot;</span><span class="p">),</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>        <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>    <span class="p">)</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>    <span class="p">(</span><span class="n">cwd</span> <span class="o">/</span> <span class="s2">&quot;obsolete.py&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>    <span class="p">(</span><span class="n">cwd</span> <span class="o">/</span> <span class="s2">&quot;REPAIR.md&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>        <span class="sa">f</span><span class="s2">&quot;Used </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">bundle</span><span class="o">.</span><span class="n">records</span><span class="p">)</span><span class="si">}</span><span class="s2"> pushed records.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>    <span class="p">)</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>    <span class="n">cache</span> <span class="o">=</span> <span class="n">cwd</span> <span class="o">/</span> <span class="s2">&quot;__pycache__&quot;</span>
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>    <span class="n">cache</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>    <span class="p">(</span><span class="n">cache</span> <span class="o">/</span> <span class="s2">&quot;intervals.pyc&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write_bytes</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;temporary bytecode&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>    <span class="p">(</span><span class="n">cwd</span> <span class="o">/</span> <span class="s2">&quot;loose.pyc&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write_bytes</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;temporary bytecode&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a>
+<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>
+<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a><span class="k">def</span><span class="w"> </span><span class="nf">fixture_agent</span><span class="p">(</span><span class="n">_instructions</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Proposer</span><span class="p">:</span>
+<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a>    <span class="k">return</span> <span class="n">WorkspaceProposer</span><span class="p">(</span><span class="n">edit</span><span class="p">)</span>
+<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a>
+<a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a>
+<a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a><span class="k">def</span><span class="w"> </span><span class="nf">grading_task</span><span class="p">(</span><span class="n">grader</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">GRADER</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">meta</span><span class="o">.</span><span class="n">Task</span><span class="p">:</span>
+<a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a>    <span class="n">evaluator</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">CommandEvaluator</span><span class="p">(</span>
+<a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a>        <span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">RUNNER</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">grader</span><span class="p">)),</span>
+<a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a>        <span class="n">environment</span><span class="o">=</span><span class="s2">&quot;python-interval-tests@1&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a>    <span class="p">)</span>
+<a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a>    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">Task</span><span class="p">(</span>
+<a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a>        <span class="n">evaluator</span><span class="o">=</span><span class="n">evaluator</span><span class="p">,</span>
+<a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a>        <span class="n">artifact</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">SourceTree</span><span class="p">,</span>
+<a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a>        <span class="n">objectives</span><span class="o">=</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="n">satisfy</span><span class="o">=</span><span class="mi">1</span><span class="p">),),</span>
+<a id="__codelineno-1-58" name="__codelineno-1-58" href="#__codelineno-1-58"></a>        <span class="n">budget</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Budget</span><span class="p">(</span>
+<a id="__codelineno-1-59" name="__codelineno-1-59" href="#__codelineno-1-59"></a>            <span class="n">evaluations</span><span class="o">=</span><span class="n">MAX_TRIALS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-1-60" name="__codelineno-1-60" href="#__codelineno-1-60"></a>            <span class="n">trials</span><span class="o">=</span><span class="n">MAX_TRIALS</span><span class="p">,</span>
+<a id="__codelineno-1-61" name="__codelineno-1-61" href="#__codelineno-1-61"></a>            <span class="n">wall_seconds</span><span class="o">=</span><span class="n">AGENT_TIMEOUT_SECONDS</span> <span class="o">*</span> <span class="p">(</span><span class="n">MAX_TRIALS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+<a id="__codelineno-1-62" name="__codelineno-1-62" href="#__codelineno-1-62"></a>        <span class="p">),</span>
+<a id="__codelineno-1-63" name="__codelineno-1-63" href="#__codelineno-1-63"></a>    <span class="p">)</span>
+<a id="__codelineno-1-64" name="__codelineno-1-64" href="#__codelineno-1-64"></a>
+<a id="__codelineno-1-65" name="__codelineno-1-65" href="#__codelineno-1-65"></a>
+<a id="__codelineno-1-66" name="__codelineno-1-66" href="#__codelineno-1-66"></a><span class="k">def</span><span class="w"> </span><span class="nf">repair_project</span><span class="p">(</span>
+<a id="__codelineno-1-67" name="__codelineno-1-67" href="#__codelineno-1-67"></a>    <span class="n">build_agent</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Proposer</span><span class="p">],</span>
+<a id="__codelineno-1-68" name="__codelineno-1-68" href="#__codelineno-1-68"></a>    <span class="o">*</span><span class="p">,</span>
+<a id="__codelineno-1-69" name="__codelineno-1-69" href="#__codelineno-1-69"></a>    <span class="n">grader</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">GRADER</span><span class="p">,</span>
+<a id="__codelineno-1-70" name="__codelineno-1-70" href="#__codelineno-1-70"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">meta</span><span class="o">.</span><span class="n">Run</span><span class="p">:</span>
+<a id="__codelineno-1-71" name="__codelineno-1-71" href="#__codelineno-1-71"></a>    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<a id="__codelineno-1-72" name="__codelineno-1-72" href="#__codelineno-1-72"></a>        <span class="n">meta</span><span class="o">.</span><span class="n">Experiment</span><span class="p">(</span>
+<a id="__codelineno-1-73" name="__codelineno-1-73" href="#__codelineno-1-73"></a>            <span class="n">task</span><span class="o">=</span><span class="n">grading_task</span><span class="p">(</span><span class="n">grader</span><span class="p">),</span>
+<a id="__codelineno-1-74" name="__codelineno-1-74" href="#__codelineno-1-74"></a>            <span class="n">seed</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">load_source_tree</span><span class="p">(</span><span class="n">CANDIDATE</span><span class="p">),</span>
+<a id="__codelineno-1-75" name="__codelineno-1-75" href="#__codelineno-1-75"></a>            <span class="n">proposer</span><span class="o">=</span><span class="n">build_agent</span><span class="p">(</span><span class="n">INSTRUCTIONS</span><span class="p">),</span>
+<a id="__codelineno-1-76" name="__codelineno-1-76" href="#__codelineno-1-76"></a>            <span class="n">search</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Greedy</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="n">MAX_TRIALS</span><span class="p">),</span>
+<a id="__codelineno-1-77" name="__codelineno-1-77" href="#__codelineno-1-77"></a>            <span class="n">context</span><span class="o">=</span><span class="n">AncestorsOnly</span><span class="p">(</span><span class="n">max_records</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_chars</span><span class="o">=</span><span class="mi">4_000</span><span class="p">),</span>
+<a id="__codelineno-1-78" name="__codelineno-1-78" href="#__codelineno-1-78"></a>        <span class="p">)</span>
+<a id="__codelineno-1-79" name="__codelineno-1-79" href="#__codelineno-1-79"></a>    <span class="p">)</span>
+<a id="__codelineno-1-80" name="__codelineno-1-80" href="#__codelineno-1-80"></a>
+<a id="__codelineno-1-81" name="__codelineno-1-81" href="#__codelineno-1-81"></a>
+<a id="__codelineno-1-82" name="__codelineno-1-82" href="#__codelineno-1-82"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-1-83" name="__codelineno-1-83" href="#__codelineno-1-83"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">repair_project</span><span class="p">(</span><span class="n">fixture_agent</span><span class="p">)</span>
+<a id="__codelineno-1-84" name="__codelineno-1-84" href="#__codelineno-1-84"></a>    <span class="n">winner</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">best</span><span class="p">()</span><span class="o">.</span><span class="n">value</span>
+<a id="__codelineno-1-85" name="__codelineno-1-85" href="#__codelineno-1-85"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;passed=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">best_trial</span><span class="p">()</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">1.0</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-86" name="__codelineno-1-86" href="#__codelineno-1-86"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;files=</span><span class="si">{</span><span class="nb">tuple</span><span class="p">(</span><span class="n">winner</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-87" name="__codelineno-1-87" href="#__codelineno-1-87"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;bytecode=</span><span class="si">{</span><span class="nb">any</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.pyc&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">winner</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-88" name="__codelineno-1-88" href="#__codelineno-1-88"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;feedback=</span><span class="si">{</span><span class="n">winner</span><span class="p">[</span><span class="s1">&#39;REPAIR.md&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-89" name="__codelineno-1-89" href="#__codelineno-1-89"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;evaluations=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">evaluation_count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-90" name="__codelineno-1-90" href="#__codelineno-1-90"></a>
+<a id="__codelineno-1-91" name="__codelineno-1-91" href="#__codelineno-1-91"></a>
+<a id="__codelineno-1-92" name="__codelineno-1-92" href="#__codelineno-1-92"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-1-93" name="__codelineno-1-93" href="#__codelineno-1-93"></a>    <span class="n">main</span><span class="p">()</span>
 </code></pre></div>
-<p>def fixture_agent(_instructions: str) -&gt; Proposer:
-    return WorkspaceProposer(edit)</p>
-<p>def grading_task(grader: Path = GRADER) -&gt; meta.Task:
-    evaluator = meta.CommandEvaluator(
-        (sys.executable, str(RUNNER), str(grader)),
-        environment="python-interval-tests@1",
-    )
-    return meta.Task(
-        evaluator=evaluator,
-        artifact=meta.SourceTree,
-        objectives=(meta.Maximize("score", satisfy=1),),
-        budget=meta.Budget(
-            evaluations=MAX_TRIALS + 1,
-            trials=MAX_TRIALS,
-            wall_seconds=AGENT_TIMEOUT_SECONDS * (MAX_TRIALS + 1),
-        ),
-    )</p>
-<p>def repair_project(
-    build_agent: Callable[[str], Proposer],
-    *,
-    grader: Path = GRADER,
-) -&gt; meta.Run:
-    return meta.run(
-        meta.Experiment(
-            task=grading_task(grader),
-            seed=meta.load_source_tree(CANDIDATE),
-            proposer=build_agent(INSTRUCTIONS),
-            search=meta.Greedy(max_trials=MAX_TRIALS),
-            context=AncestorsOnly(max_records=10, max_chars=4_000),
-        )
-    )</p>
-<p>def main() -&gt; None:
-    result = repair_project(fixture_agent)
-    winner = result.best().value
-    print(f"passed={result.best_trial().metrics['score'] == 1.0}")
-    print(f"files={tuple(winner)}")
-    print(f"bytecode={any(path.endswith('.pyc') for path in winner)}")
-    print(f"feedback={winner['REPAIR.md'].strip()}")
-    print(f"evaluations={result.summary().evaluation_count}")</p>
-<p>if <strong>name</strong> == "<strong>main</strong>":
-    main()</p>
+<h2 id="run-it">Run it<a class="headerlink" href="#run-it" title="Permanent link">&para;</a></h2>
 <!-- captured-output: script:examples/agents/code_repair/main.py -->
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/agents/code_repair/main.py
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/agents/code_repair/main.py
 </code></pre></div>
-<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>passed=True
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>files=(&#39;REPAIR.md&#39;, &#39;intervals.py&#39;)
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>bytecode=False
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>feedback=Used 7 pushed records.
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>evaluations=2
+<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>passed=True
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>files=(&#39;REPAIR.md&#39;, &#39;intervals.py&#39;)
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>bytecode=False
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>feedback=Used 7 pushed records.
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>evaluations=2
 </code></pre></div></p>
+<h2 id="read-the-workspace-result">Read the workspace result<a class="headerlink" href="#read-the-workspace-result" title="Permanent link">&para;</a></h2>
+<p><code>passed=True</code> means the selected successor received <code>score=1.0</code>. The captured
+file list proves that one iteration changed the whole project: <code>intervals.py</code>
+was edited, <code>REPAIR.md</code> was added, and <code>obsolete.py</code> was deleted. <code>bytecode=False</code>
+shows that temporary <code>.pyc</code> and <code>__pycache__</code> debris was removed before capture.
+Two evaluations were charged: one for the seed and one for the successful
+successor.</p>
+<p>The <code>feedback</code> line comes from the captured <code>REPAIR.md</code>. It proves that the
+proposal received bounded ancestor records rather than ambient access to the
+run database.</p>
+<h2 id="interpret-command-exits-correctly">Interpret command exits correctly<a class="headerlink" href="#interpret-command-exits-correctly" title="Permanent link">&para;</a></h2>
 <p><code>CommandEvaluator</code> owns one objective and an evaluator-owned grader outside the
-candidate tree. Exit <code>0</code> passes, exit <code>1</code> is a rankable failing score, and any
-other exit is an unrankable <code>EvaluatorFailure</code>. The task bounds trials and wall
-time; <code>AncestorsOnly</code> pushes bounded public failure evidence to later proposals.</p>
+candidate tree. The agent cannot read the grader or its test definitions. Exit
+<code>0</code> passes, exit <code>1</code> is a rankable failing score, and any other exit is an
+unrankable <code>EvaluatorFailure</code>. The task bounds trials and wall time;
+<code>AncestorsOnly</code> pushes bounded command output to later proposals as public
+development feedback. Those disclosed failures are not held-out evidence.</p>
+<table>
+<thead>
+<tr>
+<th>Grader result</th>
+<th>Recorded outcome</th>
+<th style="text-align: right;">Search may rank it?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exit <code>0</code></td>
+<td><code>score=1.0</code></td>
+<td style="text-align: right;">Yes</td>
+</tr>
+<tr>
+<td>Exit <code>1</code></td>
+<td><code>score=0.0</code> plus bounded process evidence</td>
+<td style="text-align: right;">Yes</td>
+</tr>
+<tr>
+<td>Any other exit or grader fault</td>
+<td><code>EvaluatorFailure</code></td>
+<td style="text-align: right;">No</td>
+</tr>
+</tbody>
+</table>
+<h2 id="understand-the-capture-boundary">Understand the capture boundary<a class="headerlink" href="#understand-the-capture-boundary" title="Permanent link">&para;</a></h2>
 <p>The fixture edits a file, adds another, deletes an obsolete file, and leaves
 bytecode debris. The adapter removes <code>.pyc</code> and <code>__pycache__</code> debris, then
 captures the whole workspace once. Only UTF-8 regular files are representable;
 binary files and symlinks produce <code>InvalidOutput</code>.</p>
+<p>The capture occurs after the callback returns. Individual file writes are not
+artifacts and do not consume trials; together they become one immutable
+successor with one lineage edge back to the parent snapshot.</p>
+<h2 id="use-a-smaller-proposer-for-a-small-edit">Use a smaller proposer for a small edit<a class="headerlink" href="#use-a-smaller-proposer-for-a-small-edit" title="Permanent link">&para;</a></h2>
 <p>For a small deterministic edit, a mapping-style callable is enough:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">repair</span><span class="p">(</span><span class="n">tree</span><span class="p">:</span> <span class="n">meta</span><span class="o">.</span><span class="n">SourceTree</span><span class="p">,</span> <span class="n">_context</span><span class="p">):</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">SourceTree</span><span class="p">({</span><span class="o">**</span><span class="n">tree</span><span class="p">,</span> <span class="s2">&quot;intervals.py&quot;</span><span class="p">:</span> <span class="n">fixed_source</span><span class="p">})</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">repair</span><span class="p">(</span><span class="n">tree</span><span class="p">:</span> <span class="n">meta</span><span class="o">.</span><span class="n">SourceTree</span><span class="p">,</span> <span class="n">_context</span><span class="p">):</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">SourceTree</span><span class="p">({</span><span class="o">**</span><span class="n">tree</span><span class="p">,</span> <span class="s2">&quot;intervals.py&quot;</span><span class="p">:</span> <span class="n">fixed_source</span><span class="p">})</span>
 </code></pre></div>
+<p>This callable replaces the entire snapshot value directly. It is convenient
+when the edit is already known, but it does not provide a <code>cwd</code> for tools that
+expect normal filesystem operations.</p>
+<h2 id="swap-in-a-live-sdk">Swap in a live SDK<a class="headerlink" href="#swap-in-a-live-sdk" title="Permanent link">&para;</a></h2>
 <p>A live SDK changes only the factory implementation:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">build_agent</span><span class="p">(</span><span class="n">instructions</span><span class="p">):</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">edit</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        <span class="n">your_sdk</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">prompt</span><span class="o">=</span><span class="n">instructions</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">cwd</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="k">return</span> <span class="n">WorkspaceProposer</span><span class="p">(</span><span class="n">edit</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">build_agent</span><span class="p">(</span><span class="n">instructions</span><span class="p">):</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">edit</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>        <span class="n">your_sdk</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">prompt</span><span class="o">=</span><span class="n">instructions</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="n">cwd</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="k">return</span> <span class="n">WorkspaceProposer</span><span class="p">(</span><span class="n">edit</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><span class="filename">Illustrative shape — live run, nothing captured</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&lt;provider session edits captured as one successor&gt;
+<div class="highlight"><span class="filename">Illustrative shape — live run, nothing captured</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>&lt;provider session edits captured as one successor&gt;
 </code></pre></div>
-<p>The evaluator, hidden tests, task, and budget stay fixed. Next, learn to
+<p>The evaluator, external tests, task, and budget stay fixed. A timeout or policy
+refusal from the SDK should become its matching typed failure, never a fake
+failing score.</p>
+<p>As a prediction exercise, make the callback leave a non-UTF-8 file in the
+workspace. Capture will reject the proposal as <code>InvalidOutput</code>; the external
+grader will not receive a rankable successor.</p>
+<p>Next, learn to
 <a href="../inspect-compare/">inspect and compare</a>.</p>
 
 

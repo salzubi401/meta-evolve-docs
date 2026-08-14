@@ -3199,7 +3199,9 @@
   hidden evaluator state or future results.</li>
 <li>Feedback reused by proposals is development data, not held-out evidence.</li>
 <li>A closure over a model id or threshold does not automatically record that
-  configuration; declare it or the comparison can lie.</li>
+  configuration; declare it or the comparison can lie. The component
+  playground keeps this low-level configured-identity case in a separately
+  tested <code>identity.py</code> companion; ordinary jobs need only the callable seam.</li>
 <li>Budget the expensive meter and set <code>satisfy=</code> on the primary objective when a
   known-good threshold should stop work.</li>
 <li><code>None</code> and <code>NoSuccessfulEvaluation</code> are different: an optional field may be

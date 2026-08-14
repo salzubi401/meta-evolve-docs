@@ -675,6 +675,61 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#complete-playground" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete playground
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-each-controlled-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read each controlled change
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#separate-run-failures-from-comparison-refusal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Separate run failures from comparison refusal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-one-part-and-predict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change one part and predict
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3177,6 +3232,61 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#complete-playground" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete playground
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-each-controlled-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read each controlled change
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#separate-run-failures-from-comparison-refusal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Separate run failures from comparison refusal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-one-part-and-predict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change one part and predict
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3262,95 +3372,154 @@
 <h2 id="outcome">Outcome<a class="headerlink" href="#outcome" title="Permanent link">&para;</a></h2>
 <p>You will run controlled component changes and see where comparison accepts or
 refuses them.</p>
-<p>"""Controlled swaps over one small experiment declaration."""</p>
-<p>from <strong>future</strong> import annotations</p>
-<p>import meta_evolve as meta
-from meta_evolve.domain import ComponentRef
-from meta_evolve.errors import RunsNotComparable
-from meta_evolve.policies import AncestorsOnly, BestOfN</p>
-<p>BUDGET = meta.Budget(evaluations=4, trials=3)</p>
-<p>def score(value: int) -&gt; meta.EvaluationResult:
-    return meta.EvaluationResult(
-        metrics={"score": float(value)},
-        evidence=(
-            meta.EvidenceDraft(
-                kind="public-check/v1",
-                data={"failure": "value is still below the target"},
-            ),
-        ),
-    )</p>
-<p>def changed_score(value: int) -&gt; float:
-    return float(value * 2)</p>
-<p>def add_one(parent: int, _context) -&gt; int:
-    return parent + 1</p>
-<p>def jump_two(parent: int, _context) -&gt; int:
-    return parent + 2</p>
-<p>@meta.search(max_trials=3, parent="incumbent")
-def refine_incumbent(search):
-    return search.expand(search.incumbent or search.seed)</p>
-<p>def experiment(*, proposer=add_one, search=None, evaluator=score, context=None):
-    return meta.Experiment(
-        task=meta.Task(evaluator=evaluator, budget=BUDGET),
-        seed=0,
-        proposer=proposer,
-        search=search or meta.Greedy(max_trials=3),
-        context=context,
-        random_seed=7,
-    )</p>
-<p>def configured_agent(model: str):
-    def propose(parent: int, _context) -&gt; int:
-        return parent + 1</p>
-<div class="highlight"><pre><span></span><code>propose.component = ComponentRef.configured_local(
-    &quot;proposer&quot;, propose, name=&quot;playground:model-agent&quot;, version=model
-)
-return propose
+<p>The playground uses a deliberately small integer task so component behavior is
+visible without domain noise. Every run begins at <code>0</code> and uses the same scoring
+function and task budget. Each output line changes one declared seam or one
+execution overlay.</p>
+<h2 id="complete-playground">Complete playground<a class="headerlink" href="#complete-playground" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="sd">&quot;&quot;&quot;Controlled swaps over one small experiment declaration.&quot;&quot;&quot;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">meta_evolve</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">meta</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">meta_evolve.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunsNotComparable</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">meta_evolve.policies</span><span class="w"> </span><span class="kn">import</span> <span class="n">AncestorsOnly</span><span class="p">,</span> <span class="n">BestOfN</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">BUDGET</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">Budget</span><span class="p">(</span><span class="n">evaluations</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">trials</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="k">def</span><span class="w"> </span><span class="nf">score</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">meta</span><span class="o">.</span><span class="n">EvaluationResult</span><span class="p">:</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">EvaluationResult</span><span class="p">(</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        <span class="n">metrics</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)},</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        <span class="n">evidence</span><span class="o">=</span><span class="p">(</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>            <span class="n">meta</span><span class="o">.</span><span class="n">EvidenceDraft</span><span class="p">(</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>                <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;public-check/v1&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>                <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;failure&quot;</span><span class="p">:</span> <span class="s2">&quot;value is still below the target&quot;</span><span class="p">},</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>            <span class="p">),</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        <span class="p">),</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    <span class="p">)</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="k">def</span><span class="w"> </span><span class="nf">changed_score</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="k">def</span><span class="w"> </span><span class="nf">add_one</span><span class="p">(</span><span class="n">parent</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">_context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>    <span class="k">return</span> <span class="n">parent</span> <span class="o">+</span> <span class="mi">1</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="k">def</span><span class="w"> </span><span class="nf">jump_two</span><span class="p">(</span><span class="n">parent</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">_context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>    <span class="k">return</span> <span class="n">parent</span> <span class="o">+</span> <span class="mi">2</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="nd">@meta</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s2">&quot;incumbent&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="k">def</span><span class="w"> </span><span class="nf">refine_incumbent</span><span class="p">(</span><span class="n">search</span><span class="p">):</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>    <span class="k">return</span> <span class="n">search</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">search</span><span class="o">.</span><span class="n">incumbent</span> <span class="ow">or</span> <span class="n">search</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="k">def</span><span class="w"> </span><span class="nf">experiment</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">proposer</span><span class="o">=</span><span class="n">add_one</span><span class="p">,</span> <span class="n">search</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evaluator</span><span class="o">=</span><span class="n">score</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">Experiment</span><span class="p">(</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>        <span class="n">task</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Task</span><span class="p">(</span><span class="n">evaluator</span><span class="o">=</span><span class="n">evaluator</span><span class="p">,</span> <span class="n">budget</span><span class="o">=</span><span class="n">BUDGET</span><span class="p">),</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>        <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>        <span class="n">proposer</span><span class="o">=</span><span class="n">proposer</span><span class="p">,</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>        <span class="n">search</span><span class="o">=</span><span class="n">search</span> <span class="ow">or</span> <span class="n">meta</span><span class="o">.</span><span class="n">Greedy</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>        <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>        <span class="n">random_seed</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>    <span class="p">)</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>    <span class="n">strategy_a</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">experiment</span><span class="p">(</span><span class="n">proposer</span><span class="o">=</span><span class="n">add_one</span><span class="p">))</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>    <span class="n">strategy_b</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">experiment</span><span class="p">(</span><span class="n">proposer</span><span class="o">=</span><span class="n">jump_two</span><span class="p">))</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>    <span class="n">greedy</span> <span class="o">=</span> <span class="n">strategy_a</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>    <span class="n">best_of_n</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">experiment</span><span class="p">(</span><span class="n">search</span><span class="o">=</span><span class="n">BestOfN</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="mi">3</span><span class="p">)))</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a>    <span class="n">custom</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">experiment</span><span class="p">(</span><span class="n">search</span><span class="o">=</span><span class="n">refine_incumbent</span><span class="p">))</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>    <span class="n">with_feedback</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">experiment</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="n">AncestorsOnly</span><span class="p">()))</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a>    <span class="n">narrower</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">experiment</span><span class="p">(),</span> <span class="n">budget</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Budget</span><span class="p">(</span><span class="n">evaluations</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">trials</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a>
+<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;proposers=</span><span class="si">{</span><span class="n">strategy_a</span><span class="o">.</span><span class="n">best</span><span class="p">()</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">strategy_b</span><span class="o">.</span><span class="n">best</span><span class="p">()</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;policies=</span><span class="si">{</span><span class="n">greedy</span><span class="o">.</span><span class="n">best</span><span class="p">()</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">best_of_n</span><span class="o">.</span><span class="n">best</span><span class="p">()</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">custom</span><span class="o">.</span><span class="n">best</span><span class="p">()</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;context_same=</span><span class="si">{</span><span class="n">greedy</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">with_feedback</span><span class="p">)</span><span class="o">.</span><span class="n">same_context_declaration</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;narrow_usage=</span><span class="si">{</span><span class="n">narrower</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">evaluation_count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a>
+<a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a>        <span class="n">greedy</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">experiment</span><span class="p">(</span><span class="n">evaluator</span><span class="o">=</span><span class="n">changed_score</span><span class="p">)))</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a>    <span class="k">except</span> <span class="n">RunsNotComparable</span><span class="p">:</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;changed_evaluator=refused&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a>
+<a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a>
+<a id="__codelineno-0-73" name="__codelineno-0-73" href="#__codelineno-0-73"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74" href="#__codelineno-0-74"></a>    <span class="n">main</span><span class="p">()</span>
 </code></pre></div>
-<p>def main() -&gt; None:
-    strategy_a = meta.run(experiment(proposer=add_one))
-    strategy_b = meta.run(experiment(proposer=jump_two))
-    greedy = strategy_a
-    best_of_n = meta.run(experiment(search=BestOfN(max_trials=3)))
-    custom = meta.run(experiment(search=refine_incumbent))
-    with_feedback = meta.run(experiment(context=AncestorsOnly()))
-    narrower = meta.run(experiment(), budget=meta.Budget(evaluations=2, trials=1))</p>
-<div class="highlight"><pre><span></span><code>print(f&quot;proposers={strategy_a.best().value},{strategy_b.best().value}&quot;)
-print(f&quot;policies={greedy.best().value},{best_of_n.best().value},{custom.best().value}&quot;)
-print(f&quot;context_same={greedy.compare(with_feedback).same_context_declaration}&quot;)
-print(f&quot;narrow_usage={narrower.summary().evaluation_count}&quot;)
-
-try:
-    greedy.compare(meta.run(experiment(evaluator=changed_score)))
-except RunsNotComparable:
-    print(&quot;changed_evaluator=refused&quot;)
-
-first_model = meta.run(experiment(proposer=configured_agent(&quot;model-a&quot;)))
-second_model = meta.run(experiment(proposer=configured_agent(&quot;model-b&quot;)))
-try:
-    first_model.compare(second_model)
-except RunsNotComparable:
-    print(&quot;changed_model=refused&quot;)
-</code></pre></div>
-<p>if <strong>name</strong> == "<strong>main</strong>":
-    main()</p>
+<h2 id="run-it">Run it<a class="headerlink" href="#run-it" title="Permanent link">&para;</a></h2>
 <!-- captured-output: script:examples/learn/component_playground/main.py -->
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/learn/component_playground/main.py
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/learn/component_playground/main.py
 </code></pre></div>
-<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>proposers=3,6
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>policies=3,1,3
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>context_same=False
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>narrow_usage=2
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>changed_evaluator=refused
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>changed_model=refused
+<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>proposers=3,6
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>policies=3,1,3
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>context_same=False
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>narrow_usage=2
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>changed_evaluator=refused
 </code></pre></div></p>
-<p>The script holds one integer job steady while trying two proposer strategies,
-<code>Greedy</code>, <code>BestOfN</code>, the functional <code>@search</code> facade, no context versus
-ancestor context, and a narrower run budget. Changing the evaluator makes the
-runs incompatible. A model wrapper that declares its configured model makes a
-model change visible and therefore also refuses an uncontrolled comparison.</p>
+<h2 id="read-each-controlled-change">Read each controlled change<a class="headerlink" href="#read-each-controlled-change" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Output</th>
+<th>What changed</th>
+<th>What it demonstrates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>proposers=3,6</code></td>
+<td>Add one versus jump two</td>
+<td>Different proposer strategies can produce different outcomes, but their incompatible identities are not passed to <code>compare()</code></td>
+</tr>
+<tr>
+<td><code>policies=3,1,3</code></td>
+<td><code>Greedy</code>, <code>BestOfN</code>, functional search</td>
+<td>Parent choice changes the reachable result under the same task</td>
+</tr>
+<tr>
+<td><code>context_same=False</code></td>
+<td>No context versus <code>AncestorsOnly</code></td>
+<td>The comparison is allowed and records that the context declaration changed</td>
+</tr>
+<tr>
+<td><code>narrow_usage=2</code></td>
+<td>Narrower call-level budget</td>
+<td>The seed plus one successor consume two evaluations</td>
+</tr>
+<tr>
+<td><code>changed_evaluator=refused</code></td>
+<td>Different scoring callable</td>
+<td>The measuring instrument changed, so comparison is invalid</td>
+</tr>
+</tbody>
+</table>
+<p><code>BestOfN</code> keeps proposing from the seed, so three add-one attempts all reach
+<code>1</code>. <code>Greedy</code> feeds each accepted incumbent back to the proposer and reaches
+<code>3</code>. The functional <code>@search</code> rule explicitly chooses the incumbent and
+therefore matches the Greedy result here.</p>
+<p>The narrower run budget does not mutate the reusable experiment declaration.
+It can reduce the task's allowed work for one execution, but it cannot widen
+the task budget.</p>
+<h2 id="separate-run-failures-from-comparison-refusal">Separate run failures from comparison refusal<a class="headerlink" href="#separate-run-failures-from-comparison-refusal" title="Permanent link">&para;</a></h2>
 <p>Component exceptions and malformed outputs remain typed run outcomes; a
-comparison refusal is instead a declaration error about experimental validity.</p>
+comparison refusal is instead a declaration error about experimental validity.
+The former says an attempt did not produce a rankable measurement. The latter
+says two otherwise valid runs should not be summarized as a controlled A/B.</p>
+<h2 id="change-one-part-and-predict">Change one part and predict<a class="headerlink" href="#change-one-part-and-predict" title="Permanent link">&para;</a></h2>
+<p>Change <code>BestOfN(max_trials=3)</code> to <code>BestOfN(max_trials=1)</code>. Its best value stays
+<code>1</code>, because every attempt starts from the seed, but its usage decreases. If
+you change both the policy and evaluator at once, you can still run both jobs,
+but <code>compare()</code> will refuse to attribute their score difference to search.</p>
 <p>Next, choose the focused <a href="../../how-to/write-evaluator/">How-to</a> for the one seam
-you need to customize.</p>
+you need to customize. Configured-model identity is an advanced comparison
+trap covered in <a href="../../understand/common-traps/">Common traps</a>, not syntax needed
+for this job.</p>
 
 
 

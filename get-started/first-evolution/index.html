@@ -466,6 +466,61 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#complete-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete program
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-the-declaration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read the declaration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distinguish-poor-work-from-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distinguish poor work from failure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-one-thing-and-predict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change one thing and predict
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3177,6 +3232,61 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#complete-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete program
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-the-declaration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read the declaration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distinguish-poor-work-from-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distinguish poor work from failure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#change-one-thing-and-predict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change one thing and predict
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3266,30 +3376,77 @@ action; the proposer adds an action and timeline without claiming the refund
 already happened.</p>
 <p>The evaluator is deliberately mechanical. It checks only the order id, a
 concrete <code>$49</code> refund action, and the absence of a false completion claim.</p>
-<p>import meta_evolve as meta</p>
-<p>TICKET = "Duplicate $49 charge for order #4021"
-SEED = "I'm sorry about the duplicate $49 charge for order #4021. I'm looking into it."</p>
-<p>def propose(_parent):
-    return "I'm sorry about the duplicate $49 charge for order #4021. I'll submit a $49 refund today; it should appear in 5–7 business days."</p>
-<p>def grade(reply):
-    checks = ("#4021" in reply, "$49" in reply and "refund" in reply.lower(), "already refunded" not in reply.lower() and "refund is complete" not in reply.lower())
-    return sum(checks) / len(checks)</p>
-<p>result = meta.improve(seed=SEED, proposer=propose, evaluator=grade, trials=1)
-print(result.best())</p>
-<p>Run the complete program from a checkout:</p>
-<!-- captured-output: script:examples/learn/support_response/quickstart.py -->
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/learn/support_response/quickstart.py
+<p>Before you run it, here is the whole lifecycle: Meta-Evolve evaluates the seed
+as a baseline, asks the proposer for one successor, evaluates that successor
+with the same grader, and selects the higher-scoring measured response. The
+proposer never sees or changes the evaluator.</p>
+<h2 id="complete-program">Complete program<a class="headerlink" href="#complete-program" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">meta_evolve</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">meta</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">SEED</span> <span class="o">=</span> <span class="s2">&quot;I&#39;m sorry about the duplicate $49 charge for order #4021. I&#39;m looking into it.&quot;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">propose</span><span class="p">(</span><span class="n">_parent</span><span class="p">):</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="k">return</span> <span class="s2">&quot;I&#39;m sorry about the duplicate $49 charge for order #4021. I&#39;ll submit a $49 refund today; it should appear in 5–7 business days.&quot;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">grade</span><span class="p">(</span><span class="n">reply</span><span class="p">):</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">checks</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;#4021&quot;</span> <span class="ow">in</span> <span class="n">reply</span><span class="p">,</span> <span class="s2">&quot;$49&quot;</span> <span class="ow">in</span> <span class="n">reply</span> <span class="ow">and</span> <span class="s2">&quot;refund&quot;</span> <span class="ow">in</span> <span class="n">reply</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="s2">&quot;already refunded&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">reply</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="s2">&quot;refund is complete&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">reply</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">checks</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">checks</span><span class="p">)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">result</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">improve</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">SEED</span><span class="p">,</span> <span class="n">proposer</span><span class="o">=</span><span class="n">propose</span><span class="p">,</span> <span class="n">evaluator</span><span class="o">=</span><span class="n">grade</span><span class="p">,</span> <span class="n">trials</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">best</span><span class="p">())</span>
 </code></pre></div>
-<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>I&#39;m sorry about the duplicate $49 charge for order #4021. I&#39;ll submit a $49 refund today; it should appear in 5–7 business days.
+<h2 id="run-it">Run it<a class="headerlink" href="#run-it" title="Permanent link">&para;</a></h2>
+<p>Execution is optional while reading. From a repository checkout, run:</p>
+<!-- captured-output: script:examples/learn/support_response/quickstart.py -->
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>examples/learn/support_response/quickstart.py
+</code></pre></div>
+<div class="highlight"><span class="filename">Output</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>I&#39;m sorry about the duplicate $49 charge for order #4021. I&#39;ll submit a $49 refund today; it should appear in 5–7 business days.
 </code></pre></div></p>
-<p><code>improve()</code> receives four job-level inputs: the seed value, a proposer that
-creates successors, an evaluator that independently grades them, and the
-maximum number of proposal trials. The seed is evaluated first, so it is a
-measured baseline. <code>best()</code> returns the best measured artifact; selecting it
-does not deploy it.</p>
+<h2 id="read-the-declaration">Read the declaration<a class="headerlink" href="#read-the-declaration" title="Permanent link">&para;</a></h2>
+<p><code>improve()</code> receives four job-level inputs:</p>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Role in this run</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>seed</code></td>
+<td>The initial response and evaluated baseline</td>
+</tr>
+<tr>
+<td><code>proposer</code></td>
+<td>A callable that creates a possible successor</td>
+</tr>
+<tr>
+<td><code>evaluator</code></td>
+<td>An independent callable that assigns the three-check score</td>
+</tr>
+<tr>
+<td><code>trials</code></td>
+<td>The maximum number of proposed successors, excluding the seed</td>
+</tr>
+</tbody>
+</table>
+<p>The seed passes two checks: it contains <code>#4021</code> and makes no false completion
+claim, but it promises no refund action. Its score is <code>2/3</code>. The successor
+passes all three checks, so <code>best()</code> prints it with score <code>1.0</code>. The output is
+the selected artifact value, not a deployment or a message sent to a customer.</p>
+<h2 id="distinguish-poor-work-from-failure">Distinguish poor work from failure<a class="headerlink" href="#distinguish-poor-work-from-failure" title="Permanent link">&para;</a></h2>
 <p>A low score is rankable work. A proposer exception, malformed candidate, or
 grader exception is recorded as a typed, unrankable failure. Those distinctions
-matter once the grader is external or expensive.</p>
+matter once the grader is external or expensive: zero says “valid work measured
+poorly,” while a typed failure says no trustworthy score was produced.</p>
+<h2 id="change-one-thing-and-predict">Change one thing and predict<a class="headerlink" href="#change-one-thing-and-predict" title="Permanent link">&para;</a></h2>
+<p>Set <code>trials=0</code>. The proposer will not run, but the seed will still be evaluated
+as the baseline and returned by <code>best()</code>. Restore <code>trials=1</code> before continuing
+so the next page has both the seed and its successor to inspect.</p>
 <p>This page contains one experiment. Next, learn <a href="../run-returns/">what its run returns</a>.</p>
 
 

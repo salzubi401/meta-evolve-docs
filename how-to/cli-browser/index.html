@@ -3201,8 +3201,9 @@ owns storage and execution:</p>
 <p>Use <code>list</code> to recover run ids and <code>compare</code> for compatible runs. <code>resume</code>
 requires a durable-local declaration with registered components; inspect is
 read-only and works for incomplete or unrankable histories.</p>
-<p>The optional browser is also read-only:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>run<span class="w"> </span>--group<span class="w"> </span>browser<span class="w"> </span>meta-evolve<span class="w"> </span>browse<span class="w"> </span>--storage<span class="w"> </span>./store
+<p>Install the optional browser dependencies, then start its read-only UI:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </span>browser
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>uv<span class="w"> </span>run<span class="w"> </span>meta-evolve<span class="w"> </span>ui<span class="w"> </span>--storage<span class="w"> </span>./store
 </code></pre></div>
 <p>It binds to loopback, renders inert stored data, and has no execution, resume,
 promotion, deletion, or remote-control authority. See the
