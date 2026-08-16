@@ -771,7 +771,7 @@
   <span class="md-ellipsis">
     
   
-    Use your own SDK
+    Connect an agent or model
   
 
     
@@ -2364,6 +2364,8 @@
       
         
       
+        
+      
     
     
     
@@ -2424,6 +2426,34 @@
     
   
     Project status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributors
   
 
     
@@ -2540,7 +2570,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_5" checked>
         
           
           <div class="md-nav__link md-nav__container">
@@ -2562,14 +2592,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_11_4" id="__nav_11_4_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_11_5" id="__nav_11_5_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_4_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_11_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3211,10 +3241,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_6" >
         
           
-          <label class="md-nav__link" for="__nav_11_5" id="__nav_11_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_11_6" id="__nav_11_6_label" tabindex="0">
             
   
   
@@ -3232,8 +3262,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4641,6 +4671,10 @@ journeys, vocabulary, measurements, and alternatives. Technical staging is:</p>
   provides thin whole-tree SDK editing, and plain <code>Harness</code> data replaces the
   removed v1 wrapper family. Public advanced APIs live in their owning
   namespaces without root aliases.</li>
+<li><strong>Shipped — post-M10 authoring refinement:</strong> <code>WorkspaceProposer</code> joins
+  <code>CommandEvaluator</code> on the root, producing the current exact 25-name surface.
+  Its callback accepts either <code>cwd</code> or <code>(cwd, context)</code>, and the tested
+  code-repair story now lowers through one-trial <code>improve()</code>.</li>
 </ul>
 <p>The dependency order is <code>M10.0 → (M10.1, M10.3, M10.4, M10.5)</code>,
 <code>M10.1 → M10.2</code>, <code>M10.1 + M10.4 → M10.6</code>,

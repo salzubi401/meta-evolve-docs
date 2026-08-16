@@ -771,7 +771,7 @@
   <span class="md-ellipsis">
     
   
-    Use your own SDK
+    Connect an agent or model
   
 
     
@@ -2364,6 +2364,8 @@
       
         
       
+        
+      
     
     
     
@@ -2424,6 +2426,34 @@
     
   
     Project status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributors
   
 
     
@@ -3010,7 +3040,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_5" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -3032,14 +3062,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_11_4" id="__nav_11_4_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_11_5" id="__nav_11_5_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3396,10 +3426,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_6" >
         
           
-          <label class="md-nav__link" for="__nav_11_5" id="__nav_11_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_11_6" id="__nav_11_6_label" tabindex="0">
             
   
   
@@ -3417,8 +3447,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4186,8 +4216,10 @@ commands, environments, hidden graders, and failure translation.</p>
 <p><code>WorkspaceProvider.capture()</code> reserves <code>ValueError</code> for unrepresentable content;
 ownership, availability, and provider faults become infrastructure failures.
 <code>WorkspaceProposer</code> scrubs bytecode without following symlinks, captures the
-complete tree, and always disposes it. An unchanged capture succeeds as a new
-occurrence; harness-v2 deliberately applies a different no-op rule.</p>
+complete tree, and always disposes it. Its <code>cwd</code> or <code>(cwd, context)</code> callback
+returns only <code>None</code> or a proposer-compatible failure; capture owns the successor,
+so a returned candidate is invalid. An unchanged capture creates a new occurrence;
+harness-v2 deliberately applies a different no-op rule.</p>
 <h2 id="durability-and-replay">Durability and replay<a class="headerlink" href="#durability-and-replay" title="Permanent link">&para;</a></h2>
 <p>Artifacts and append-only transitions are durable truth. SQLite and filesystem
 stores preserve committed facts; caches and worker liveness do not. Reopen is a
@@ -4246,7 +4278,7 @@ population-shaped actions stay on <code>SearchProgram.next()</code>.</p>
 <a href="../guides/extensions/">extensions</a>.</p>
 <h3 id="proposer-and-agent">Proposer and agent<a class="headerlink" href="#proposer-and-agent" title="Permanent link">&para;</a></h3>
 <p>See <a href="../get-started/run-returns/">What a run returns</a> and
-<a href="../how-to/use-sdk/">user-owned SDK integration</a>.</p>
+<a href="../how-to/use-sdk/">Connect an agent or model</a>.</p>
 <h3 id="proposal">Proposal<a class="headerlink" href="#proposal" title="Permanent link">&para;</a></h3>
 <p>Proposal identity and authority are covered above.</p>
 <h3 id="trial-and-outcome">Trial and outcome<a class="headerlink" href="#trial-and-outcome" title="Permanent link">&para;</a></h3>

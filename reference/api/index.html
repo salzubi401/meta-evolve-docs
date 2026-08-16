@@ -771,7 +771,7 @@
   <span class="md-ellipsis">
     
   
-    Use your own SDK
+    Connect an agent or model
   
 
     
@@ -2572,6 +2572,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#meta_evolve.WorkspaceProposer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WorkspaceProposer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#meta_evolve.ProposalResult" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3791,6 +3802,8 @@
       
         
       
+        
+      
     
     
     
@@ -3851,6 +3864,34 @@
     
   
     Project status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributors
   
 
     
@@ -3965,7 +4006,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_5" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -3987,14 +4028,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_11_4" id="__nav_11_4_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_11_5" id="__nav_11_5_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4351,10 +4392,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_6" >
         
           
-          <label class="md-nav__link" for="__nav_11_5" id="__nav_11_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_11_6" id="__nav_11_6_label" tabindex="0">
             
   
   
@@ -4372,8 +4413,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5835,6 +5876,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#meta_evolve.WorkspaceProposer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WorkspaceProposer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#meta_evolve.ProposalResult" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6026,7 +6078,7 @@
 
 
 <h1 id="shipped-api-reference">Shipped API reference<a class="headerlink" href="#shipped-api-reference" title="Permanent link">&para;</a></h1>
-<p>The root is the 24-name callable-author surface. Advanced
+<p>The root is the 25-name callable-author surface. Advanced
 policies, inspection records, failures, ports, adapters, presentation, harness,
 and policy-evolution APIs live in the namespaces that own them.</p>
 <h2 id="beginner-and-expanded-runs">Beginner and expanded runs<a class="headerlink" href="#beginner-and-expanded-runs" title="Permanent link">&para;</a></h2>
@@ -6101,6 +6153,7 @@ and policy-evolution APIs live in the namespaces that own them.</p>
   
       dataclass
   " href="#meta_evolve.CommandEvaluator"><code>CommandEvaluator</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#meta_evolve.WorkspaceProposer"><code>WorkspaceProposer</code></a></li>
 </ul>
 <h2 id="experience">Experience<a class="headerlink" href="#experience" title="Permanent link">&para;</a></h2>
 <ul>
@@ -6826,8 +6879,9 @@ They return inert records and never return markup, URLs, or executable data.</p>
 
 </div><h2 id="ports-adapters-and-failures">Ports, adapters, and failures<a class="headerlink" href="#ports-adapters-and-failures" title="Permanent link">&para;</a></h2>
 <p>Process, patch, experience, and workspace protocols live in
-<code>meta_evolve.ports</code>. <code>EvaluationEnvironment</code>, <code>PatchProposer</code>, and
-<code>WorkspaceProposer</code> live in <code>meta_evolve.adapters</code>. Raised failures live in
+<code>meta_evolve.ports</code>. <code>EvaluationEnvironment</code> and <code>PatchProposer</code> live only in
+<code>meta_evolve.adapters</code>; <code>WorkspaceProposer</code> is also root-exported for the common
+code-repair path. Raised failures live in
 <code>meta_evolve.errors</code>; only <code>NoSuccessfulEvaluation</code> is also on the root.</p>
 
 
@@ -10644,6 +10698,52 @@ and requires the rebuilt <code>SearchSpec</code> to equal <code>spec</code> exac
 
 
         <p>Materialize a source tree and trust a fixed 0/1/other exit protocol.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="meta_evolve.WorkspaceProposer" class="doc doc-heading">
+            <code>WorkspaceProposer</code>
+
+
+<a href="#meta_evolve.WorkspaceProposer" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Let one callback edit a private tree, then capture the whole result.</p>
 
 
 
