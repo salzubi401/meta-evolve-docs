@@ -552,6 +552,91 @@ body {
   text-transform: uppercase;
 }
 
+/* ----------------------------------------------------------- package map */
+
+.md-typeset .me-package-map {
+  margin: 1.25em 0 1.6em;
+}
+
+.md-typeset .me-package-map__root {
+  align-items: center;
+  background: var(--me-accent-subtle);
+  border: 1px solid var(--me-border);
+  border-radius: var(--me-radius);
+  display: flex;
+  justify-content: center;
+  margin: 0 0 0.7rem;
+  padding: 0.7rem 1rem;
+}
+
+.md-typeset .me-package-map__root code {
+  background: transparent;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0;
+}
+
+.md-typeset .me-package-map__groups {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.md-typeset .me-package-map__group {
+  background: var(--me-surface);
+  border: 1px solid var(--me-border);
+  border-radius: var(--me-radius);
+  margin: 0;
+  min-height: 100%;
+  padding: 0.75rem 0.9rem 0.85rem;
+}
+
+.md-typeset .me-package-map__label {
+  color: var(--me-fg-3);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.45rem;
+  text-transform: uppercase;
+}
+
+.md-typeset .me-package-map__group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-inline-start: 0;
+}
+
+.md-typeset .me-package-map__group li {
+  margin: 0;
+  padding: 0.18rem 0;
+}
+
+.md-typeset .me-package-map__group li + li {
+  border-top: 1px solid var(--me-border);
+}
+
+.md-typeset .me-package-map__group li code {
+  background: var(--me-sunken);
+  border: 1px solid var(--me-border);
+  border-radius: var(--me-radius-sm);
+  display: inline-block;
+  font-size: 0.78rem;
+  padding: 0.08rem 0.4rem;
+}
+
+@media screen and (max-width: 44.9375em) {
+  .md-typeset .me-package-map__groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 29.9375em) {
+  .md-typeset .me-package-map__groups {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* --------------------------------------------------------- status badges */
 /* "**Status: X.**" lines are tagged by javascripts/status-badge.js. */
 

@@ -1012,15 +1012,19 @@
   
   
   
+    
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../../understand/evaluated-evolution/" class="md-nav__link">
+      <a href="../../loop/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How the evaluated loop works
+    How a run works
   
 
     
@@ -1030,6 +1034,33 @@
 
       </a>
     </li>
+  
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../loop/trial-record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What a run commits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+
   
 
               
@@ -1209,7 +1240,233 @@
       
     
     
+        
+  
+    
+  
+    
+  
+<!-- components-nav -->
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_components" checked>
+          <label class="md-nav__link" for="__nav_components" id="__nav_components_label" tabindex="">
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_components_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_components">
+            <span class="md-nav__icon md-icon"></span>
+            Components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+    <li class="md-nav__item">
+      <a href="../../components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/codecs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artifact codecs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/proposers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workspaces and sandboxes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Storage and durability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/registry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Registry and component identity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/mutation-surfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mutation surfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+          </ul>
+        </nav>
+    </li>
+  
+<!-- /components-nav -->
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
@@ -3252,21 +3509,11 @@
 
 <h1 id="choose-search">Choose search<a class="headerlink" href="#choose-search" title="Permanent link">&para;</a></h1>
 <p>Search decides which parent to expand and when to stop; it never evaluates or
-mutates artifacts itself.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">greedy</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">Greedy</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">best_of_n</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">policies</span><span class="o">.</span><span class="n">BestOfN</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">population</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">policies</span><span class="o">.</span><span class="n">Population</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">tournament_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_trials</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-</code></pre></div>
-<p>Use <code>Greedy</code> for iterative refinement, <code>BestOfN</code> for independent attempts from
-the seed, and <code>Population</code> when temporarily worse branches must remain
-available. Compare policies only under the same effective task and budget.</p>
-<p>For a small custom parent rule, use the functional facade:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nd">@meta</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">max_trials</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="s2">&quot;incumbent&quot;</span><span class="p">)</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">refine</span><span class="p">(</span><span class="n">search</span><span class="p">):</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="k">return</span> <span class="n">search</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">search</span><span class="o">.</span><span class="n">incumbent</span> <span class="ow">or</span> <span class="n">search</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
-</code></pre></div>
-<p>The configuration is durable and identity-visible. Full custom programs belong
-in <a href="../../going-further/custom-search/">Going further</a>.</p>
+mutates artifacts itself. Every shipped policy &mdash; <code>Greedy</code>, <code>BestOfN</code>,
+<code>BestOfK</code>, <code>Population</code>, <code>Specialists</code>, <code>TreeSearch</code>, and the
+<code>@meta.search</code> functional facade for a small custom parent rule &mdash; is
+covered with when to pick it and a runnable example on
+<a href="../../components/search/">Search</a>.</p>
 
 
 
