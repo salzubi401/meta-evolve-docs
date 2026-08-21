@@ -1000,15 +1000,19 @@
   
   
   
+    
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../understand/evaluated-evolution/" class="md-nav__link">
+      <a href="../loop/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How the evaluated loop works
+    How a run works
   
 
     
@@ -1018,6 +1022,33 @@
 
       </a>
     </li>
+  
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../loop/trial-record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What a run commits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+
   
 
               
@@ -1197,7 +1228,233 @@
       
     
     
+        
+  
+    
+  
+    
+  
+<!-- components-nav -->
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_components" checked>
+          <label class="md-nav__link" for="__nav_components" id="__nav_components_label" tabindex="">
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_components_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_components">
+            <span class="md-nav__icon md-icon"></span>
+            Components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+    <li class="md-nav__item">
+      <a href="../components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../components/codecs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artifact codecs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../components/search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../components/memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../components/proposers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../components/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../components/execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workspaces and sandboxes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../components/storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Storage and durability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../components/registry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Registry and component identity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../components/mutation-surfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mutation surfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+          </ul>
+        </nav>
+    </li>
+  
+<!-- /components-nav -->
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
@@ -4166,12 +4423,14 @@ facts needed for lineage, accounting, inspection, comparison, and replay.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Public API       improve, Task, artifacts, Session, run/resume, result queries
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Application      normalization, coordination, comparison, replay
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Domain           immutable identities, outcomes, evidence, budgets
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Ports            proposer, evaluator, experience, workspace, storage
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Ports            the ten replaceable seams
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Adapters         callables, SDK agents, subprocesses, files, SQLite
 </code></pre></div>
 <p>Dependencies point inward. Adapters translate external systems at the edge;
 the coordinator never branches on a provider, artifact type, evaluator, policy,
-or infrastructure implementation.</p>
+or infrastructure implementation. The <a href="../components/">component map</a> is the
+package-level view of this same layering, and lists every port, what ships for
+it, and where its contract lives in the source.</p>
 <h2 id="identities-and-lineage">Identities and lineage<a class="headerlink" href="#identities-and-lineage" title="Permanent link">&para;</a></h2>
 <p>Content identity and occurrence identity are distinct. Equal artifact bytes may
 appear in different causal positions and therefore retain different occurrence
@@ -4304,7 +4563,7 @@ population-shaped actions stay on <code>SearchProgram.next()</code>.</p>
 <code>meta_evolve.policies</code>, and replay projections remain internal to the
 application namespace.</p>
 <h3 id="agent-directed-experience-access">Agent-directed experience access<a class="headerlink" href="#agent-directed-experience-access" title="Permanent link">&para;</a></h3>
-<p>See <a href="../guides/experience/#audited-pull">audited pull</a>.</p>
+<p>See <a href="../components/memory/#pulled-experience">pulled experience</a>.</p>
 <h2 id="programming-harnesses">Programming harnesses<a class="headerlink" href="#programming-harnesses" title="Permanent link">&para;</a></h2>
 <p><code>Harness</code> is the built-in <code>agent-harness</code> domain using <code>harness-v2</code>. It is plain
 frozen data containing planner text and an immutable context-policy mapping.

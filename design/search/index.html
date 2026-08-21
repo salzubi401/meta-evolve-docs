@@ -1000,15 +1000,19 @@
   
   
   
+    
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../../understand/evaluated-evolution/" class="md-nav__link">
+      <a href="../../loop/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How the evaluated loop works
+    How a run works
   
 
     
@@ -1018,6 +1022,33 @@
 
       </a>
     </li>
+  
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../loop/trial-record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What a run commits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+
   
 
               
@@ -1197,7 +1228,233 @@
       
     
     
+        
+  
+    
+  
+    
+  
+<!-- components-nav -->
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_components" checked>
+          <label class="md-nav__link" for="__nav_components" id="__nav_components_label" tabindex="">
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_components_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_components">
+            <span class="md-nav__icon md-icon"></span>
+            Components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+    <li class="md-nav__item">
+      <a href="../../components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/codecs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artifact codecs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/proposers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workspaces and sandboxes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Storage and durability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/registry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Registry and component identity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/mutation-surfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mutation surfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+          </ul>
+        </nav>
+    </li>
+  
+<!-- /components-nav -->
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
@@ -2728,14 +2985,14 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#bandits-and-tree-search" class="md-nav__link">
+  <a href="#bandit-allocation" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Bandits and tree search
-      
+
+        Bandit allocation
+
     </span>
   </a>
-  
+
 </li>
       
     </ul>
@@ -3272,14 +3529,14 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#bandits-and-tree-search" class="md-nav__link">
+  <a href="#bandit-allocation" class="md-nav__link">
     <span class="md-ellipsis">
-      
-        Bandits and tree search
-      
+
+        Bandit allocation
+
     </span>
   </a>
-  
+
 </li>
       
     </ul>
@@ -3383,9 +3640,9 @@
 
 <h1 id="future-search-policies">Future search policies<a class="headerlink" href="#future-search-policies" title="Permanent link">&para;</a></h1>
 <p><strong>Status: Design—not shipped.</strong></p>
-<p>Meta-Evolve currently ships deterministic Greedy, BestOfN, and Population
-presets. The ideas below are roadmap direction, not importable names or accepted
-semantics.</p>
+<p>Meta-Evolve currently ships deterministic Greedy, BestOfN, BestOfK, Population,
+Specialists, and TreeSearch presets. The ideas below are roadmap direction, not
+importable names or accepted semantics.</p>
 <h2 id="pareto-and-quality-diversity-archives">Pareto and quality-diversity archives<a class="headerlink" href="#pareto-and-quality-diversity-archives" title="Permanent link">&para;</a></h2>
 <p>Multi-objective archives would need explicit dominance, constraint, tie,
 capacity, and admission decisions. Quality-diversity additionally needs a
@@ -3397,7 +3654,7 @@ definition.</p>
 Migration is a recorded search decision, not artifact copying or Git history.
 Timing, topology, migrant selection, admission, and random streams must remain
 deterministic at the logical level.</p>
-<h2 id="bandits-and-tree-search">Bandits and tree search<a class="headerlink" href="#bandits-and-tree-search" title="Permanent link">&para;</a></h2>
+<h2 id="bandit-allocation">Bandit allocation<a class="headerlink" href="#bandit-allocation" title="Permanent link">&para;</a></h2>
 <p>Allocation policies may use uncertainty, cost, or upper-confidence estimates
 only when their observations, update rule, and random choices are explicit.
 Retry delivery must never become an extra logical trial.</p>

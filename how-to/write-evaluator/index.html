@@ -1012,15 +1012,19 @@
   
   
   
+    
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../../understand/evaluated-evolution/" class="md-nav__link">
+      <a href="../../loop/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How the evaluated loop works
+    How a run works
   
 
     
@@ -1030,6 +1034,33 @@
 
       </a>
     </li>
+  
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../loop/trial-record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What a run commits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+
   
 
               
@@ -1209,7 +1240,233 @@
       
     
     
+        
+  
+    
+  
+    
+  
+<!-- components-nav -->
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_components" checked>
+          <label class="md-nav__link" for="__nav_components" id="__nav_components_label" tabindex="">
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_components_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_components">
+            <span class="md-nav__icon md-icon"></span>
+            Components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+    <li class="md-nav__item">
+      <a href="../../components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/codecs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artifact codecs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/proposers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workspaces and sandboxes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Storage and durability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/registry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Registry and component identity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/mutation-surfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mutation surfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+          </ul>
+        </nav>
+    </li>
+  
+<!-- /components-nav -->
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
@@ -3252,28 +3509,12 @@
 
 <h1 id="write-an-evaluator">Write an evaluator<a class="headerlink" href="#write-an-evaluator" title="Permanent link">&para;</a></h1>
 <p>An evaluator receives a decoded candidate and independently returns one of
-three supported score shapes:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">scalar</span><span class="p">(</span><span class="n">candidate</span><span class="p">):</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">return</span> <span class="mf">0.75</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">mapping</span><span class="p">(</span><span class="n">candidate</span><span class="p">):</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;quality&quot;</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidate</span><span class="p">)}</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">rich</span><span class="p">(</span><span class="n">candidate</span><span class="p">):</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">EvaluationResult</span><span class="p">(</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="n">metrics</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;quality&quot;</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">},</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="n">evidence</span><span class="o">=</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">EvidenceDraft</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;checks/v1&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;passed&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}),),</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="n">usage</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">Usage</span><span class="p">(</span><span class="n">tokens</span><span class="o">=</span><span class="mi">120</span><span class="p">),</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="p">)</span>
-</code></pre></div>
-<p>A scalar maps to the task's primary metric. A mapping records every declared
-metric. <code>EvaluationResult</code> additionally carries uncertainty, evidence, usage,
-or a typed failure. Return poor scores for valid but poor work. Return a typed
-failure for output that cannot be judged, or let an unexpected exception be
-recorded as evaluator failure.</p>
-<p>The task's first objective alone controls default ranking and stopping. Use
-<code>run.best("metric")</code> or <code>run.best_trial("metric")</code> to query another declared
-objective. For hard checks and held-out grading, see
+four shapes &mdash; a scalar, a metric mapping, a rich <code>EvaluationResult</code>, or a
+typed failure. All four, plus grading with an external command and keeping
+hidden tests hidden, are covered on
+<a href="../../components/evaluators/">Evaluators</a>. Querying a non-primary
+objective is covered on <a href="../../get-started/run-returns/">Run and results</a>;
+for hard checks and held-out grading, see
 <a href="../../jobs/grading/">Grade with checks and rubrics</a>.</p>
 
 

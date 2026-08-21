@@ -1000,15 +1000,19 @@
   
   
   
+    
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../../understand/evaluated-evolution/" class="md-nav__link">
+      <a href="../../loop/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How the evaluated loop works
+    How a run works
   
 
     
@@ -1018,6 +1022,33 @@
 
       </a>
     </li>
+  
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../loop/trial-record/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What a run commits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+
   
 
               
@@ -1197,7 +1228,233 @@
       
     
     
+        
+  
+    
+  
+    
+  
+<!-- components-nav -->
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_components" checked>
+          <label class="md-nav__link" for="__nav_components" id="__nav_components_label" tabindex="">
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_components_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_components">
+            <span class="md-nav__icon md-icon"></span>
+            Components
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+    <li class="md-nav__item">
+      <a href="../../components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/codecs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artifact codecs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/proposers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proposers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/evaluators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/execution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workspaces and sandboxes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Storage and durability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/registry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Registry and component identity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+    <li class="md-nav__item">
+      <a href="../../components/mutation-surfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mutation surfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+          </ul>
+        </nav>
+    </li>
+  
+<!-- /components-nav -->
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
@@ -1865,28 +2122,6 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#six-built-in-kinds" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Six built-in kinds
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#kind-versus-representation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kind versus representation
-      
-    </span>
-  </a>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#why-custom-domains-stay-durable-local" class="md-nav__link">
@@ -3261,28 +3496,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#six-built-in-kinds" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Six built-in kinds
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#kind-versus-representation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kind versus representation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#why-custom-domains-stay-durable-local" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3414,63 +3627,17 @@
 <h1 id="encode-any-artifact">Encode any artifact<a class="headerlink" href="#encode-any-artifact" title="Permanent link">&para;</a></h1>
 <p>The loop never inspects what it improves. A number, a prompt, a repository,
 a harness — every artifact travels as a typed payload that one registered
-codec translates, so no coordinator code branches on what you evolve.</p>
-<h2 id="six-built-in-kinds">Six built-in kinds<a class="headerlink" href="#six-built-in-kinds" title="Permanent link">&para;</a></h2>
-<p>Every artifact is stored under a <code>(kind, representation)</code> key. Six keys ship
-built in:</p>
-<table>
-<thead>
-<tr>
-<th>Kind</th>
-<th>Representation</th>
-<th>What it holds</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>python-value</code></td>
-<td><code>canonical-json</code></td>
-<td>any canonically serializable value — the default</td>
-</tr>
-<tr>
-<td><code>text</code></td>
-<td><code>utf8-text-v1</code></td>
-<td>one UTF-8 document: a prompt, a config, an essay</td>
-</tr>
-<tr>
-<td><code>source-tree</code></td>
-<td><code>utf8-tree-v1</code></td>
-<td>an immutable directory of UTF-8 files</td>
-</tr>
-<tr>
-<td><code>skill-set</code></td>
-<td><code>utf8-tree-v1</code></td>
-<td>named skill documents</td>
-</tr>
-<tr>
-<td><code>agent-harness</code></td>
-<td><code>harness-v2</code></td>
-<td>planner text and frozen context-policy data</td>
-</tr>
-<tr>
-<td><code>search-policy</code></td>
-<td><code>policy-manifest-v1</code></td>
-<td>declarative search-policy values</td>
-</tr>
-</tbody>
-</table>
+codec translates, so no coordinator code branches on what you evolve. The six
+built-in <code>(kind, representation)</code> keys, and why <code>source-tree</code> and
+<code>skill-set</code> share the same tree bytes yet decode differently, are covered on
+<a href="../../components/codecs/">Artifact codecs</a>.</p>
 <p><a href="https://github.com/salzubi401/meta-evolve/tree/main/examples/learn/support_response">Support-response optimization</a>
 and
 <a href="https://github.com/salzubi401/meta-evolve/tree/main/examples/domains/skill_evolution">skill evolution</a>
-run two of these through the identical <code>meta.run</code> call site;
+run two built-in domains through the identical <code>meta.run</code> call site;
 <a href="https://github.com/salzubi401/meta-evolve/tree/main/examples/domains/sql_migrations">SQL migrations</a>
 registers a seventh, custom domain and is the runnable tour of everything on
 this page.</p>
-<h2 id="kind-versus-representation">Kind versus representation<a class="headerlink" href="#kind-versus-representation" title="Permanent link">&para;</a></h2>
-<p>The kind, never the bytes, decides which codec reads a committed payload.
-<code>source-tree</code> and <code>skill-set</code> share the same tree bytes (<code>utf8-tree-v1</code>) and
-still decode differently, because a payload's meaning is a declared contract
-rather than an inference from its shape.</p>
 <h2 id="why-custom-domains-stay-durable-local">Why custom domains stay durable-local<a class="headerlink" href="#why-custom-domains-stay-durable-local" title="Permanent link">&para;</a></h2>
 <p>A registered custom codec is a live Python object with no verifiable
 manifest. A durable run must be reopenable by a reader who can decode every
